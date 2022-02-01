@@ -10,11 +10,14 @@ import {
   aiboostTokenContractABI,
   lotteryContractABI,
   lotteryContractAddress,
+  stakingPoolContractABI,
+  stakingPoolContractAddress,
 } from "../utils/constants";
 
 const contractEnum = {
   TRANSACTION_CONTRACT_INIT: "TRANSACTION_CONTRACT_INIT",
   TOKEN_CONTRACT_INIT: "TOKEN_CONTRACT_INIT",
+  STAKING_POOL_CONTRACT_INIT: "STAKING_POOL_CONTRACT_INIT",
   LOTTERY_CONTRACT_INIT: "LOTTERY_CONTRACT_INIT",
   SALE_CONTRACT_INIT: "SALE_CONTRACT_INIT",
   TRANSACTIONS: "TRANSACTIONS",
@@ -47,13 +50,15 @@ export const ContractsContext = React.createContext();
 
 export const ContractsProvider = ({ children }) => {
   const { ethereum } = window;
-  // const [provider, setProvider] = useState(null);
   const contractReducer = (state, action) => {
     console.log(action.type);
     switch (action.type) {
       case contractEnum.TRANSACTION_CONTRACT_INIT:
         console.log("transaction contract made");
         return { ...state, transactionContract: action.value };
+      case contractEnum.STAKING_POOL_CONTRACT_INIT:
+        console.log("staking pool made");
+        return { ...state, stakingPoolContract: action.value };
       case contractEnum.TOKEN_CONTRACT_INIT:
         console.log("aiboost token contract made");
         return { ...state, aiboostTokenContract: action.value };
@@ -155,6 +160,7 @@ export const ContractsProvider = ({ children }) => {
     transactionContract: null,
     aiboostTokenContract: null,
     aiboostTokenSaleContract: null,
+    stakingPoolContract: null,
     lotteryContract: null,
     transactions: [],
     transactionCount: +localStorage.getItem("transactionCount"),
@@ -217,6 +223,12 @@ export const ContractsProvider = ({ children }) => {
       signer
     );
 
+    const stakingPoolContract = new ethers.Contract(
+      stakingPoolContractAddress,
+      stakingPoolContractABI,
+      signer
+    );
+
     const lotteryContract = new ethers.Contract(
       lotteryContractAddress,
       lotteryContractABI,
@@ -226,6 +238,11 @@ export const ContractsProvider = ({ children }) => {
     dispatchContracts({
       type: contractEnum.TRANSACTION_CONTRACT_INIT,
       value: transactionsContract,
+    });
+
+    dispatchContracts({
+      type: contractEnum.STAKING_POOL_CONTRACT_INIT,
+      value: stakingPoolContract,
     });
 
     dispatchContracts({
@@ -260,33 +277,38 @@ export const ContractsProvider = ({ children }) => {
     return formatBalance.substring(0, 7);
   };
 
-  const initLottery = async() => {
+  const initLottery = async () => {
     try {
-      if (
-        ethereum &&
-        contracts.lotteryContract
-      ) {
-      //  const timeRemaining = await contracts.lotteryContract.getRemainingTime();
-       const manager = await contracts.lotteryContract.manager();
-       const entryFee = await contracts.lotteryContract.entryFee();
-       const players = await contracts.lotteryContract.getPlayers();
-       const winner = await contracts.lotteryContract.winner;
-       const price = await contracts.lotteryContract.winningPrice();
+      if (ethereum && contracts.lotteryContract) {
+        //  const timeRemaining = await contracts.lotteryContract.getRemainingTime();
+        const manager = await contracts.lotteryContract.manager();
+        const entryFee = await contracts.lotteryContract.entryFee();
+        const players = await contracts.lotteryContract.getPlayers();
+        const winner = await contracts.lotteryContract.winner;
+        const price = await contracts.lotteryContract.winningPrice();
 
-       dispatchContracts({ type: contractEnum.LOTTERY_ENTRY_FEE, value: entryFee });
-       dispatchContracts({ type: contractEnum.LOTTERY_MANAGER, value: manager });
-       dispatchContracts({ type: contractEnum.LOTTERY_PLAYERS, value: players });
-       dispatchContracts({ type: contractEnum.LOTTERY_PRICE, value: price });
-       dispatchContracts({ type: contractEnum.LOTTERY_WINNER, value: winner });
-      //  dispatchContracts({ type: contractEnum.LOTTERY_TIME_REMAINING, value: timeRemaining });
+        dispatchContracts({
+          type: contractEnum.LOTTERY_ENTRY_FEE,
+          value: entryFee,
+        });
+        dispatchContracts({
+          type: contractEnum.LOTTERY_MANAGER,
+          value: manager,
+        });
+        dispatchContracts({
+          type: contractEnum.LOTTERY_PLAYERS,
+          value: players,
+        });
+        dispatchContracts({ type: contractEnum.LOTTERY_PRICE, value: price });
+        dispatchContracts({ type: contractEnum.LOTTERY_WINNER, value: winner });
+        //  dispatchContracts({ type: contractEnum.LOTTERY_TIME_REMAINING, value: timeRemaining });
       } else {
         console.log("contract is not initialized @lottery");
       }
-      
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
   const initToken = async () => {
     try {
@@ -328,12 +350,14 @@ export const ContractsProvider = ({ children }) => {
       const value = ethers.BigNumber.from(
         ethers.utils.parseEther(token.price).toString()
       ).mul(tokens);
+
       const transactionHash =
         await contracts.aiboostTokenSaleContract.buyTokens(tokens, {
           from: user.currentAccount,
           value: value,
           gasLimit: 500000,
         });
+
       setIsLoading(true);
       console.log(`Loading - ${transactionHash.hash}`);
       await transactionHash.wait();
@@ -524,7 +548,7 @@ export const ContractsProvider = ({ children }) => {
         token,
         initToken,
         buyTokens,
-        initLottery
+        initLottery,
       }}
     >
       {children}
