@@ -17,14 +17,15 @@ const deployAiBoostTokenContract = async () => {
 
   await aiboostTokenContract.deployed();
   console.log("aiboostTokenContract address: ", aiboostTokenContract.address);
+  return aiboostTokenContract.address;
 };
 
-const deployAiBoostTokenSaleContract = async () => {
+const deployAiBoostTokenSaleContract = async (token_address) => {
   // // Token price is 0.001 Ether
   const tokenPrice = 1000000000000000;
   const tokenSaleFactory = await hre.ethers.getContractFactory("TokenSale");
   const tokenSaleContract = await tokenSaleFactory.deploy(
-    aiboostTokenContract.address,
+    token_address,
     tokenPrice
   );
 
@@ -41,8 +42,8 @@ const deployLotteryContract = async () => {
 };
 
 const main = async () => {
-  // await deployAiBoostTokenContract();
-  // await deployAiBoostTokenSaleContract();
+  // const token_address = await deployAiBoostTokenContract();
+  // await deployAiBoostTokenSaleContract(token_address);
   // await deployLotteryContract();
   // await deployTransactionsContract();
 };

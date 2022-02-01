@@ -1108,6 +1108,11 @@
   dependencies:
     "esutils" "^2.0.2"
 
+"dotenv@^15.0.0":
+  "integrity" "sha512-/l1sXXm79ry34KwwS0y4oVZjB468iw/6u9g1W26dtexKcIJAnVL2pMF+hxQwzZ7LutxOwEgtym9eIxvX33CMKg=="
+  "resolved" "https://registry.npmjs.org/dotenv/-/dotenv-15.0.0.tgz"
+  "version" "15.0.0"
+
 "electron-to-chromium@^1.4.17":
   "integrity" "sha512-TeAjwsC/vhvxEtX/xN1JQUMkl+UrwKXlB4rwLyuLYVuBuRtqJJrU4Jy5pCVihMQg4m1ceZ3MEJ0yYuxHj8vC+w=="
   "resolved" "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.19.tgz"
