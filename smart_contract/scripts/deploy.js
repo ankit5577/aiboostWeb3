@@ -9,6 +9,17 @@ const deployTransactionsContract = async () => {
   console.log("Transactions address: ", transactionsContract.address);
 };
 
+const deployStakingPoolContract = async () => {
+  const stakingPoolFactory = await hre.ethers.getContractFactory(
+    "StakingPool"
+  );
+  const stakingPoolContract = await stakingPoolFactory.deploy();
+
+  await stakingPoolContract.deployed();
+
+  console.log("satkingPool contract address: ", stakingPoolContract.address);
+}
+
 const deployAiBoostTokenContract = async () => {
   const aiboostTokenFactory = await hre.ethers.getContractFactory(
     "AiboostToken"
@@ -42,10 +53,11 @@ const deployLotteryContract = async () => {
 };
 
 const main = async () => {
-  // const token_address = await deployAiBoostTokenContract();
-  // await deployAiBoostTokenSaleContract(token_address);
-  // await deployLotteryContract();
-  // await deployTransactionsContract();
+  const token_address = await deployAiBoostTokenContract();
+  await deployAiBoostTokenSaleContract(token_address);
+  await deployLotteryContract();
+  await deployStakingPoolContract();
+  await deployTransactionsContract();
 };
 
 const runMain = async () => {
