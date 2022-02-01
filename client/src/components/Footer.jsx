@@ -1,6 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-import logo from "../../images/logo.png";
 
 const Footer = () => (
   <div className="w-full flex md:justify-center justify-between items-center flex-col p-4 border-t border-slate-600 bg-slate-800">
@@ -14,7 +14,7 @@ const Footer = () => (
         >
           <span className="ml-2 text-xl font-bold tracking-wide text-gray-100 uppercase">
             AiBoost{" "}
-            <span className="text-xs italic text-slate-700 mx-2">Next</span>
+            <span className="text-xs italic text-teal-500">Next</span>
           </span>
         </Link>
       </div>

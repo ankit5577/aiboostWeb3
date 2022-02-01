@@ -27,7 +27,7 @@ const Navbar = () => {
           >
             <span className="ml-2 text-xl font-bold tracking-wide text-gray-100 uppercase">
               AiBoost{" "}
-              <span className="text-xs italic text-slate-700 mx-2">Next</span>
+              <span className="text-xs italic text-teal-500">Next</span>
             </span>
           </Link>
           <ul className="flex items-center space-x-8 lg:flex">
