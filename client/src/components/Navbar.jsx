@@ -80,7 +80,6 @@ const Navbar = () => {
                   onClick={connectWallet}
                   className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-indigo-400 hover:bg-indigo-700 focus:shadow-outline focus:outline-none"
                 >
-                  {/* <AiFillPlayCircle className="text-white mr-2" /> */}
                   <p className="text-white text-base font-semibold">
                     Connect Wallet
                   </p>
