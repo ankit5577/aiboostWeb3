@@ -12,7 +12,7 @@ const Navbar = () => {
     sendTransaction,
     formData,
     isLoading,
-    createEthereumContract,
+    createEthereumContract
   } = useContext(ContractsContext);
 
   return (
