@@ -18,6 +18,7 @@ const main = async () => {
   // await aiboostTokenContract.deployed();
   // await tokenSaleContract.deployed();
   await lotteryContract.deployed();
+  
 
   // console.log("Transactions address: ", transactionsContract.address);
   // console.log("aiboostTokenContract address: ", aiboostTokenContract.address);
