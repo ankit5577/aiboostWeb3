@@ -18,7 +18,6 @@ const main = async () => {
   // await aiboostTokenContract.deployed();
   // await tokenSaleContract.deployed();
   await lotteryContract.deployed();
-  
 
   // console.log("Transactions address: ", transactionsContract.address);
   // console.log("aiboostTokenContract address: ", aiboostTokenContract.address);
@@ -26,15 +25,15 @@ const main = async () => {
   console.log("lotteryContract address: ", lotteryContract.address);
 };
 
-// const runMain = async () => {
-//   try {
-//     await main();
-//     process.exit(0);
-//   } catch (error) {
-//     console.error(error);
-//     process.exit(1);
-//   }
-// };
+const runMain = async () => {
+  try {
+    await main();
+    process.exit(0);
+  } catch (error) {
+    console.error(error);
+    process.exit(1);
+  }
+};
 
 runMain();
 
