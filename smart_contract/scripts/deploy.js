@@ -26,15 +26,16 @@ const main = async () => {
   console.log("lotteryContract address: ", lotteryContract.address);
 };
 
-const runMain = async () => {
-  try {
-    await main();
-    process.exit(0);
-  } catch (error) {
-    console.error(error);
-    process.exit(1);
-  }
-};
+ const runMain = async () => {
+   try {
+     await main();
+     process.exit(0);
+     console.log();
+   } catch (error) {
+     console.error(error);
+     process.exit(1);
+   }
+ };
 
 runMain();
 
