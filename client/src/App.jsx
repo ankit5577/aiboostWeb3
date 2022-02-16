@@ -9,7 +9,7 @@ const Farm = React.lazy(() => import("./pages/Farm"));
 const BuyToken = React.lazy(() => import("./pages/BuyToken"));
 
 const App = () => (
-  <div className="min-h-screen flex flex-col">
+  <div className="min-h-screen flex flex-col overflow-hidden">
     <Navbar />
     <Routes>
       <Route

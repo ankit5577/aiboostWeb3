@@ -9,6 +9,10 @@ module.exports = {
         body: ["Montserrat", "Open Sans"],
         sans: ["Montserrat", "Open Sans"],
       },
+      backgroundImage: {
+        main: "url('/images/bg.jpg')",
+        card: "url('/images/card.jpeg')",
+      },
       screens: {
         mf: "990px",
       },

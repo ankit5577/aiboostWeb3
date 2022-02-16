@@ -91,7 +91,7 @@ contract Lottery {
     }
 
     function getRemainingTime() public view returns(uint) {
-        require(_end > block.timestamp, "time is already up or lottery has not started yet.");
+        require(_end > block.timestamp, "time is already up");
         require(!(status == LotteryStatus.ENDED), "lottery is not started or its ended.");
         
         return _end - block.timestamp;

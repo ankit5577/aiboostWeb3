@@ -10,14 +10,11 @@ import {
   aiboostTokenContractABI,
   lotteryContractABI,
   lotteryContractAddress,
-  stakingPoolContractABI,
-  stakingPoolContractAddress,
 } from "../utils/constants";
 
 const contractEnum = {
   TRANSACTION_CONTRACT_INIT: "TRANSACTION_CONTRACT_INIT",
   TOKEN_CONTRACT_INIT: "TOKEN_CONTRACT_INIT",
-  STAKING_POOL_CONTRACT_INIT: "STAKING_POOL_CONTRACT_INIT",
   LOTTERY_CONTRACT_INIT: "LOTTERY_CONTRACT_INIT",
   SALE_CONTRACT_INIT: "SALE_CONTRACT_INIT",
   TRANSACTIONS: "TRANSACTIONS",
@@ -50,15 +47,13 @@ export const ContractsContext = React.createContext();
 
 export const ContractsProvider = ({ children }) => {
   const { ethereum } = window;
+  // const [provider, setProvider] = useState(null);
   const contractReducer = (state, action) => {
     console.log(action.type);
     switch (action.type) {
       case contractEnum.TRANSACTION_CONTRACT_INIT:
         console.log("transaction contract made");
         return { ...state, transactionContract: action.value };
-      case contractEnum.STAKING_POOL_CONTRACT_INIT:
-        console.log("staking pool made");
-        return { ...state, stakingPoolContract: action.value };
       case contractEnum.TOKEN_CONTRACT_INIT:
         console.log("aiboost token contract made");
         return { ...state, aiboostTokenContract: action.value };
@@ -160,7 +155,6 @@ export const ContractsProvider = ({ children }) => {
     transactionContract: null,
     aiboostTokenContract: null,
     aiboostTokenSaleContract: null,
-    stakingPoolContract: null,
     lotteryContract: null,
     transactions: [],
     transactionCount: +localStorage.getItem("transactionCount"),
@@ -201,6 +195,7 @@ export const ContractsProvider = ({ children }) => {
   };
 
   const createEthereumContract = async () => {
+    // TODO: Error HERE
     const provider = new ethers.providers.Web3Provider(ethereum);
     dispatchWeb3({ type: web3Enum.PROVIDER, value: provider });
     const signer = provider.getSigner();
@@ -223,12 +218,6 @@ export const ContractsProvider = ({ children }) => {
       signer
     );
 
-    const stakingPoolContract = new ethers.Contract(
-      stakingPoolContractAddress,
-      stakingPoolContractABI,
-      signer
-    );
-
     const lotteryContract = new ethers.Contract(
       lotteryContractAddress,
       lotteryContractABI,
@@ -238,11 +227,6 @@ export const ContractsProvider = ({ children }) => {
     dispatchContracts({
       type: contractEnum.TRANSACTION_CONTRACT_INIT,
       value: transactionsContract,
-    });
-
-    dispatchContracts({
-      type: contractEnum.STAKING_POOL_CONTRACT_INIT,
-      value: stakingPoolContract,
     });
 
     dispatchContracts({
@@ -350,14 +334,12 @@ export const ContractsProvider = ({ children }) => {
       const value = ethers.BigNumber.from(
         ethers.utils.parseEther(token.price).toString()
       ).mul(tokens);
-
       const transactionHash =
         await contracts.aiboostTokenSaleContract.buyTokens(tokens, {
           from: user.currentAccount,
           value: value,
           gasLimit: 500000,
         });
-
       setIsLoading(true);
       console.log(`Loading - ${transactionHash.hash}`);
       await transactionHash.wait();
@@ -374,6 +356,7 @@ export const ContractsProvider = ({ children }) => {
       if (ethereum && contracts.transactionContract) {
         const availableTransactions =
           await contracts.transactionContract.getTransactions();
+
         const structuredTransactions = availableTransactions.map(
           (transaction) => {
             return {
@@ -508,6 +491,7 @@ export const ContractsProvider = ({ children }) => {
 
   useEffect(() => {
     async function init() {
+      // TODO: ERROR HERE
       await checkIfWalletIsConnect();
       await createEthereumContract();
       await checkIfTransactionsExists();
@@ -543,7 +527,6 @@ export const ContractsProvider = ({ children }) => {
         handleChange,
         formData,
         getBalanceOf,
-        getAllTransactions,
         createEthereumContract,
         token,
         initToken,
