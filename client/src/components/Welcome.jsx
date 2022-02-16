@@ -1,17 +1,47 @@
 import React from "react";
+import { motion } from "framer-motion";
 
 const Welcome = () => {
+  const welcomeVarients = {
+    hiddenImg: {
+      opacity: 0,
+      x: "-100vw",
+    },
+    visibleImg: {
+      opacity: 1,
+      x: 10,
+      transition: {
+        type: "spring",
+        mass: 2,
+        damping: 14,
+        stiffness: 70,
+        delay: 0.1,
+      },
+    },
+  };
+
   return (
     <div>
-      <div className="relative bg-slate-800 flex flex-col-reverse px-4 py-16 mx-auto lg:block lg:flex-col lg:py-32 xl:py-48 md:px-8 sm:max-w-xl md:max-w-full">
-        <div className="z-0 flex justify-center h-full -mx-4 overflow-hidden lg:pt-24 lg:pb-16 lg:pr-8 xl:pr-0 lg:w-1/2 lg:absolute lg:justify-end lg:bottom-0 lg:left-0 lg:items-center">
+      <div className="relative bg-slate-800 px-4 py-16 mx-auto lg:block lg:flex-col lg:py-32 xl:py-48 md:px-8 sm:max-w-xl md:max-w-full">
+        <motion.div
+          variants={welcomeVarients}
+          initial="hiddenImg"
+          animate="visibleImg"
+          className="z-0 flex justify-center h-full -mx-4 overflow-hidden lg:pt-24 lg:pb-16 lg:pr-10 xl:pr-0 lg:w-1/2 lg:absolute lg:justify-end lg:bottom-0 lg:left-0 lg:items-center"
+        >
           <img
             src="https://kitwind.io/assets/kometa/laptop.png"
-            className="object-cover object-right w-full h-auto lg:w-auto lg:h-full"
+            className="bg-laptop object-cover object-right w-full h-auto lg:w-auto lg:h-full"
             alt=""
           />
-        </div>
-        <div className="relative flex justify-end max-w-xl mx-auto xl:pr-32 lg:max-w-screen-xl">
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5, duration: 0.5 }}
+          className="relative flex justify-end max-w-xl mx-auto xl:pr-32 lg:max-w-screen-xl"
+        >
           <div className="mb-16 lg:pr-5 lg:max-w-lg lg:mb-0">
             <div className="max-w-xl mb-6">
               <div>
@@ -35,13 +65,13 @@ const Welcome = () => {
                 <input
                   placeholder="Name"
                   required=""
-                  type="text"
+                  type="name"
                   className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none md:mr-2 focus:border-indigo-400 focus:outline-none focus:shadow-outline"
                 />
                 <input
                   placeholder="Email"
                   required=""
-                  type="text"
+                  type="email"
                   className="flex-grow w-full h-12 px-4 mb-3 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none md:mb-0 focus:border-indigo-400 focus:outline-none focus:shadow-outline"
                 />
               </div>
@@ -62,7 +92,7 @@ const Welcome = () => {
               </div>
             </form>
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

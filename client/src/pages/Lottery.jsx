@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ContractsContext } from "../context/ContractsContext";
+import { motion } from "framer-motion";
 
 function Lottery() {
   const {
@@ -40,61 +41,97 @@ function Lottery() {
     load();
   }, []);
 
+  const card = {
+    hidden: {
+      opacity: 0,
+      y: 300,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 75,
+        delay: 0.1,
+      },
+    },
+  };
+
   return (
-    <div className="flex-1 bg-slate-900 text-slate-400">
-      <div className="container mx-auto border border-slate-500 p-4 my-4 rounded-lg max-w-lg">
+    <div className="flex-1 bg-main pt-5 space-y-8 text-slate-200">
+      <motion.div
+        className="container bg-zinc-900 mx-auto border border-slate-500 p-4 my-4 rounded-lg max-w-lg"
+        variants={card}
+        initial="hidden"
+        animate="visible"
+      >
         <h1 className="antialiased font-medium text-2xl tracking-wide">
           Lottery Game{" "}
-          <span className="text-xs p-2 bg-slate-100 rounded-full text-teal-700 antialiased font-bold">
-            started
+          <span className="text-xs p-2 bg-slate-200 rounded-full text-teal-700 antialiased font-bold">
+            Started
           </span>
         </h1>
-        <div>
+        <div className="pt-3">
           <h3 className="text-sm">
             Total Players:{" "}
-            <span className="text-teal-400 text-lg">{lotteryPlayers.length}</span>
+            <span className="text-teal-400 text-lg">
+              {lotteryPlayers.length}
+            </span>
           </h3>
           <h3 className="text-sm">
-            Manager: <span className="text-teal-400 text-xs">{lotteryManager}</span>
+            Manager:{" "}
+            <span className="text-teal-400 text-xs">{lotteryManager}</span>
           </h3>
           <h3 className="text-sm">
             Entry Fee:{" "}
             <span className="text-teal-400 text-lg">
-              {+lotteryEntryFee / 10 ** 18} 
-            </span>ETH
+              {+lotteryEntryFee / 10 ** 18}
+            </span>{" "}
+            ETH
           </h3>
           <h3 className="text-sm">
             Total Price:{" "}
             <span className="text-teal-400 text-lg">
               {+lotteryPrice / 10 ** 18}
-            </span>ETH
+            </span>{" "}
+            ETH
           </h3>
         </div>
-      </div>
+      </motion.div>
 
-      <div className="container mx-auto border border-slate-500 p-4 my-4 rounded-lg max-w-lg">
+      <motion.div
+        className="container mx-auto bg-zinc-900 border border-slate-500 p-5 my-4 rounded-lg max-w-lg"
+        variants={card}
+        initial="hidden"
+        animate="visible"
+      >
         <div className="flex flex-row gap-2 justify-evenly">
-          <button className="px-3 py-2 bg-green-400 rounded-lg text-slate-800 hover:shadow-lg hover:shadow-green-900">
-            start
+          <button className="px-3 py-2 bg-green-400 rounded-lg text-slate-800 hover:shadow-lg hover:shadow-green-600">
+            Start
           </button>
-          <button className="px-3 py-2 bg-yellow-400 rounded-lg text-slate-800 hover:shadow-lg hover:shadow-yellow-900">
-            enter
+          <button className="px-3 py-2 bg-yellow-400 rounded-lg text-slate-800 hover:shadow-lg hover:shadow-yellow-600">
+            Enter
           </button>
-          <button className="px-3 py-2 bg-red-400 rounded-lg text-slate-800 hover:shadow-lg hover:shadow-red-900">
-            end
+          <button className="px-3 py-2 bg-red-400 rounded-lg text-slate-800 hover:shadow-lg hover:shadow-red-600">
+            End
           </button>
         </div>
-      </div>
-      <div className="container mx-auto border border-slate-500 p-4 my-4 rounded-lg max-w-lg">
+      </motion.div>
+      <motion.div
+        className="container mx-auto border border-slate-700 text-slate-400 light-gradient p-4 my-4 rounded-lg max-w-lg"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 2.1 }}
+      >
         <h1 className="antialiased font-medium text-2xl tracking-wide">
           Players
         </h1>
-        <ul>
+        {/* <ul>
           {lotteryPlayers.map((player) => (
             <li>{player}</li>
           ))}
-        </ul>
-      </div>
+        </ul> */}
+      </motion.div>
     </div>
   );
 }

@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
-
+import React, { useContext, useEffect } from "react";
+import { motion, useAnimation } from "framer-motion";
 import { ContractsContext } from "../context/ContractsContext";
-
+import { useInView } from "react-intersection-observer";
 import useFetch from "../hooks/useFetch";
 import dummyData from "../utils/dummyData";
 import { shortenAddress } from "../utils/shortenAddress";
@@ -16,7 +16,6 @@ const TransactionsCard = ({
   url,
 }) => {
   const gifUrl = useFetch({ keyword });
-
   return (
     <div
       className="bg-[#181918] m-4 flex flex-1
@@ -69,15 +68,35 @@ const TransactionsCard = ({
 };
 
 const Transactions = () => {
-  const { transactions, currentAccount, getAllTransactions } =
-    useContext(ContractsContext);
+  const { transactions, currentAccount } = useContext(ContractsContext);
+  const { ref, inView } = useInView({ threshold: 0.1 });
+  const animation = useAnimation();
+
   useEffect(() => {
-    getAllTransactions();
-  }, []);
+    if (inView) {
+      animation.start({
+        y: 0,
+        scale: 1,
+        transition: {
+          type: "spring",
+          duration: 2,
+          bounce: 0.3,
+        },
+      });
+    }
+
+    if (!inView) {
+      animation.start({
+        y: "100vh",
+        scale: 0,
+      });
+    }
+    console.log(inView);
+  }, [inView]);
 
   return (
     <div className="flex w-full justify-center items-center 2xl:px-20 gradient-bg-transactions">
-      <div className="flex flex-col md:p-12 py-12 px-4">
+      <div ref={ref} className="flex flex-col md:p-12 py-12 px-4">
         {currentAccount ? (
           <h3 className="text-white text-3xl text-center my-2">
             Latest Transactions
@@ -88,11 +107,14 @@ const Transactions = () => {
           </h3>
         )}
 
-        <div className="flex flex-wrap justify-center items-center mt-10">
-          {transactions.map((transaction, i) => (
+        <motion.div
+          className="flex flex-wrap justify-center items-center mt-10"
+          animate={animation}
+        >
+          {[...dummyData, ...transactions].map((transaction, i) => (
             <TransactionsCard key={i} {...transaction} />
           ))}
-        </div>
+        </motion.div>
       </div>
     </div>
   );
