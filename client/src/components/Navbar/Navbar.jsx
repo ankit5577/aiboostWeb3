@@ -25,13 +25,13 @@ const Navbar = () => {
   const svgVariants = {
     hidden: {
       opacity: 0,
-      rotate: -90,
+      rotate: 20,
     },
     visible: {
       opacity: 1,
       rotate: 0,
       transition: {
-        delay: 0.09,
+        delay: 1.2,
       },
     },
   };
