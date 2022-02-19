@@ -15,7 +15,7 @@ const TransactionsCard = ({
   amount,
   url,
 }) => {
-  const gifUrl = useFetch({ keyword });
+  console.log("❌Time & Date❌", timestamp);
   return (
     <>
       <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-0 lg:px-8 lg:py-26">
@@ -81,29 +81,29 @@ const TransactionsCard = ({
                               <g id="Purple2">
                                 <path
                                   id="Vector"
-                                  fill-rule="evenodd"
-                                  clip-rule="evenodd"
+                                  fillRule="evenodd"
+                                  clipRule="evenodd"
                                   d="M67.616 58.629L33.9263 103.31V78.2247L67.616 58.629Z"
                                   fill="#7B3EC8"
                                   stroke="#3441C0"
-                                  stroke-width="0.01116"
-                                  stroke-miterlimit="7"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
+                                  strokeWidth="0.01116"
+                                  strokeMiterlimit="7"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
                                 />
                               </g>
                               <g id="Yellow2">
                                 <path
                                   id="Vector_2"
-                                  fill-rule="evenodd"
-                                  clip-rule="evenodd"
+                                  fillRule="evenodd"
+                                  clipRule="evenodd"
                                   d="M0.239307 58.629L33.929 103.31V78.2247L0.239307 58.629Z"
                                   fill="#7680E3"
                                   stroke="#3441C0"
-                                  stroke-width="0.01116"
-                                  stroke-miterlimit="7"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
+                                  strokeWidth="0.01116"
+                                  strokeMiterlimit="7"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
                                 />
                               </g>
                             </g>
@@ -111,57 +111,57 @@ const TransactionsCard = ({
                               <g id="Blue1">
                                 <path
                                   id="Vector_3"
-                                  fill-rule="evenodd"
-                                  clip-rule="evenodd"
+                                  fillRule="evenodd"
+                                  clipRule="evenodd"
                                   d="M0.231445 53.451L33.9275 38.4687V72.6233L0.231445 53.451Z"
                                   fill="#7B3EC8"
                                   stroke="#3441C0"
-                                  stroke-width="0.0111628"
-                                  stroke-miterlimit="7"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
+                                  strokeWidth="0.0111628"
+                                  strokeMiterlimit="7"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
                                 />
                               </g>
                               <g id="Purple1">
                                 <path
                                   id="Vector_4"
-                                  fill-rule="evenodd"
-                                  clip-rule="evenodd"
+                                  fillRule="evenodd"
+                                  clipRule="evenodd"
                                   d="M67.6216 53.451L33.9256 38.4687V72.6233L67.6216 53.451Z"
                                   fill="#354B70"
                                   stroke="#3441C0"
-                                  stroke-width="0.0111628"
-                                  stroke-miterlimit="7"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
+                                  strokeWidth="0.0111628"
+                                  strokeMiterlimit="7"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
                                 />
                               </g>
                               <g id="Yellow1">
                                 <path
                                   id="Vector_5"
-                                  fill-rule="evenodd"
-                                  clip-rule="evenodd"
+                                  fillRule="evenodd"
+                                  clipRule="evenodd"
                                   d="M0.239332 53.45L33.929 0.579742V38.4678L0.239332 53.45Z"
                                   fill="#7680E3"
                                   stroke="#3441C0"
-                                  stroke-width="0.01116"
-                                  stroke-miterlimit="7"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
+                                  strokeWidth="0.01116"
+                                  strokeMiterlimit="7"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
                                 />
                               </g>
                               <g id="Green1">
                                 <path
                                   id="Vector_6"
-                                  fill-rule="evenodd"
-                                  clip-rule="evenodd"
+                                  fillRule="evenodd"
+                                  clipRule="evenodd"
                                   d="M67.616 53.45L33.9263 0.579742V38.4678L67.616 53.45Z"
                                   fill="#A894D0"
                                   stroke="#3441C0"
-                                  stroke-width="0.01116"
-                                  stroke-miterlimit="7"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
+                                  strokeWidth="0.01116"
+                                  strokeMiterlimit="7"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
                                 />
                               </g>
                             </g>
