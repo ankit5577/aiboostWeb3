@@ -14,3 +14,5 @@ ReactDOM.render(
   </BrowserRouter>,
   document.getElementById("root")
 );
+
+// https://play.tailwindcss.com/5fYcvWWuOx
