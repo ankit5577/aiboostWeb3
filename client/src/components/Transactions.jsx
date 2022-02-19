@@ -16,6 +16,7 @@ const TransactionsCard = ({
   url,
 }) => {
   console.log("❌Time & Date❌", timestamp);
+  message = "Hello 😎";
   return (
     <>
       <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-0 lg:px-8 lg:py-26">
@@ -31,7 +32,7 @@ const TransactionsCard = ({
                     <p className="text-lg text-slate-300 font-bold">18</p>
                   </div>
 
-                  <div className="pt-14 bottom w-full">
+                  <div className="pt-20 bottom w-full">
                     <div className="flex pb-1 mb-1">
                       <p className="text-lg text-slate-300 font-bold pb-1 border-b border-gray-500">
                         4:33
@@ -65,7 +66,7 @@ const TransactionsCard = ({
                       </p>
                     </a>
                   </div>
-                  <p className="mb-5 flex flex-1 gap-1 text-teal-500 font-medium">
+                  <p className=" flex flex-1 gap-1 text-teal-500 font-medium">
                     {amount}
                     <svg
                       width="28"
@@ -170,9 +171,13 @@ const TransactionsCard = ({
                       </g>
                     </svg>
                   </p>
-                  <p className="mb-5 text-justify text-slate-300 font-medium">
-                    {message}
-                  </p>
+                  {message && (
+                    <>
+                      <p className="mt-2 mb-2 text-justify text-slate-300 font-medium">
+                        {message}
+                      </p>
+                    </>
+                  )}
                   <div className="flex items-center">
                     <div className="mb-2">
                       <a
@@ -181,7 +186,13 @@ const TransactionsCard = ({
                         rel="noreferrer"
                         className="text-xs tracking-wide uppercase text-slate-300"
                       >
-                        <p className="pt-2 text-xs tracking-wide uppercase text-slate-300">
+                        <p
+                          className={
+                            message
+                              ? `pt-2 text-xs tracking-wide uppercase text-slate-300`
+                              : `pt-11 text-xs tracking-wide uppercase text-slate-300`
+                          }
+                        >
                           To
                         </p>
                       </a>
@@ -217,8 +228,8 @@ const Transactions = () => {
         scale: 1,
         transition: {
           type: "spring",
-          duration: 2,
-          bounce: 0.3,
+          duration: 1.5,
+          bounce: 0.1,
         },
       });
     }
