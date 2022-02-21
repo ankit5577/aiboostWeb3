@@ -31,7 +31,7 @@ const Navbar = () => {
       opacity: 1,
       rotate: 0,
       transition: {
-        delay: 1.2,
+        delay: 1,
       },
     },
   };

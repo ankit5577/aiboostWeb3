@@ -44,11 +44,11 @@ function SendEther() {
   } = useContext(ContractsContext);
 
   function handleSubmit(e) {
-    const { addressTo, amount, keyword, message } = formData;
+    const { addressTo, amount, message } = formData;
 
     e.preventDefault();
 
-    if (!addressTo || !amount || !keyword || !message) return;
+    if (!addressTo || !amount || !message) return;
 
     sendTransaction();
   }

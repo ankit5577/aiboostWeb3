@@ -527,6 +527,7 @@ export const ContractsProvider = ({ children }) => {
         handleChange,
         formData,
         getBalanceOf,
+        getAllTransactions,
         createEthereumContract,
         token,
         initToken,
