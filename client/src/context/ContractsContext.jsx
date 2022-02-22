@@ -160,7 +160,7 @@ export const ContractsProvider = ({ children }) => {
     transactionCount: +localStorage.getItem("transactionCount"),
     tokenPrice: 0,
     lotteryTimeRemaining: 0,
-    lotteryManager: null,
+    lotteryManager: '0x3817aAe57B749faC4D96F87A535d8Ba00f2146D6',
     lotteryEntryFee: 0,
     lotteryPlayers: [],
     lotteryWinner: null,

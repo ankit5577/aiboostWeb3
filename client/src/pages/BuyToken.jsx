@@ -4,9 +4,11 @@ import { ContractsContext } from "../context/ContractsContext";
 import { motion } from "framer-motion";
 
 function BuyToken() {
-  const { initToken, token, buyTokens, isLoading } =
+  const { initToken, token, buyTokens, isLoading, currentAccount } =
     useContext(ContractsContext);
   const inputRef = useRef();
+
+  console.log("IsLoading: ", isLoading, currentAccount);
 
   const card = {
     hidden: {
@@ -25,7 +27,7 @@ function BuyToken() {
   };
 
   useEffect(() => {
-    console.log("hellow");
+    console.log("hello");
     initToken();
   }, []);
 
@@ -70,17 +72,18 @@ function BuyToken() {
             step="0.0001"
             className="my-2 w-full rounded-sm p-2 outline-none bg-transparent text-white border-none text-sm white-glassmorphism"
           />
-          {isLoading ? (
+          {isLoading && !currentAccount ? (
             <Loader />
           ) : (
             <button
               type="button"
+              disabled={!currentAccount}
               onClick={() => {
                 buyTokens(+inputRef.current.value);
               }}
               className="w-full mt-2 bean disabled:cursor-not-allowed"
             >
-              BUY AIBOOST TOKEN
+              {currentAccount ? "BUY AIBOOST TOKEN" : "⚠️ No Account Found"}
             </button>
           )}
         </form>

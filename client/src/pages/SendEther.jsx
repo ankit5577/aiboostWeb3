@@ -134,7 +134,7 @@ function SendEther() {
               type="text"
               handleChange={handleChange}
             />
-            {isLoading ? (
+            {isLoading && !currentAccount ? (
               <Loader />
             ) : (
               <button
@@ -143,7 +143,7 @@ function SendEther() {
                 onClick={handleSubmit}
                 className="w-full mt-2 bean disabled:cursor-not-allowed"
               >
-                {currentAccount ? "Send Now" : "No Account Found"}
+                {currentAccount ? "Send Now" : "⚠️ No Account Found"}
               </button>
             )}
           </form>

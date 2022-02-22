@@ -16,9 +16,26 @@ const TransactionsCard = ({
   currentAccount,
 }) => {
   console.log("❌Time & Date❌", timestamp);
-  // console.log("Slice:", timestamp.slice(-2));
 
-  // message = "Hello 😎";
+  const dateArr = timestamp.split(" ");
+  const amPm = dateArr[2];
+  const timeArr = dateArr[1].split(":");
+  timeArr.pop();
+  const time = timeArr.join(":");
+
+  const tranDate = new Date(timestamp);
+  const date = tranDate.getDate();
+  const strDate = tranDate.toString();
+  const month = strDate.slice(4, 7).toUpperCase();
+
+  console.log(message.length);
+  let bigMessage = false;
+  let smallMessage = "";
+  if (message.length > 130) {
+    bigMessage = true;
+    smallMessage = message.split(" ").slice(0, 1).join(" ");
+  }
+
   return (
     <>
       {
@@ -29,20 +46,20 @@ const TransactionsCard = ({
                 <div className="flex">
                   <div className="pt-1 mr-6 text-center">
                     <div className="px-2 pb-1 mb-1 border-b border-gray-500">
-                      <p className="text-sm text-slate-300">JUL</p>
+                      <p className="text-sm text-slate-300">{month}</p>
                     </div>
                     <div className="px-2">
-                      <p className="text-lg text-slate-300 font-bold">18</p>
+                      <p className="text-lg text-slate-300 font-bold">{date}</p>
                     </div>
 
                     <div className="pt-20 bottom w-full">
                       <div className="flex pb-1 mb-1">
                         <p className="text-lg text-slate-300 font-bold pb-1 border-b border-gray-500">
-                          4:33
+                          {time}
                         </p>
                       </div>
                       <div>
-                        <p className="text-sm text-slate-300">{timestamp.slice(-2)}</p>
+                        <p className="text-sm text-slate-300">{amPm}</p>
                       </div>
                     </div>
                   </div>
@@ -177,7 +194,9 @@ const TransactionsCard = ({
                     {message && (
                       <>
                         <p className="mt-2 mb-2 text-justify text-slate-300 font-medium">
-                          {message}
+                          {bigMessage
+                            ? smallMessage + " ...Read More"
+                            : message}
                         </p>
                       </>
                     )}
