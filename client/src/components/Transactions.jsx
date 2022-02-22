@@ -18,7 +18,7 @@ const TransactionsCard = ({
   console.log("❌Time & Date❌", timestamp);
 
   const dateArr = timestamp.split(" ");
-  const amPm = dateArr[2];
+  const meridiem = dateArr[2];
   const timeArr = dateArr[1].split(":");
   timeArr.pop();
   const time = timeArr.join(":");
@@ -59,7 +59,7 @@ const TransactionsCard = ({
                         </p>
                       </div>
                       <div>
-                        <p className="text-sm text-slate-300">{amPm}</p>
+                        <p className="text-sm text-slate-300">{meridiem}</p>
                       </div>
                     </div>
                   </div>
