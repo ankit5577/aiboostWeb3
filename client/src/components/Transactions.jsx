@@ -15,8 +15,6 @@ const TransactionsCard = ({
   url,
   currentAccount,
 }) => {
-  console.log("❌Time & Date❌", timestamp);
-
   const dateArr = timestamp.split(" ");
   const meridiem = dateArr[2];
   const timeArr = dateArr[1].split(":");
@@ -28,7 +26,6 @@ const TransactionsCard = ({
   const strDate = tranDate.toString();
   const month = strDate.slice(4, 7).toUpperCase();
 
-  console.log(message.length);
   let bigMessage = false;
   let smallMessage = "";
   if (message.length > 130) {
@@ -245,6 +242,11 @@ const Transactions = () => {
   useEffect(() => {
     getAllTransactions();
   }, []);
+
+  if (transactions.length > 6) {
+    transactions.shift();
+  }
+
   const { ref, inView } = useInView({ threshold: 0.1 });
   const animation = useAnimation();
   useEffect(() => {
