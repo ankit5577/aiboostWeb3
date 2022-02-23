@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+// import soon;
 
 function Farm() {
   const card = {
@@ -19,15 +20,13 @@ function Farm() {
   };
 
   return (
-    <div className="flex-1 bg-main">
+    <div className="flex-1 bg-main bg-cover bg-fixed">
       <motion.div
-        className="flex justify-center pt-10 text-gray-200 text-2xl font-bold"
+        className="will-change-scroll h-[40rem] bg-soon bg-center bg-no-repeat"
         variants={card}
         initial="hidden"
         animate="visible"
-      >
-        Under Construction 🛠️
-      </motion.div>
+      ></motion.div>
     </div>
   );
 }

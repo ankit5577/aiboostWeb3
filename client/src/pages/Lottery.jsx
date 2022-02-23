@@ -74,7 +74,7 @@ function Lottery() {
   };
 
   return (
-    <div className="flex-1 bg-main pt-5 space-y-8 text-slate-200">
+    <div className="flex-1 bg-main bg-cover bg-fixed pt-5 space-y-8 text-slate-200">
       <motion.div
         className="container bg-zinc-900 mx-auto border border-slate-500 p-4 my-4 rounded-lg max-w-lg"
         variants={card}

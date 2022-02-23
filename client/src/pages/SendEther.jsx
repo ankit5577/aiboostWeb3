@@ -44,6 +44,9 @@ function SendEther() {
   } = useContext(ContractsContext);
 
   function handleSubmit(e) {
+    {
+      isLoading && <Loader />;
+    }
     const { addressTo, amount, message } = formData;
 
     e.preventDefault();
@@ -65,7 +68,7 @@ function SendEther() {
   }, [currentAccount]);
 
   return (
-    <div className="flex-1 bg-main text-slate-200">
+    <div className="flex-1 bg-main bg-cover bg-fixed text-slate-200">
       <div className="container mx-auto p-4">
         {/* eth card */}
         <motion.div
@@ -134,18 +137,14 @@ function SendEther() {
               type="text"
               handleChange={handleChange}
             />
-            {isLoading && !currentAccount ? (
-              <Loader />
-            ) : (
-              <button
-                type="button"
-                disabled={!currentAccount}
-                onClick={handleSubmit}
-                className="w-full mt-2 bean disabled:cursor-not-allowed"
-              >
-                {currentAccount ? "Send Now" : "⚠️ No Account Found"}
-              </button>
-            )}
+            <button
+              type="button"
+              disabled={!currentAccount}
+              onClick={handleSubmit}
+              className="w-full mt-2 bean disabled:cursor-not-allowed"
+            >
+              {currentAccount ? "Send Now" : "⚠️ No Account Found"}
+            </button>
           </form>
         </motion.div>
       </div>
