@@ -4,7 +4,7 @@ import { shortenAddress } from "../../utils/shortenAddress";
 
 const MenuItem = ({ showMenu, active, currentAccount, connectWallet }) => {
   return (
-    <ul
+    <menu
       className={
         active
           ? "flex-col flex items-center z-30 fixed right-0 left-0 bottom-0 top-0  uppercase bg-black/50 backdrop-blur-xl gap-8 justify-center pb-8 mf:hidden"
@@ -93,7 +93,7 @@ const MenuItem = ({ showMenu, active, currentAccount, connectWallet }) => {
           )}
         </li>
       </ul>
-    </ul>
+    </menu>
   );
 };
 

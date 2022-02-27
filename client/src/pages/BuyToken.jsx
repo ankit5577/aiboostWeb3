@@ -1,11 +1,18 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
-import { Loader } from "../components";
+import React, { useEffect, useContext, useRef } from "react";
+import { Loader, Notification } from "../components";
 import { ContractsContext } from "../context/ContractsContext";
 import { motion } from "framer-motion";
 
 function BuyToken() {
-  const { initToken, token, buyTokens, isLoading, currentAccount } =
-    useContext(ContractsContext);
+  const {
+    initToken,
+    token,
+    buyTokens,
+    isEther,
+    isLoading,
+    login,
+    currentAccount,
+  } = useContext(ContractsContext);
   const inputRef = useRef();
 
   console.log("IsLoading: ", isLoading, currentAccount);
@@ -86,7 +93,14 @@ function BuyToken() {
           </button>
         </form>
       </motion.div>
-      {/* <Notification currentAccount={currentAccount} />; */}
+      <Notification
+        props={{
+          id: "Buy Token",
+          isEther,
+          account: currentAccount,
+          login,
+        }}
+      />
     </div>
   );
 }

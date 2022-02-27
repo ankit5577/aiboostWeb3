@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
+import { Notification } from "../components";
 import { ContractsContext } from "../context/ContractsContext";
-import { Loader } from "../components";
 import { motion } from "framer-motion";
 
 function Lottery() {
@@ -12,6 +12,7 @@ function Lottery() {
     lotteryPlayers,
     lotteryWinner,
     isLoading,
+    isEther,
     lotteryPrice,
     currentAccount,
   } = useContext(ContractsContext);
@@ -25,7 +26,7 @@ function Lottery() {
     lotteryPrice: 0,
   });
 
-  console.log("Manager🍆", lotteryManager);
+  // console.log("Manager", lotteryManager);
 
   const [manager, setIsManager] = useState(false);
 
@@ -125,7 +126,6 @@ function Lottery() {
           </h3>
         </div>
       </motion.div>
-
       {!currentAccount ? (
         <motion.div
           className="container mx-auto bg-zinc-900 border border-slate-500 p-5 my-4 rounded-lg max-w-lg"
@@ -192,6 +192,13 @@ function Lottery() {
           ))}
         </motion.div>
       )}
+      <Notification
+        props={{
+          id: "Lottery",
+          isEther,
+          account: currentAccount,
+        }}
+      />
     </div>
   );
 }

@@ -135,6 +135,16 @@ body {
   );
 }
 
+.notify-gradient {
+  background: rgba(0, 0, 0, 0.616);
+  background: radial-gradient(
+    circle,
+    rgba(0, 0, 0, 0.356) 0%,
+    rgba(43, 35, 196, 0.308) 48%,
+    rgba(86, 35, 138, 0.425) 100%
+  );
+}
+
 /* Menu Icon */
 @layer utilities {
   .menu {
@@ -180,11 +190,21 @@ body {
   }
 
   @-moz-document url-prefix() {
-    ul {
+    menu {
       padding: 5px;
-      border-radius: 15px;
+      border-radius: 5px;
       background-color: #090947;
       background-image: linear-gradient(315deg, #181c53 30%, #363536 74%);
+    }
+    section {
+      border-radius: 0.5rem;
+      background-color: #0f0e13;
+      background-image: radial-gradient(
+          at 0% 100%,
+          hsla(253, 16%, 7%, 1) 0,
+          transparent 53%
+        ),
+        radial-gradient(at 50% 150%, rgb(59, 39, 114) 0, transparent 50%);
     }
   }
 
@@ -254,7 +274,7 @@ body {
   .bean {
     border: 2px solid currentColor;
     border-radius: 1rem;
-    color: #0C877C;
+    color: #0c877c;
     overflow: hidden;
     padding: 0.5rem 0.5rem;
     transition: 0.2s transform ease-in-out;
@@ -262,7 +282,7 @@ body {
     z-index: 0;
   }
   .bean::after {
-    background-color: #0C877C;
+    background-color: #0c877c;
     border-radius: 1rem;
     content: "";
     display: block;

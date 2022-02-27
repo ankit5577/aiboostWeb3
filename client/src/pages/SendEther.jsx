@@ -1,17 +1,17 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { FaEthereum } from "react-icons/fa";
 import { AiFillWarning } from "react-icons/ai";
-import { Loader } from "../components";
+import { Loader, Notification } from "../components";
 import { ContractsContext } from "../context/ContractsContext";
 import { motion } from "framer-motion";
 
-const Input = ({ placeholder, name, type, value, handleChange }) => (
+const Input = ({ placeholder, name, type, value }) => (
   <input
     placeholder={placeholder}
     type={type}
     step="0.0001"
     value={value}
-    onChange={(e) => handleChange(e, name)}
+    // onChange={(e) => handleChange(e, name)}
     className="my-2 w-full rounded-sm p-2 outline-none bg-transparent text-white border-none text-sm white-glassmorphism"
   />
 );
@@ -39,6 +39,7 @@ function SendEther() {
     sendTransaction,
     formData,
     isLoading,
+    isEther,
     getBalanceOf,
     balance,
   } = useContext(ContractsContext);
@@ -55,6 +56,8 @@ function SendEther() {
 
     sendTransaction();
   }
+
+  const done = "true";
 
   async function getBalance(address = currentAccount) {
     if (!address) {
@@ -123,19 +126,19 @@ function SendEther() {
               placeholder="Address To"
               name="addressTo"
               type="text"
-              handleChange={handleChange}
+              // handleChange={handleChange}
             />
             <Input
               placeholder="Amount (ETH)"
               name="amount"
               type="number"
-              handleChange={handleChange}
+              // handleChange={handleChange}
             />
             <Input
               placeholder="Enter Message"
               name="message"
               type="text"
-              handleChange={handleChange}
+              // handleChange={handleChange}
             />
             <button
               type="button"
@@ -148,6 +151,13 @@ function SendEther() {
           </form>
         </motion.div>
       </div>
+      <Notification
+        props={{
+          id: "Send Ether",
+          isEther,
+          account: currentAccount,
+        }}
+      />
     </div>
   );
 }

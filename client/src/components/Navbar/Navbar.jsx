@@ -12,15 +12,7 @@ const Navbar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const {
-    currentAccount,
-    connectWallet,
-    handleChange,
-    sendTransaction,
-    formData,
-    isLoading,
-    createEthereumContract,
-  } = useContext(ContractsContext);
+  const { currentAccount, connectWallet } = useContext(ContractsContext);
 
   const svgVariants = {
     hidden: {
