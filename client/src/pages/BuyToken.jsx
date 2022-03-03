@@ -1,12 +1,21 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
-import { Loader } from "../components";
+import React, { useEffect, useContext, useRef } from "react";
+import { Loader, Notification } from "../components";
 import { ContractsContext } from "../context/ContractsContext";
 import { motion } from "framer-motion";
 
 function BuyToken() {
-  const { initToken, token, buyTokens, isLoading } =
-    useContext(ContractsContext);
+  const {
+    initToken,
+    token,
+    buyTokens,
+    isEther,
+    isLoading,
+    login,
+    currentAccount,
+  } = useContext(ContractsContext);
   const inputRef = useRef();
+
+  console.log("IsLoading: ", isLoading, currentAccount);
 
   const card = {
     hidden: {
@@ -25,12 +34,12 @@ function BuyToken() {
   };
 
   useEffect(() => {
-    console.log("hellow");
+    console.log("hello");
     initToken();
   }, []);
 
   return (
-    <div className="flex-1 pt-5 space-y-10 bg-main">
+    <div className="flex-1 pt-5 space-y-10 bg-main bg-cover bg-fixed">
       <motion.div
         className="container mx-auto bg-zinc-900 p-6 my-4 border border-slate-500 rounded-lg max-w-lg text-slate-200"
         variants={card}
@@ -51,7 +60,6 @@ function BuyToken() {
           </span>
         </h3>
       </motion.div>
-
       <motion.div
         className="container mx-auto bg-zinc-900 p-4 my-4 border border-slate-500 rounded-lg max-w-lg text-slate-300"
         variants={card}
@@ -70,21 +78,29 @@ function BuyToken() {
             step="0.0001"
             className="my-2 w-full rounded-sm p-2 outline-none bg-transparent text-white border-none text-sm white-glassmorphism"
           />
-          {isLoading ? (
-            <Loader />
-          ) : (
-            <button
-              type="button"
-              onClick={() => {
-                buyTokens(+inputRef.current.value);
-              }}
-              className="w-full mt-2 bean disabled:cursor-not-allowed"
-            >
-              BUY AIBOOST TOKEN
-            </button>
-          )}
+          <button
+            type="button"
+            disabled={!currentAccount}
+            onClick={() => {
+              {
+                isLoading && <Loader />;
+              }
+              buyTokens(+inputRef.current.value);
+            }}
+            className="w-full mt-2 bean disabled:cursor-not-allowed"
+          >
+            {currentAccount ? "BUY AIBOOST TOKEN" : "⚠️ No Account Found"}
+          </button>
         </form>
       </motion.div>
+      <Notification
+        props={{
+          id: "Buy Token",
+          isEther,
+          account: currentAccount,
+          login,
+        }}
+      />
     </div>
   );
 }

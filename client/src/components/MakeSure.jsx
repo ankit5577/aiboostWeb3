@@ -2,7 +2,6 @@ import React from "react";
 import { motion } from "framer-motion";
 
 function MakeSure() {
-
   return (
     <div className="grey-gradient">
       <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
@@ -14,12 +13,8 @@ function MakeSure() {
                 stroke="currentColor"
                 viewBox="0 0 52 52"
                 whileInView={{
-                  rotate: 360,
-                  transition: { duration: 1 },
-                }}
-                whileHover={{
-                  scale: 1.25,
-                  transition: { duration: 0.5 },
+                  rotateY: 360,
+                  transition: { duration: 0.75},
                 }}
               >
                 <polygon

@@ -1,13 +1,27 @@
-import React from "react";
-import { Services, Transactions, Welcome, MakeSure } from "../components";
+import {useContext} from "react";
+import { ContractsContext } from "../context/ContractsContext";
+import {
+  Services,
+  Transactions,
+  Welcome,
+  MakeSure,
+  Notification,
+} from "../components";
 
 function Home() {
+  const { isEther } = useContext(ContractsContext);
   return (
     <>
       <Welcome />
       <MakeSure />
       <Services />
       <Transactions />
+      <Notification
+        props={{
+          id: "Home",
+          isEther,
+        }}
+      />
     </>
   );
 }

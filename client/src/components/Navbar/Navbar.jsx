@@ -4,43 +4,32 @@ import { ContractsContext } from "../../context/ContractsContext";
 import { shortenAddress } from "../../utils/shortenAddress";
 import MenuItem from "./MenuItem";
 import { motion } from "framer-motion";
-import { useInView } from "react-intersection-observer";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  
-  const {ref, inView} = useInView();
-  
+
   const showMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const {
-    currentAccount,
-    connectWallet,
-    handleChange,
-    sendTransaction,
-    formData,
-    isLoading,
-    createEthereumContract,
-  } = useContext(ContractsContext);
+  const { currentAccount, connectWallet } = useContext(ContractsContext);
 
   const svgVariants = {
     hidden: {
       opacity: 0,
-      rotate: -90,
+      rotate: 20,
     },
     visible: {
       opacity: 1,
       rotate: 0,
       transition: {
-        delay: 0.09,
+        delay: 1,
       },
     },
   };
 
   return (
-    <div ref={ref} className="bg-slate-900 border-b border-slate-600">
+    <div className="bg-slate-900 border-b border-slate-600">
       <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
         <div className="relative flex items-center justify-between">
           <Link
@@ -52,7 +41,7 @@ const Navbar = () => {
             <motion.svg
               variants={svgVariants}
               initial={"hidden"}
-              animate={inView ? "visible" : "hidden"}
+              animate={"visible"}
               width="50"
               height="55"
               viewBox="10 1 200 300"

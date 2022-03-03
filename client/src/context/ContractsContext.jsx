@@ -114,6 +114,8 @@ export const ContractsProvider = ({ children }) => {
     }
   };
 
+  const [login, setLogin] = useState(false);
+
   const userReducer = (state, action) => {
     switch (action.type) {
       case userEnum.BALANCE:
@@ -121,6 +123,9 @@ export const ContractsProvider = ({ children }) => {
         return { ...state, balance: action.value };
       case userEnum.CURR_ACCOUNT:
         console.log("curr account updated");
+        if (!login) {
+          setLogin(true);
+        }
         return { ...state, currentAccount: action.value };
       default:
         console.log(
@@ -160,7 +165,7 @@ export const ContractsProvider = ({ children }) => {
     transactionCount: +localStorage.getItem("transactionCount"),
     tokenPrice: 0,
     lotteryTimeRemaining: 0,
-    lotteryManager: null,
+    lotteryManager: "0x3817aAe57B749faC4D96F87A535d8Ba00f2146D6",
     lotteryEntryFee: 0,
     lotteryPlayers: [],
     lotteryWinner: null,
@@ -185,10 +190,11 @@ export const ContractsProvider = ({ children }) => {
   const [formData, setformData] = useState({
     addressTo: "",
     amount: "",
-    keyword: "",
     message: "",
   });
+
   const [isLoading, setIsLoading] = useState(false);
+  const [isEther, setIsEther] = useState(false);
 
   const handleChange = (e, name) => {
     setformData((prevState) => ({ ...prevState, [name]: e.target.value }));
@@ -366,7 +372,6 @@ export const ContractsProvider = ({ children }) => {
                 +transaction.timestamp * 1000
               ).toLocaleString(),
               message: transaction.message,
-              keyword: transaction.keyword,
               amount: +transaction.amount / 10 ** 18,
             };
           }
@@ -384,8 +389,13 @@ export const ContractsProvider = ({ children }) => {
   };
 
   const checkIfWalletIsConnect = async () => {
+    // TODO: Notification for installing metamask will be an error
     try {
-      if (!ethereum) return alert("Please install MetaMask.");
+      if (!ethereum) {
+        console.log("⚓No ether found⚓");
+      } else {
+        setIsEther(true);
+      }
 
       const accounts = await ethereum.request({ method: "eth_accounts" });
 
@@ -420,11 +430,16 @@ export const ContractsProvider = ({ children }) => {
 
   const connectWallet = async () => {
     try {
-      if (!ethereum) return alert("Please install MetaMask.");
+      if (!ethereum) {
+        return alert(
+          "Please install MetaMask and then connect to your wallet."
+        );
+      }
 
       const accounts = await ethereum.request({
         method: "eth_requestAccounts",
       });
+
       dispatchUser({ type: userEnum.CURR_ACCOUNT, value: accounts[0] });
     } catch (error) {
       console.log(error);
@@ -437,7 +452,7 @@ export const ContractsProvider = ({ children }) => {
     try {
       console.log(contracts);
       if (ethereum && contracts.transactionContract) {
-        const { addressTo, amount, keyword, message } = formData;
+        const { addressTo, amount, message } = formData;
         const parsedAmount = ethers.utils.parseEther(amount);
 
         await ethereum.request({
@@ -456,8 +471,7 @@ export const ContractsProvider = ({ children }) => {
           await contracts.transactionContract.addTransaction(
             addressTo,
             parsedAmount,
-            message,
-            keyword
+            message
           );
 
         setIsLoading(true);
@@ -524,9 +538,12 @@ export const ContractsProvider = ({ children }) => {
         connectWallet,
         isLoading,
         sendTransaction,
+        isEther,
+        login,
         handleChange,
         formData,
         getBalanceOf,
+        getAllTransactions,
         createEthereumContract,
         token,
         initToken,

@@ -5,7 +5,7 @@ const Welcome = () => {
   const welcomeVarients = {
     hiddenImg: {
       opacity: 0,
-      x: "-100vw",
+      x: "-50vw",
     },
     visibleImg: {
       opacity: 1,
@@ -14,8 +14,8 @@ const Welcome = () => {
         type: "spring",
         mass: 2,
         damping: 14,
-        stiffness: 70,
-        delay: 0.1,
+        stiffness: 40,
+        delay: 0.2,
       },
     },
   };

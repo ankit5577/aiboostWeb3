@@ -12,6 +12,7 @@ module.exports = {
       backgroundImage: {
         main: "url('/images/bg.jpg')",
         card: "url('/images/card.jpeg')",
+        soon: "url('/images/construction.svg')",
       },
       screens: {
         mf: "990px",

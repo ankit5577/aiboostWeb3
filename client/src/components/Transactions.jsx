@@ -2,8 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { ContractsContext } from "../context/ContractsContext";
 import { useInView } from "react-intersection-observer";
-import useFetch from "../hooks/useFetch";
-import dummyData from "../utils/dummyData";
+// import dummyData from "../utils/dummyData";
 import { shortenAddress } from "../utils/shortenAddress";
 
 const TransactionsCard = ({
@@ -14,64 +13,242 @@ const TransactionsCard = ({
   keyword,
   amount,
   url,
+  currentAccount,
 }) => {
-  const gifUrl = useFetch({ keyword });
+  const dateArr = timestamp.split(" ");
+  const meridiem = dateArr[2];
+  const timeArr = dateArr[1].split(":");
+  timeArr.pop();
+  const time = timeArr.join(":");
+
+  const tranDate = new Date(timestamp);
+  const date = tranDate.getDate();
+  const strDate = tranDate.toString();
+  const month = strDate.slice(4, 7).toUpperCase();
+
+  let bigMessage = false;
+  let smallMessage = "";
+  if (message.length > 130) {
+    bigMessage = true;
+    smallMessage = message.split(" ").slice(0, 1).join(" ");
+  }
+
   return (
-    <div
-      className="bg-[#181918] m-4 flex flex-1
-      2xl:min-w-[450px]
-      2xl:max-w-[500px]
-      sm:min-w-[270px]
-      sm:max-w-[300px]
-      min-w-full
-      flex-col p-3 rounded-md hover:shadow-2xl"
-    >
-      <div className="flex flex-col items-center w-full mt-3">
-        <div className="display-flex justify-start w-full mb-6 p-2">
-          <a
-            href={`https://ropsten.etherscan.io/address/${addressFrom}`}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <p className="text-white text-base">
-              From: {shortenAddress(addressFrom)}
-            </p>
-          </a>
-          <a
-            href={`https://ropsten.etherscan.io/address/${addressTo}`}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <p className="text-white text-base">
-              To: {shortenAddress(addressTo)}
-            </p>
-          </a>
-          <p className="text-white text-base">Amount: {amount} ETH</p>
-          {message && (
-            <>
-              <br />
-              <p className="text-white text-base">Message: {message}</p>
-            </>
-          )}
+    <>
+      {
+        <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-0 lg:px-8 lg:py-26">
+          <div className="grid gap-5 lg:grid-cols-1 md:grid-cols-1 sm:max-w-sm sm:mx-auto lg:max-auto">
+            <div className="bg-[#1B2536] p-8 transition-shadow duration-300 border border-cyan-800 rounded-xl group hover:shadow-slate-700 hover:shadow-xl">
+              <div className="grid gap-8 lg:grid-cols-2 sm:max-w-sm sm:mx-auto lg:max-w-full">
+                <div className="flex">
+                  <div className="pt-1 mr-6 text-center">
+                    <div className="px-2 pb-1 mb-1 border-b border-gray-500">
+                      <p className="text-sm text-slate-300">{month}</p>
+                    </div>
+                    <div className="px-2">
+                      <p className="text-lg text-slate-300 font-bold">{date}</p>
+                    </div>
+
+                    <div className="pt-20 bottom w-full">
+                      <div className="flex pb-1 mb-1">
+                        <p className="text-lg text-slate-300 font-bold pb-1 border-b border-gray-500">
+                          {time}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-sm text-slate-300">{meridiem}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="relative border-slate-700 duration-300 border-l-4 rounded-full right-3 group-hover:scale-105 group-hover:border-cyan-800" />
+                  <div>
+                    <div className="mb-2">
+                      <a
+                        href={`https://ropsten.etherscan.io/address/${addressFrom}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-xs tracking-wide uppercase text-slate-300"
+                      >
+                        From
+                      </a>
+                    </div>
+                    <div className="mb-5">
+                      <a
+                        href={`https://ropsten.etherscan.io/address/${addressFrom}`}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <p className="inline-block text-base font-semibold leading-5 text-slate-300">
+                          {shortenAddress(addressFrom)}
+                        </p>
+                      </a>
+                    </div>
+                    <p className=" flex flex-1 gap-1 text-teal-500 font-medium">
+                      {amount}
+                      <svg
+                        width="28"
+                        height="25"
+                        viewBox="0 3 68 104"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g id="Group 1">
+                          <g id="Group">
+                            <g id="Ethereum">
+                              <g id="Bottom">
+                                <g id="Purple2">
+                                  <path
+                                    id="Vector"
+                                    fillRule="evenodd"
+                                    clipRule="evenodd"
+                                    d="M67.616 58.629L33.9263 103.31V78.2247L67.616 58.629Z"
+                                    fill="#7B3EC8"
+                                    stroke="#3441C0"
+                                    strokeWidth="0.01116"
+                                    strokeMiterlimit="7"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                  />
+                                </g>
+                                <g id="Yellow2">
+                                  <path
+                                    id="Vector_2"
+                                    fillRule="evenodd"
+                                    clipRule="evenodd"
+                                    d="M0.239307 58.629L33.929 103.31V78.2247L0.239307 58.629Z"
+                                    fill="#7680E3"
+                                    stroke="#3441C0"
+                                    strokeWidth="0.01116"
+                                    strokeMiterlimit="7"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                  />
+                                </g>
+                              </g>
+                              <g id="Top">
+                                <g id="Blue1">
+                                  <path
+                                    id="Vector_3"
+                                    fillRule="evenodd"
+                                    clipRule="evenodd"
+                                    d="M0.231445 53.451L33.9275 38.4687V72.6233L0.231445 53.451Z"
+                                    fill="#7B3EC8"
+                                    stroke="#3441C0"
+                                    strokeWidth="0.0111628"
+                                    strokeMiterlimit="7"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                  />
+                                </g>
+                                <g id="Purple1">
+                                  <path
+                                    id="Vector_4"
+                                    fillRule="evenodd"
+                                    clipRule="evenodd"
+                                    d="M67.6216 53.451L33.9256 38.4687V72.6233L67.6216 53.451Z"
+                                    fill="#354B70"
+                                    stroke="#3441C0"
+                                    strokeWidth="0.0111628"
+                                    strokeMiterlimit="7"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                  />
+                                </g>
+                                <g id="Yellow1">
+                                  <path
+                                    id="Vector_5"
+                                    fillRule="evenodd"
+                                    clipRule="evenodd"
+                                    d="M0.239332 53.45L33.929 0.579742V38.4678L0.239332 53.45Z"
+                                    fill="#7680E3"
+                                    stroke="#3441C0"
+                                    strokeWidth="0.01116"
+                                    strokeMiterlimit="7"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                  />
+                                </g>
+                                <g id="Green1">
+                                  <path
+                                    id="Vector_6"
+                                    fillRule="evenodd"
+                                    clipRule="evenodd"
+                                    d="M67.616 53.45L33.9263 0.579742V38.4678L67.616 53.45Z"
+                                    fill="#A894D0"
+                                    stroke="#3441C0"
+                                    strokeWidth="0.01116"
+                                    strokeMiterlimit="7"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                  />
+                                </g>
+                              </g>
+                            </g>
+                          </g>
+                        </g>
+                      </svg>
+                    </p>
+                    {message && (
+                      <>
+                        <p className="mt-2 mb-2 text-justify text-slate-300 font-medium">
+                          {bigMessage
+                            ? smallMessage + " ...Read More"
+                            : message}
+                        </p>
+                      </>
+                    )}
+                    <div className="flex items-center">
+                      <div className="mb-2">
+                        <a
+                          href={`https://ropsten.etherscan.io/address/${addressFrom}`}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-xs tracking-wide uppercase text-slate-300"
+                        >
+                          <p
+                            className={
+                              message
+                                ? `pt-2 text-xs tracking-wide uppercase text-slate-300`
+                                : `pt-11 text-xs tracking-wide uppercase text-slate-300`
+                            }
+                          >
+                            To
+                          </p>
+                        </a>
+                        <a
+                          href={`https://ropsten.etherscan.io/address/${addressTo}`}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-base font-semibold leading-[45px] text-slate-300"
+                        >
+                          {shortenAddress(addressTo)}
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <img
-          src={gifUrl || url}
-          alt="nature"
-          className="w-full h-64 2xl:h-96 rounded-md shadow-lg object-cover"
-        />
-        <div className="bg-black p-3 px-5 w-max rounded-3xl -mt-5 shadow-2xl">
-          <p className="text-[#37c7da] font-bold">{timestamp}</p>
-        </div>
-      </div>
-    </div>
+      }
+    </>
   );
 };
 
 const Transactions = () => {
-  const { transactions, currentAccount } = useContext(ContractsContext);
+  const { transactions, currentAccount, getAllTransactions } =
+    useContext(ContractsContext);
+  useEffect(() => {
+    getAllTransactions();
+  }, []);
+
+  if (transactions.length > 6) {
+    transactions.shift();
+  }
+
   const { ref, inView } = useInView({ threshold: 0.1 });
   const animation = useAnimation();
-
   useEffect(() => {
     if (inView) {
       animation.start({
@@ -79,8 +256,8 @@ const Transactions = () => {
         scale: 1,
         transition: {
           type: "spring",
-          duration: 2,
-          bounce: 0.3,
+          duration: 1.5,
+          bounce: 0.1,
         },
       });
     }
@@ -91,7 +268,6 @@ const Transactions = () => {
         scale: 0,
       });
     }
-    console.log(inView);
   }, [inView]);
 
   return (
@@ -111,7 +287,7 @@ const Transactions = () => {
           className="flex flex-wrap justify-center items-center mt-10"
           animate={animation}
         >
-          {[...dummyData, ...transactions].map((transaction, i) => (
+          {transactions.map((transaction, i) => (
             <TransactionsCard key={i} {...transaction} />
           ))}
         </motion.div>

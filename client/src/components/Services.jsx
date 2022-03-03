@@ -349,7 +349,7 @@ function Services() {
                     />
                   </svg>
                 </span>
-                liquidity
+                Liquidity
               </li>
             </ul>
             <Link
