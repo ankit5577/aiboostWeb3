@@ -32,7 +32,7 @@ function Lottery() {
 
   useEffect(() => {
     if (
-      currentAccount === lotteryManager.toLocaleLowerCase() &&
+      currentAccount == lotteryManager.toLocaleLowerCase() &&
       (currentAccount || lotteryManager.toLocaleLowerCase() !== null)
     ) {
       setIsManager(true);

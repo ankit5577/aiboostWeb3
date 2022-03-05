@@ -55,9 +55,7 @@ const Welcome = () => {
                 the <span className="inline-block text-indigo-400">world.</span>
               </h2>
               <p className="text-base text-slate-500 md:text-lg">
-                Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-                quae. explicabo.
+                This is a personal web3 project.
               </p>
             </div>
             <form>
