@@ -128,7 +128,7 @@ const Footer = () => {
           <div className="flex items-center mt-1 py-2 space-x-5 justify-center">
             <a
               target="_blank"
-              href="https://twitter.com/ankit_ak1"
+              href="https://twitter.com/ankit5577_dev"
               className="transition ease-in-out delay-120 text-slate-100 hover:-translate-y-1 hover:scale-125 hover:text-teal-400 duration-300"
             >
               <svg viewBox="0 0 24 24" fill="currentColor" className="h-5">
