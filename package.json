@@ -1,0 +1,29 @@
+{
+  "name": "aiboost-web3",
+  "version": "1.0.0",
+  "description": "web3 version of https://www.aiboost.in/ this is a web3 personal project built by Ankit5577. https://github.com/ankit5577",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ankit5577/aiboostWeb3.git"
+  },
+  "keywords": [
+    "aiboost",
+    "aiboost",
+    "web3"
+  ],
+  "author": "ankit5577",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ankit5577/aiboostWeb3/issues"
+  },
+  "homepage": "https://github.com/ankit5577/aiboostWeb3#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.3"
+  }
+}
