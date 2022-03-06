@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Notification } from "../components";
+import { AiFillWarning, AiOutlineWarning } from "react-icons/ai";
 import { ContractsContext } from "../context/ContractsContext";
 import { motion } from "framer-motion";
 
@@ -144,14 +145,28 @@ function Lottery() {
           initial="hidden"
           animate="visible"
         >
-          <div className="flex flex-row gap-2 justify-evenly">
+          <div className="flex justify-evenly">
             {!manager ? (
-              <button
-                type="button"
-                className="px-6 py-2 bg-yellow-400 rounded-lg text-slate-800 hover:shadow-lg hover:shadow-yellow-600"
-              >
-                Enter
-              </button>
+              <div className="tracking-wider text-slate-200 justify-evenly">
+                <h6 className="text-xs text-red-500 antialiased tracking-widest uppercase font-semibold">
+                  {" "}
+                  <AiFillWarning className="inline" /> Only Use Ropsten Test
+                  Network
+                </h6>
+                <h1 className="pt-4 text-sm text-slate-400 text-justify">
+                  {" "}
+                  The lottery Manager can start the lottery and it will end
+                  after the remaining time has passed.
+                </h1>
+                <div className="pt-5 flex justify-center">
+                  <button
+                    type="button"
+                    className="px-7 py-2 bg-yellow-400 rounded-lg text-slate-800 hover:shadow-lg hover:shadow-yellow-600"
+                  >
+                    Enter
+                  </button>
+                </div>
+              </div>
             ) : (
               <>
                 <button
@@ -160,12 +175,12 @@ function Lottery() {
                 >
                   Start
                 </button>
-                <button
+                {/* <button
                   type="button"
                   className="px-3 py-2 bg-yellow-400 rounded-lg text-slate-800 hover:shadow-lg hover:shadow-yellow-600"
                 >
                   Enter
-                </button>
+                </button> */}
                 <button
                   type="button"
                   className="px-3 py-2 bg-red-400 rounded-lg text-slate-800 hover:shadow-lg hover:shadow-red-600"
@@ -204,3 +219,5 @@ function Lottery() {
 }
 
 export default Lottery;
+
+// https://github.com/bluebill1049/react-flip-numbers
