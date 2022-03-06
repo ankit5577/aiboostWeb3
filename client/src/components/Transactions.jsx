@@ -243,7 +243,7 @@ const Transactions = () => {
     getAllTransactions();
   }, []);
 
-  if (transactions.length > 6) {
+  if (transactions.length > 5) {
     transactions.shift();
   }
 

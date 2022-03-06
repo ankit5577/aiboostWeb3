@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import { Notification } from "../components";
 import { AiFillWarning, AiOutlineWarning } from "react-icons/ai";
 import { ContractsContext } from "../context/ContractsContext";
@@ -17,6 +17,8 @@ function Lottery() {
     lotteryPrice,
     currentAccount,
   } = useContext(ContractsContext);
+
+  const timeRef = useRef();
 
   const [state, setState] = useState({
     lotteryTimeRemaining: 0,
@@ -145,7 +147,7 @@ function Lottery() {
           initial="hidden"
           animate="visible"
         >
-          <div className="flex justify-evenly">
+          <div className="container mx-auto">
             {!manager ? (
               <div className="tracking-wider text-slate-200 justify-evenly">
                 <h6 className="text-xs text-red-500 antialiased tracking-widest uppercase font-semibold">
@@ -169,24 +171,33 @@ function Lottery() {
               </div>
             ) : (
               <>
-                <button
-                  type="button"
-                  className="px-7 py-2 bg-green-400 rounded-lg text-slate-800 hover:shadow-lg hover:shadow-green-600"
-                >
-                  Start
-                </button>
-                {/* <button
-                  type="button"
-                  className="px-3 py-2 bg-yellow-400 rounded-lg text-slate-800 hover:shadow-lg hover:shadow-yellow-600"
-                >
-                  Enter
-                </button> */}
-                <button
-                  type="button"
-                  className="px-7 py-2 bg-red-400 rounded-lg text-slate-800 hover:shadow-lg hover:shadow-red-600"
-                >
-                  End
-                </button>
+                <form action="">
+                  <input
+                    ref={timeRef}
+                    placeholder="Enter time in minutes"
+                    name="time"
+                    type="number"
+                    min="1"
+                    pattern="[0-9]"
+                    step="0.0001"
+                    className="my-2 w-full rounded-sm p-2 outline-none bg-transparent text-white border-none text-sm white-glassmorphism"
+                  />
+                  <div className="flex justify-center gap-3">
+                    <button
+                      type="button"
+                      className="px-7 py-2 bg-green-400 rounded-lg text-slate-800 hover:shadow-lg hover:shadow-green-600"
+                    >
+                      Start
+                    </button>
+
+                    <button
+                      type="button"
+                      className="px-7 py-2 bg-red-400 rounded-lg text-slate-800 hover:shadow-lg hover:shadow-red-600"
+                    >
+                      End Now
+                    </button>
+                  </div>
+                </form>
               </>
             )}
           </div>
@@ -221,3 +232,12 @@ function Lottery() {
 export default Lottery;
 
 // https://github.com/bluebill1049/react-flip-numbers
+
+{
+  /* <button
+                  type="button"
+                  className="px-3 py-2 bg-yellow-400 rounded-lg text-slate-800 hover:shadow-lg hover:shadow-yellow-600"
+                  >
+                  Enter
+                </button> */
+}

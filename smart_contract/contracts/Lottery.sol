@@ -23,7 +23,7 @@ contract Lottery {
 
     // modifiers
     modifier isManager {
-        require(msg.sender == manager, "you are not the manager");
+        require(msg.sender == manager, "You are not the manager");
         _;
     }
 
@@ -37,21 +37,20 @@ contract Lottery {
     }
 
     // start the lottery
-    function start(uint _timeInMinutes) public isManager {
-        require(status == LotteryStatus.START, "lottery has already been started or ended.");
+    function start() public isManager {
+        require(status == LotteryStatus.START, "Lottery has already been started or ended.");
 
         status = LotteryStatus.STARTED;
 
         // time for lottery
-        _end = block.timestamp + (_timeInMinutes * 60);
+        // _end = block.timestamp;
     }
 
     // enter the lottery
     function enter() public payable {
-        require(_end >= uint(block.timestamp), "time is up.");
-        require(!isParticipate(msg.sender), "you are already a participant");
-        require(msg.value >= entryFee, "entry fee is less then 0.1 ether");
-        require(status == LotteryStatus.STARTED, "lottery has not started or its ended.");
+        require(!isParticipate(msg.sender), "You are already a participant");
+        require(msg.value >= entryFee, "Entry fee is less then 0.1 ether");
+        require(status == LotteryStatus.STARTED, "Lottery has not started or its ended.");
 
         players.push(msg.sender);
     }
@@ -71,7 +70,6 @@ contract Lottery {
     }
 
     function end() public isManager {
-        require(block.timestamp >= _end, "you can not end lottery before time.");
         status = LotteryStatus.ENDED;
 
         require(players.length > 0, "0 participants");
@@ -90,11 +88,8 @@ contract Lottery {
         emit WinnerDeclared(winner, priceMoney);
     }
 
-    function getRemainingTime() public view returns(uint) {
-        require(_end > block.timestamp, "time is already up");
-        require(!(status == LotteryStatus.ENDED), "lottery is not started or its ended.");
-        
-        return _end - block.timestamp;
+    function getWinner() public view returns (address) {
+        return winner;
     }
 
     // get winning price

@@ -16,5 +16,5 @@ export const tokenSaleContractAddress =
 export const tokenSaleContractABI = tokenSaleABI;
 
 export const lotteryContractAddress =
-  "0xd97C1AcD163037798e5256d88254D8A5432e3741";
+  "0x5995f0a0717037e6a8a2d7619a7b2c1a462cb82a";
 export const lotteryContractABI = lotteryABI;
