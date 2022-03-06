@@ -171,7 +171,7 @@ function Lottery() {
               <>
                 <button
                   type="button"
-                  className="px-3 py-2 bg-green-400 rounded-lg text-slate-800 hover:shadow-lg hover:shadow-green-600"
+                  className="px-7 py-2 bg-green-400 rounded-lg text-slate-800 hover:shadow-lg hover:shadow-green-600"
                 >
                   Start
                 </button>
@@ -183,7 +183,7 @@ function Lottery() {
                 </button> */}
                 <button
                   type="button"
-                  className="px-3 py-2 bg-red-400 rounded-lg text-slate-800 hover:shadow-lg hover:shadow-red-600"
+                  className="px-7 py-2 bg-red-400 rounded-lg text-slate-800 hover:shadow-lg hover:shadow-red-600"
                 >
                   End
                 </button>
