@@ -15,7 +15,7 @@ function Lottery() {
     lotteryPrice,
     isLotteryInit,
     startLottery,
-    lotteryStarted,
+    lotteryStatus,
     enterLottery,
     endLottery,
     isEther,
@@ -32,6 +32,7 @@ function Lottery() {
   });
 
   const [manager, setIsManager] = useState(false);
+  const [participate, setIsParticipate] = useState(false);
 
   useEffect(() => {
     if (
@@ -42,7 +43,20 @@ function Lottery() {
     }
   });
 
-  console.log("💀", lotteryStarted);
+  console.log("💀", isLotteryInit, lotteryStatus);
+
+  let lotteryWinner = "";
+
+  if (winner !== "0x0000000000000000000000000000000000000000") {
+    lotteryWinner = winner;
+  }
+
+  if (typeof lotteryStatus == Object) {
+    alert(
+      `Participation Successful ${lotteryStatus.hash} \n from: ${user.currentAccount}`
+    );
+    setIsParticipate(true);
+  }
 
   useEffect(() => {
     async function load() {
@@ -87,9 +101,14 @@ function Lottery() {
       >
         <h1 className="antialiased font-medium text-2xl tracking-wide">
           Lottery Game{" "}
-          {lotteryStarted && (
-            <span className="text-xs p-2 bg-slate-200 rounded-full text-teal-700 antialiased font-bold">
+          {lotteryStatus == "1" && (
+            <span className="text-xs p-2 bg-slate-300 shadow-lg shadow-slate-600 rounded-full text-teal-600 antialiased font-bold">
               Started
+            </span>
+          )}
+          {lotteryStatus == "2" && (
+            <span className="text-xs p-2 bg-slate-300 shadow-lg shadow-slate-600 rounded-full text-rose-600 antialiased font-bold">
+              Ended
             </span>
           )}
         </h1>
@@ -117,7 +136,7 @@ function Lottery() {
             Entry Fee:{" "}
             <span className=" text-teal-400 text-lg">
               {+lotteryEntryFee / 10 ** 18}
-            </span>
+            </span>{" "}
             ETH
           </h3>
           <h3 className="text-sm">
@@ -150,7 +169,7 @@ function Lottery() {
                 <>
                   <form action="">
                     <div className="flex justify-center gap-3">
-                      {!lotteryStarted ? (
+                      {lotteryStatus != "1" ? (
                         <button
                           type="button"
                           className="px-7 py-2 bg-green-400 rounded-lg text-slate-800 hover:shadow-lg hover:shadow-green-600"
@@ -176,7 +195,7 @@ function Lottery() {
                 </>
               ) : (
                 <>
-                  {lotteryStarted ? (
+                  {lotteryStatus == "1" && !participate ? (
                     <div className="tracking-wider text-slate-200 justify-evenly">
                       <h6 className="text-xs text-red-500 antialiased tracking-widest uppercase font-semibold">
                         {" "}
@@ -225,50 +244,58 @@ function Lottery() {
           )}
         </motion.div>
       )}
-      {currentAccount && lotteryStarted && (
+      {currentAccount && (
         <>
-          <motion.div
-            className="container mx-auto border border-slate-700 text-slate-400 light-gradient p-4 my-4 rounded-lg max-w-lg"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 2.1 }}
-          >
-            <h1 className="antialiased font-medium text-2xl tracking-wide">
-              Players
-            </h1>
-            {lotteryPlayers.map((player, i) => (
-              <p key={i} className="pt-3 text-teal-400">
+          {lotteryPlayers.length > 1 ? (
+            <motion.div
+              className="container mx-auto border border-slate-700 text-slate-400 light-gradient p-4 my-4 rounded-lg max-w-lg"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 2.1 }}
+            >
+              <h1 className="antialiased font-medium text-2xl tracking-wide">
+                Players
+              </h1>
+              {lotteryPlayers.map((player, i) => (
+                <p key={i} className="pt-3 text-teal-400">
+                  <a
+                    href={`https://ropsten.etherscan.io/address/${player}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="tracking-wide uppercase text-teal-400 hover:cursor-pointer"
+                  >
+                    {shortenAddress(player)}
+                  </a>
+                </p>
+              ))}
+            </motion.div>
+          ) : (
+            ""
+          )}
+          {lotteryStatus == "2" ? (
+            <motion.div
+              className="container mx-auto border border-slate-700 text-slate-400 light-gradient p-4 my-4 rounded-lg max-w-lg"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 2.1 }}
+            >
+              <h1 className="antialiased font-medium text-2xl tracking-wide">
+                Winner
+              </h1>
+              <p className="pt-3 text-teal-400 hover:cursor-pointer">
                 <a
-                  href={`https://ropsten.etherscan.io/address/${player}`}
+                  href={`https://ropsten.etherscan.io/address/${lotteryWinner}`}
                   target="_blank"
                   rel="noreferrer"
                   className="tracking-wide uppercase text-teal-400 hover:cursor-pointer"
                 >
-                  {shortenAddress(player)}
+                  {lotteryWinner}
                 </a>
               </p>
-            ))}
-          </motion.div>
-          <motion.div
-            className="container mx-auto border border-slate-700 text-slate-400 light-gradient p-4 my-4 rounded-lg max-w-lg"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 2.1 }}
-          >
-            <h1 className="antialiased font-medium text-2xl tracking-wide">
-              Winner
-            </h1>
-            <p className="pt-3 text-teal-400 hover:cursor-pointer">
-              <a
-                href={`https://ropsten.etherscan.io/address/${winner}`}
-                target="_blank"
-                rel="noreferrer"
-                className="tracking-wide uppercase text-teal-400 hover:cursor-pointer"
-              >
-                {winner}
-              </a>
-            </p>
-          </motion.div>
+            </motion.div>
+          ) : (
+            " "
+          )}
         </>
       )}
       <Notification
@@ -283,14 +310,3 @@ function Lottery() {
 }
 
 export default Lottery;
-
-// https://github.com/bluebill1049/react-flip-numbers
-
-{
-  /* <button
-                  type="button"
-                  className="px-3 py-2 bg-yellow-400 rounded-lg text-slate-800 hover:shadow-lg hover:shadow-yellow-600"
-                  >
-                  Enter
-                </button> */
-}

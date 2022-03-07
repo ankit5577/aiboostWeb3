@@ -93,6 +93,10 @@ export const ContractsProvider = ({ children }) => {
         console.log("LOTTERY_WINNER updated");
         return { ...state, lotteryWinner: action.value };
 
+      case contractEnum.LOTTERY_STATUS:
+        console.log("LOTTERY_STATUS updated");
+        return { ...state, lotteryStatus: action.value };
+
       case contractEnum.LOTTERY_PRICE:
         console.log("LOTTERY_PRICE updated");
         return { ...state, lotteryPrice: action.value };
@@ -122,7 +126,6 @@ export const ContractsProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isEther, setIsEther] = useState(false);
   const [isLotteryInit, setIsLotteryInit] = useState(false);
-  const [lotteryStarted, setIsLotteryStarted] = useState(false);
 
   const web3Reducer = (state, action) => {
     switch (action.type) {
@@ -298,6 +301,7 @@ export const ContractsProvider = ({ children }) => {
         const getPlayers = await contracts.lotteryContract.getPlayers();
         const price = await contracts.lotteryContract.winningPrice();
         const lotteryWinner = await contracts.lotteryContract.getWinner();
+        const lotteryStatus = await contracts.lotteryContract.status();
 
         const ethPrice = ethers.utils.formatEther(price);
 
@@ -323,6 +327,11 @@ export const ContractsProvider = ({ children }) => {
           value: lotteryWinner,
         });
 
+        dispatchContracts({
+          type: contractEnum.LOTTERY_STATUS,
+          value: lotteryStatus,
+        });
+
         setIsLotteryInit(true);
       } else {
         console.log("contract is not initialized @lottery");
@@ -337,7 +346,6 @@ export const ContractsProvider = ({ children }) => {
       if (ethereum && contracts.lotteryContract) {
         const start = await contracts.lotteryContract.start();
         dispatchContracts({ type: contractEnum.LOTTERY_START, value: start });
-        setIsLotteryStarted(true);
       } else {
         console.log("The lottery has not started yet");
       }
@@ -369,7 +377,6 @@ export const ContractsProvider = ({ children }) => {
       if (ethereum && contracts.lotteryContract) {
         const end = await contracts.lotteryContract.end();
         dispatchContracts({ type: contractEnum.LOTTERY_END, value: end });
-        setIsLotteryStarted(false);
       } else {
         console.log("Lottery is not initiated or no ether found");
       }
@@ -607,6 +614,7 @@ export const ContractsProvider = ({ children }) => {
         currentAccount: user.currentAccount,
         balance: user.balance,
         lotteryManager: contracts.lotteryManager,
+        lotteryStatus: contracts.lotteryStatus,
         lotteryEntryFee: contracts.lotteryEntryFee,
         lotteryPlayers: contracts.lotteryPlayers,
         winner: contracts.lotteryWinner,
@@ -616,7 +624,6 @@ export const ContractsProvider = ({ children }) => {
         enterLottery,
         endLottery,
         isLotteryInit,
-        lotteryStarted,
         connectWallet,
         sendTransaction,
         isEther,
