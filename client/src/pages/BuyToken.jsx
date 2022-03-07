@@ -13,9 +13,10 @@ function BuyToken() {
     login,
     currentAccount,
   } = useContext(ContractsContext);
+  
   const inputRef = useRef();
 
-  console.log("IsLoading: ", isLoading, currentAccount);
+  // console.log("IsLoading: ", isLoading, currentAccount);
 
   const card = {
     hidden: {
@@ -34,7 +35,6 @@ function BuyToken() {
   };
 
   useEffect(() => {
-    console.log("hello");
     initToken();
   }, []);
 

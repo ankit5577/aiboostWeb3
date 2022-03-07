@@ -153,8 +153,15 @@ const Navbar = () => {
                 </button>
               )}
               {currentAccount && (
-                <p className="font-sans text-slate-200">
-                  {shortenAddress(currentAccount)}
+                <p className="font-semibold smoothLinear">
+                  <a
+                    href={`https://ropsten.etherscan.io/address/${currentAccount}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="tracking-wide uppercase text-teal-400 hover:cursor-pointer"
+                  >
+                    {shortenAddress(currentAccount)}
+                  </a>
                 </p>
               )}
             </li>

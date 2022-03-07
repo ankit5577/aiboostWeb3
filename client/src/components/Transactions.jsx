@@ -239,12 +239,15 @@ const TransactionsCard = ({
 const Transactions = () => {
   const { transactions, currentAccount, getAllTransactions } =
     useContext(ContractsContext);
+
   useEffect(() => {
     getAllTransactions();
   }, []);
 
-  if (transactions.length > 5) {
-    transactions.shift();
+  if (transactions.length > 6) {
+    for (let i = 0; i < transactions.length - 6; i++) {
+      transactions.shift();
+    }
   }
 
   const { ref, inView } = useInView({ threshold: 0.1 });
