@@ -43,20 +43,25 @@ function Lottery() {
     }
   });
 
-  console.log("💀", isLotteryInit, lotteryStatus);
-
+  
   let lotteryWinner = "";
-
+  
   if (winner !== "0x0000000000000000000000000000000000000000") {
     lotteryWinner = winner;
   }
-
-  if (typeof lotteryStatus == Object) {
+  
+  if (
+    typeof lotteryStatus === "object" &&
+    !Array.isArray(lotteryStatus) &&
+    lotteryStatus !== null
+  ) {
     alert(
-      `Participation Successful ${lotteryStatus.hash} \n from: ${user.currentAccount}`
-    );
-    setIsParticipate(true);
+      `Participation Successful! Transaction Hash: ${lotteryStatus.hash} \n From: ${currentAccount}`
+      );
+    // setIsParticipate(true);
   }
+  
+  console.log("💀", isLotteryInit, lotteryStatus, participate);
 
   useEffect(() => {
     async function load() {

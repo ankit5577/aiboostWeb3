@@ -87,8 +87,8 @@ const Navbar = () => {
               </defs>
             </motion.svg>
 
-            <span className="ml-2 text-xl font-bold tracking-wide text-white uppercase">
-              Nextapp
+            <span className="ml-2 text-xl font-bold tracking-wide text-white">
+              AiBoost <span className="text-xl font-bold tracking-wide text-white text-logo-gradient">Web3</span>
             </span>
           </Link>
 
