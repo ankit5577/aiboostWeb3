@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const Welcome = () => {
   const welcomeVarients = {
@@ -46,7 +47,7 @@ const Welcome = () => {
             <div className="max-w-xl mb-6">
               <div>
                 <p className="inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider text-teal-400 uppercase rounded-full bg-teal-accent-400">
-                  Brand new
+                  Fully secured
                 </p>
               </div>
               <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold tracking-tight text-slate-300 sm:text-4xl sm:leading-none">
@@ -54,41 +55,62 @@ const Welcome = () => {
                 <br className="hidden md:block" />
                 the <span className="inline-block text-indigo-400">world.</span>
               </h2>
-              <p className="text-base text-slate-500 md:text-lg">
-                This is a personal web3 project.
+              <p className="text-base text-slate-400 md:text-lg">
+                Transfer funds, buy tokens and play a game all at one place.
               </p>
             </div>
-            <form>
-              <div className="flex flex-col md:flex-row">
-                <input
-                  placeholder="Name"
-                  required=""
-                  type="name"
-                  className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none md:mr-2 focus:border-indigo-400 focus:outline-none focus:shadow-outline"
-                />
-                <input
-                  placeholder="Email"
-                  required=""
-                  type="email"
-                  className="flex-grow w-full h-12 px-4 mb-3 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none md:mb-0 focus:border-indigo-400 focus:outline-none focus:shadow-outline"
-                />
-              </div>
-              <div className="flex items-center mt-4">
-                <button
-                  type="submit"
-                  className="inline-flex items-center justify-center h-12 px-6 mr-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-indigo-400 hover:bg-indigo-700 focus:shadow-outline focus:outline-none"
+            <div className="flex flex-row">
+              <button
+                type="submit"
+                className="inline-flex items-center justify-center h-12 px-6 mr-6 font-medium tracking-wide text-white rounded rounded-tl-3xl shadow-inner shadow-cyan-800  hover:shadow-cyan-600  focus:shadow-outline focus:outline-none"
+              >
+                <Link
+                  to={"/buy-token"}
+                  aria-label="Buy AiBoost Token"
+                  title="Buy Token"
                 >
-                  Subscribe
-                </button>
-                <a
-                  href="/"
-                  aria-label=""
-                  className="inline-flex items-center font-semibold transition-colors duration-200 text-indigo-400 hover:text-deep-purple-800"
+                  Buy Tokens
+                </Link>
+              </button>
+              <button
+                type="submit"
+                className="inline-flex items-center justify-center h-12 px-6 mr-6 font-medium tracking-wide text-white rounded shadow-inner shadow-cyan-800 hover:shadow-cyan-600 focus:shadow-outline focus:outline-none"
+              >
+                <Link
+                  to={"/farm"}
+                  aria-label="Farm Crypto"
+                  title="Stake Crypto"
                 >
-                  Learn more
-                </a>
-              </div>
-            </form>
+                  Farm
+                </Link>
+              </button>
+            </div>
+            <div className="flex items-center mt-4">
+              <button
+                type="submit"
+                className="inline-flex items-center justify-center h-12 px-6 mr-6 font-medium tracking-wide text-white rounded shadow-inner  shadow-cyan-800  hover:shadow-cyan-600 focus:shadow-outline focus:outline-none"
+              >
+                <Link
+                  to={"/lottery"}
+                  aria-label="Play Lottery Game"
+                  title="Etherium Lottery"
+                >
+                  Lottery
+                </Link>
+              </button>
+              <button
+                type="submit"
+                className="inline-flex items-center justify-center h-12 px-6 mr-6 font-medium tracking-wide text-white rounded rounded-br-3xl shadow-inner shadow-cyan-800  hover:shadow-cyan-600 focus:shadow-outline focus:outline-none"
+              >
+                <Link
+                  to={"/send-ether"}
+                  aria-label="Send ETH anywhere"
+                  title="Send Etherium"
+                >
+                  Send ETH
+                </Link>
+              </button>
+            </div>
           </div>
         </motion.div>
       </div>

@@ -95,7 +95,7 @@ body {
       rgb(87, 44, 206) 0,
       transparent 53%
     ),
-    radial-gradient(at 100% 60%, rgb(49, 46, 230) 0, transparent 50%);
+    radial-gradient(at 100% 60%, rgb(49, 46, 206) 0, transparent 50%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
