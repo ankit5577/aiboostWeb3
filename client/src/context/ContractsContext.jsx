@@ -1,6 +1,5 @@
 import React, { useEffect, useReducer, useState } from "react";
 import { ethers } from "ethers";
-
 import {
   transactionContractAddress,
   transactionContractABI,
@@ -14,13 +13,12 @@ import {
 
 const contractEnum = {
   TRANSACTION_CONTRACT_INIT: "TRANSACTION_CONTRACT_INIT",
-  TOKEN_CONTRACT_INIT: "TOKEN_CONTRACT_INIT",
-  LOTTERY_CONTRACT_INIT: "LOTTERY_CONTRACT_INIT",
-  SALE_CONTRACT_INIT: "SALE_CONTRACT_INIT",
   TRANSACTIONS: "TRANSACTIONS",
   TRANSACTION_COUNT: "TRANSACTION_COUNT",
+  TOKEN_CONTRACT_INIT: "TOKEN_CONTRACT_INIT",
   TOKEN_PRICE: "TOKEN_PRICE",
-  LOTTERY_TIME_REMAINING: "LOTTERY_TIME_REMAINING",
+  SALE_CONTRACT_INIT: "SALE_CONTRACT_INIT",
+  LOTTERY_CONTRACT_INIT: "LOTTERY_CONTRACT_INIT",
   LOTTERY_MANAGER: "LOTTERY_MANAGER",
   LOTTERY_ENTRY_FEE: "LOTTERY_ENTRY_FEE",
   LOTTERY_PLAYERS: "LOTTERY_PLAYERS",
@@ -47,58 +45,87 @@ export const ContractsContext = React.createContext();
 
 export const ContractsProvider = ({ children }) => {
   const { ethereum } = window;
-  // const [provider, setProvider] = useState(null);
+
   const contractReducer = (state, action) => {
-    console.log(action.type);
+    // console.log(action.type);
     switch (action.type) {
       case contractEnum.TRANSACTION_CONTRACT_INIT:
         console.log("transaction contract made");
         return { ...state, transactionContract: action.value };
-      case contractEnum.TOKEN_CONTRACT_INIT:
-        console.log("aiboost token contract made");
-        return { ...state, aiboostTokenContract: action.value };
-      case contractEnum.LOTTERY_CONTRACT_INIT:
-        console.log("lottery contract made");
-        return { ...state, lotteryContract: action.value };
-      case contractEnum.SALE_CONTRACT_INIT:
-        console.log("sale contract made");
-        return { ...state, aiboostTokenSaleContract: action.value };
+
       case contractEnum.TRANSACTIONS:
         console.log("transactions updated");
         return { ...state, transactions: action.value };
+
       case contractEnum.TRANSACTION_COUNT:
         console.log("transactions count updated");
         return { ...state, transactionCount: action.value };
+
+      case contractEnum.TOKEN_CONTRACT_INIT:
+        console.log("aiboost token contract made");
+        return { ...state, aiboostTokenContract: action.value };
+
       case contractEnum.TOKEN_PRICE:
         console.log("token price updated");
         return { ...state, tokenPrice: action.value };
-      case contractEnum.LOTTERY_TIME_REMAINING:
-        console.log("LOTTERY_TIME_REMAINING updated");
-        return { ...state, lotteryTimeRemaining: action.value };
+
+      case contractEnum.SALE_CONTRACT_INIT:
+        console.log("sale contract made");
+        return { ...state, aiboostTokenSaleContract: action.value };
+
+      case contractEnum.LOTTERY_CONTRACT_INIT:
+        console.log("lottery contract init");
+        return { ...state, lotteryContract: action.value };
+
       case contractEnum.LOTTERY_MANAGER:
         console.log("LOTTERY_MANAGER updated");
         return { ...state, lotteryManager: action.value };
+
       case contractEnum.LOTTERY_ENTRY_FEE:
         console.log("LOTTERY_ENTRY_FEE updated");
         return { ...state, lotteryEntryFee: action.value };
+
       case contractEnum.LOTTERY_PLAYERS:
         console.log("LOTTERY_PLAYERS updated");
         return { ...state, lotteryPlayers: action.value };
+
       case contractEnum.LOTTERY_WINNER:
         console.log("LOTTERY_WINNER updated");
         return { ...state, lotteryWinner: action.value };
+
+      case contractEnum.LOTTERY_STATUS:
+        console.log("LOTTERY_STATUS updated");
+        return { ...state, lotteryStatus: action.value };
+
       case contractEnum.LOTTERY_PRICE:
         console.log("LOTTERY_PRICE updated");
         return { ...state, lotteryPrice: action.value };
 
+      case contractEnum.LOTTERY_START:
+        console.log("LOTTERY game started");
+        return { ...state, lotteryStart: action.value };
+
+      case contractEnum.LOTTERY_ENTER:
+        console.log("You have entered the lottery");
+        return { ...state, lotteryEnter: action.value };
+
+      case contractEnum.LOTTERY_END:
+        console.log("LOTTERY has ended");
+        return { ...state, lotteryEnd: action.value };
+
       default:
         console.log(
-          "invalid value at Transaction Provider",
+          "Invalid value at Transaction Provider",
           action.type,
           action.value
         );
     }
   };
+
+  const [login, setLogin] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isEther, setIsEther] = useState(false);
+  const [isLotteryInit, setIsLotteryInit] = useState(false);
 
   const web3Reducer = (state, action) => {
     switch (action.type) {
@@ -107,29 +134,27 @@ export const ContractsProvider = ({ children }) => {
         return { ...state, provider: action.value };
       default:
         console.log(
-          "invalid value at web3Reducer Provider",
+          "Invalid value at web3Reducer Provider",
           action.type,
           action.value
         );
     }
   };
 
-  const [login, setLogin] = useState(false);
-
   const userReducer = (state, action) => {
     switch (action.type) {
       case userEnum.BALANCE:
-        console.log("balance updated");
+        console.log("Balance updated");
         return { ...state, balance: action.value };
       case userEnum.CURR_ACCOUNT:
-        console.log("curr account updated");
+        console.log("Curr account updated");
         if (!login) {
           setLogin(true);
         }
         return { ...state, currentAccount: action.value };
       default:
         console.log(
-          "invalid value at web3Reducer Provider",
+          "Invalid value at web3Reducer Provider",
           action.type,
           action.value
         );
@@ -160,13 +185,15 @@ export const ContractsProvider = ({ children }) => {
     transactionContract: null,
     aiboostTokenContract: null,
     aiboostTokenSaleContract: null,
-    lotteryContract: null,
     transactions: [],
     transactionCount: +localStorage.getItem("transactionCount"),
     tokenPrice: 0,
-    lotteryTimeRemaining: 0,
-    lotteryManager: "0x3817aAe57B749faC4D96F87A535d8Ba00f2146D6",
+    lotteryContract: null,
+    lotteryManager: "․․․․‥",
     lotteryEntryFee: 0,
+    lotteryStart: null,
+    lotteryEnter: null,
+    lotteryEnd: null,
     lotteryPlayers: [],
     lotteryWinner: null,
     lotteryPrice: 0,
@@ -192,9 +219,6 @@ export const ContractsProvider = ({ children }) => {
     amount: "",
     message: "",
   });
-
-  const [isLoading, setIsLoading] = useState(false);
-  const [isEther, setIsEther] = useState(false);
 
   const handleChange = (e, name) => {
     setformData((prevState) => ({ ...prevState, [name]: e.target.value }));
@@ -236,11 +260,6 @@ export const ContractsProvider = ({ children }) => {
     });
 
     dispatchContracts({
-      type: contractEnum.LOTTERY_CONTRACT_INIT,
-      value: lotteryContract,
-    });
-
-    dispatchContracts({
       type: contractEnum.TOKEN_CONTRACT_INIT,
       value: aiboostTokenContract,
     });
@@ -250,10 +269,16 @@ export const ContractsProvider = ({ children }) => {
       value: tokenSaleContract,
     });
 
+    dispatchContracts({
+      type: contractEnum.LOTTERY_CONTRACT_INIT,
+      value: lotteryContract,
+    });
+
     return {
       aiboostTokenContract,
       tokenSaleContract,
       transactionsContract,
+      lotteryContract,
     };
   };
 
@@ -270,12 +295,15 @@ export const ContractsProvider = ({ children }) => {
   const initLottery = async () => {
     try {
       if (ethereum && contracts.lotteryContract) {
-        //  const timeRemaining = await contracts.lotteryContract.getRemainingTime();
+        setIsLoading(true);
         const manager = await contracts.lotteryContract.manager();
         const entryFee = await contracts.lotteryContract.entryFee();
-        const players = await contracts.lotteryContract.getPlayers();
-        const winner = await contracts.lotteryContract.winner;
+        const getPlayers = await contracts.lotteryContract.getPlayers();
         const price = await contracts.lotteryContract.winningPrice();
+        const lotteryWinner = await contracts.lotteryContract.getWinner();
+        const lotteryStatus = await contracts.lotteryContract.status();
+
+        const ethPrice = ethers.utils.formatEther(price);
 
         dispatchContracts({
           type: contractEnum.LOTTERY_ENTRY_FEE,
@@ -287,13 +315,70 @@ export const ContractsProvider = ({ children }) => {
         });
         dispatchContracts({
           type: contractEnum.LOTTERY_PLAYERS,
-          value: players,
+          value: getPlayers,
         });
-        dispatchContracts({ type: contractEnum.LOTTERY_PRICE, value: price });
-        dispatchContracts({ type: contractEnum.LOTTERY_WINNER, value: winner });
-        //  dispatchContracts({ type: contractEnum.LOTTERY_TIME_REMAINING, value: timeRemaining });
+        dispatchContracts({
+          type: contractEnum.LOTTERY_PRICE,
+          value: ethPrice,
+        });
+
+        dispatchContracts({
+          type: contractEnum.LOTTERY_WINNER,
+          value: lotteryWinner,
+        });
+
+        dispatchContracts({
+          type: contractEnum.LOTTERY_STATUS,
+          value: lotteryStatus,
+        });
+
+        setIsLotteryInit(true);
       } else {
         console.log("contract is not initialized @lottery");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const startLottery = async () => {
+    try {
+      if (ethereum && contracts.lotteryContract) {
+        const start = await contracts.lotteryContract.start();
+        dispatchContracts({ type: contractEnum.LOTTERY_START, value: start });
+      } else {
+        console.log("The lottery has not started yet");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const enterLottery = async () => {
+    try {
+      if (ethereum && contracts.lotteryContract) {
+        setIsLoading(true);
+        const enter = await contracts.lotteryContract.enter({
+          from: user.currentAccount,
+          value: contracts.lotteryEntryFee,
+          gasLimit: 500000,
+        });
+        dispatchContracts({ type: contractEnum.LOTTERY_ENTER, value: enter });
+      } else {
+        console.log("You have not entered the lottery yet");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const endLottery = async () => {
+    try {
+      if (ethereum && contracts.lotteryContract) {
+        const end = await contracts.lotteryContract.end();
+        dispatchContracts({ type: contractEnum.LOTTERY_END, value: end });
+      } else {
+        console.log("Lottery is not initiated or no ether found");
       }
     } catch (error) {
       console.error(error);
@@ -308,7 +393,6 @@ export const ContractsProvider = ({ children }) => {
         contracts.aiboostTokenContract
       ) {
         setIsLoading(true);
-        console.log(contracts.aiboostTokenSaleContract);
         let tokenPrice = await contracts.aiboostTokenSaleContract.tokenPrice();
         let tokenSold = await contracts.aiboostTokenSaleContract.tokenSold();
         let userBalance = await contracts.aiboostTokenContract.balanceOf(
@@ -529,16 +613,21 @@ export const ContractsProvider = ({ children }) => {
         transactions: contracts.transactions,
         currentAccount: user.currentAccount,
         balance: user.balance,
-        lotteryTimeRemaining: contracts.lotteryTimeRemaining,
         lotteryManager: contracts.lotteryManager,
+        lotteryStatus: contracts.lotteryStatus,
         lotteryEntryFee: contracts.lotteryEntryFee,
         lotteryPlayers: contracts.lotteryPlayers,
-        lotteryWinner: contracts.lotteryWinner,
+        winner: contracts.lotteryWinner,
         lotteryPrice: contracts.lotteryPrice,
+        lotteryWinningPrice: contracts.ethPrice,
+        startLottery,
+        enterLottery,
+        endLottery,
+        isLotteryInit,
         connectWallet,
-        isLoading,
         sendTransaction,
         isEther,
+        isLoading,
         login,
         handleChange,
         formData,

@@ -87,8 +87,8 @@ const Navbar = () => {
               </defs>
             </motion.svg>
 
-            <span className="ml-2 text-xl font-bold tracking-wide text-white uppercase">
-              Nextapp
+            <span className="ml-2 text-xl font-bold tracking-wide text-white">
+              AiBoost <span className="text-xl font-bold tracking-wide text-white text-logo-gradient">Web3</span>
             </span>
           </Link>
 
@@ -153,8 +153,15 @@ const Navbar = () => {
                 </button>
               )}
               {currentAccount && (
-                <p className="font-sans text-slate-200">
-                  {shortenAddress(currentAccount)}
+                <p className="font-semibold smoothLinear">
+                  <a
+                    href={`https://ropsten.etherscan.io/address/${currentAccount}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="tracking-wide uppercase text-teal-400 hover:cursor-pointer"
+                  >
+                    {shortenAddress(currentAccount)}
+                  </a>
                 </p>
               )}
             </li>

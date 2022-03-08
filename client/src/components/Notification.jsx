@@ -28,7 +28,8 @@ const Notification = ({ props }) => {
     isHome = true;
   }
 
-  console.log("Notification✅", props);
+  // console.log("Notification✅", props);
+
   const close = () => {
     setView(false);
   };

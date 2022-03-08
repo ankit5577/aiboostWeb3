@@ -88,6 +88,18 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
+.text-logo-gradient {
+  background-color: #fff;
+  background-image: radial-gradient(
+      at 4% 36%,
+      rgb(87, 44, 206) 0,
+      transparent 53%
+    ),
+    radial-gradient(at 100% 60%, rgb(49, 46, 206) 0, transparent 50%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
