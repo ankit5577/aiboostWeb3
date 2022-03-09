@@ -5,7 +5,7 @@ import { Navbar, Footer, NotFound, Loader } from "./components";
 const SendEther = React.lazy(() => import("./pages/SendEther"));
 const Lottery = React.lazy(() => import("./pages/Lottery"));
 const Home = React.lazy(() => import("./pages/Home"));
-const Farm = React.lazy(() => import("./pages/Farm"));
+const Stake = React.lazy(() => import("./pages/Stake"));
 const BuyToken = React.lazy(() => import("./pages/BuyToken"));
 
 const App = () => (
@@ -37,10 +37,10 @@ const App = () => (
         }
       />
       <Route
-        path={"/farm"}
+        path={"/stake"}
         element={
           <Suspense fallback={<Loader full={true} />}>
-            <Farm />
+            <Stake />
           </Suspense>
         }
       />

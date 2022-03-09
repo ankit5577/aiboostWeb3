@@ -41,13 +41,13 @@ const MenuItem = ({ showMenu, active, currentAccount, connectWallet }) => {
       </li>
       <li>
         <Link
-          to={"/farm"}
+          to={"/stake"}
           onClick={showMenu}
           aria-label="Farm Crypto"
           title="Stake Crypto"
           className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-400"
         >
-          Farm
+          Stake
         </Link>
       </li>
       <li>

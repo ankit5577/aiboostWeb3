@@ -13,7 +13,7 @@ function BuyToken() {
     login,
     currentAccount,
   } = useContext(ContractsContext);
-  
+
   const inputRef = useRef();
 
   // console.log("IsLoading: ", isLoading, currentAccount);
@@ -47,14 +47,16 @@ function BuyToken() {
         animate="visible"
       >
         <h2 className="text-xl antialiased font-medium">AiBoost Token (AiB)</h2>
-        <h3 className="pt-5 text-slate-300 antialiased text-md">
-          Token Price is{" "}
-          <span className="text-teal-500 font-medium">{token.price}</span> & you
-          have{" "}
-          <span className="text-teal-500 font-medium">{token.balance}</span> AiB
+        <h3 className="pt-5 pb-2 text-slate-300 antialiased text-md">
+          Current Token Price (AiB) :{" "}
+          <span className="text-teal-500 font-medium">{token.price}</span>
         </h3>
-        <h3 className="text-slate-300 text-sm">
-          Token Sold:{" "}
+        <h3 className="pb-2 text-slate-300 antialiased text-md">
+          Tokens Owned : {" "}
+          <span className="text-teal-500 font-medium">{token.balance}</span>
+        </h3>
+        <h3 className="pb-2 text-slate-300 antialiased text-md">
+          Total Tokens Sold :{" "}
           <span className="text-teal-500 font-medium">
             {token.sold} / 1000000
           </span>

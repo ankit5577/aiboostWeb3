@@ -117,36 +117,42 @@ function Lottery() {
             </span>
           )}
         </h1>
-        <div className="pt-3">
-          <h3 className="text-sm">
-            Total Players:{" "}
+        <div className="pt-5">
+          <h3 className="pb-2 text-slate-300 antialiased text-md">
+            Total Players :{" "}
             <span className="text-teal-400 text-lg">
               {lotteryPlayers.length}
             </span>
           </h3>
-          <h3 className="text-sm">
-            Manager:{" "}
-            <span className="text-teal-400 text-xs">
+          {/* <h3 className="pb-2 text-slate-300 antialiased text-md">
+          Total Tokens Sold :{" "}
+          <span className="text-teal-500 font-medium">
+             / 1000000
+          </span>
+        </h3> */}
+          <h3 className="pb-2 text-slate-300 antialiased text-md">
+            Manager : {""}
+            <span className="text-teal-400">
               <a
                 href={`https://ropsten.etherscan.io/address/${lotteryManager}`}
                 target="_blank"
                 rel="noreferrer"
-                className="text-xs tracking-wide uppercase text-teal-400"
+                className="text-sm tracking-wide uppercase text-teal-400"
               >
                 {lotteryManager}
               </a>
             </span>
           </h3>
-          <h3 className="text-sm">
-            Entry Fee:{" "}
-            <span className=" text-teal-400 text-lg">
+          <h3 className="pb-2 text-slate-300 antialiased text-md">
+            Entry Fee :{" "}
+            <span className=" text-teal-400 text-md">
               {+lotteryEntryFee / 10 ** 18}
             </span>{" "}
             ETH
           </h3>
-          <h3 className="text-sm">
-            Winning Price:{" "}
-            <span className="text-teal-400 text-lg">{lotteryPrice}</span> ETH
+          <h3 className="pb-2 text-slate-300 antialiased text-md">
+            Winning Price :{" "}
+            <span className="text-teal-400 text-md">{lotteryPrice}</span> ETH
           </h3>
         </div>
       </motion.div>

@@ -107,12 +107,12 @@ const Navbar = () => {
             </li>
             <li>
               <Link
-                to={"/farm"}
+                to={"/stake"}
                 aria-label="Farm Crypto"
                 title="Stake Crypto"
                 className="font-bold tracking-wide smoothLinear"
               >
-                Farm
+                Stake
               </Link>
             </li>
             <li>

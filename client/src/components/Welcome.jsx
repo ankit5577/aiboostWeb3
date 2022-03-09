@@ -77,11 +77,11 @@ const Welcome = () => {
                 className="inline-flex items-center justify-center h-12 px-6 mr-6 font-medium tracking-wide text-white rounded shadow-inner shadow-cyan-800 hover:shadow-cyan-600 focus:shadow-outline focus:outline-none"
               >
                 <Link
-                  to={"/farm"}
+                  to={"/stake"}
                   aria-label="Farm Crypto"
                   title="Stake Crypto"
                 >
-                  Farm
+                  Stake
                 </Link>
               </button>
             </div>

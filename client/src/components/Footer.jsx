@@ -79,12 +79,12 @@ const Footer = () => {
           </div>
           <div className="flex">
             <Link
-              to={"/farm"}
-              aria-label="Farm"
-              title="Farm"
+              to={"/stake"}
+              aria-label="Farm Crypto"
+              title="Stake Crypto"
               className="font-bold tracking-wide smoothLinear"
             >
-              Farm
+              Stake
             </Link>
           </div>
 
