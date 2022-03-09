@@ -43,24 +43,12 @@ function Lottery() {
     }
   });
 
-  
   let lotteryWinner = "";
-  
+
   if (winner !== "0x0000000000000000000000000000000000000000") {
     lotteryWinner = winner;
   }
-  
-  if (
-    typeof lotteryStatus === "object" &&
-    !Array.isArray(lotteryStatus) &&
-    lotteryStatus !== null
-  ) {
-    alert(
-      `Participation Successful! Transaction Hash: ${lotteryStatus.hash} \n From: ${currentAccount}`
-      );
-    // setIsParticipate(true);
-  }
-  
+
   console.log("💀", isLotteryInit, lotteryStatus, participate);
 
   useEffect(() => {
@@ -97,7 +85,7 @@ function Lottery() {
   };
 
   return (
-    <div className="flex-1 bg-main bg-cover bg-fixed pt-5 space-y-8 text-slate-200">
+    <div className="flex-1 bg-main bg-cover bg-fixed pt-5 pb-8 space-y-8 text-slate-200">
       <motion.div
         className="container bg-zinc-900 mx-auto border border-slate-500 p-4 my-4 rounded-lg max-w-lg"
         variants={card}
@@ -124,12 +112,6 @@ function Lottery() {
               {lotteryPlayers.length}
             </span>
           </h3>
-          {/* <h3 className="pb-2 text-slate-300 antialiased text-md">
-          Total Tokens Sold :{" "}
-          <span className="text-teal-500 font-medium">
-             / 1000000
-          </span>
-        </h3> */}
           <h3 className="pb-2 text-slate-300 antialiased text-md">
             Manager : {""}
             <span className="text-teal-400">
@@ -156,6 +138,7 @@ function Lottery() {
           </h3>
         </div>
       </motion.div>
+
       {!currentAccount ? (
         <motion.div
           className="container mx-auto bg-zinc-900 border border-slate-500 p-5 my-4 rounded-lg max-w-lg"
@@ -179,7 +162,12 @@ function Lottery() {
               {manager ? (
                 <>
                   <form action="">
-                    <div className="flex justify-center gap-3">
+                    <div className="flex justify-center space-x-9">
+                      <h6 className="text-xs pt-3 text-teal-500 antialiased tracking-widest uppercase font-semibold">
+                        {" "}
+                        <AiFillWarning className="inline" /> You are the Lottery
+                        Manager
+                      </h6>
                       {lotteryStatus != "1" ? (
                         <button
                           type="button"

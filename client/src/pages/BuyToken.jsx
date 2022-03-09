@@ -39,7 +39,7 @@ function BuyToken() {
   }, []);
 
   return (
-    <div className="flex-1 pt-5 space-y-10 bg-main bg-cover bg-fixed">
+    <div className="flex-1 pt-5 pb-8 space-y-10 bg-main bg-cover bg-fixed">
       <motion.div
         className="container mx-auto bg-zinc-900 p-6 my-4 border border-slate-500 rounded-lg max-w-lg text-slate-200"
         variants={card}
