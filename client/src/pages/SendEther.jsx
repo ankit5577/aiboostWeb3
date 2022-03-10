@@ -66,7 +66,7 @@ function SendEther() {
 
   useEffect(() => {
     getBalance();
-  }, [currentAccount]);
+  }, []);
 
   return (
     <div className="flex-1 bg-main bg-cover bg-fixed text-slate-200">
