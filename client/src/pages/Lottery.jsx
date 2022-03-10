@@ -13,17 +13,17 @@ function Lottery() {
     lotteryPlayers,
     winner,
     lotteryPrice,
-    isLotteryInit,
+    isLoading,
     startLottery,
     lotteryStatus,
     enterLottery,
+    lotteryTimeRemaining,
     endLottery,
     isEther,
     currentAccount,
   } = useContext(ContractsContext);
 
   const [state, setState] = useState({
-    lotteryTimeRemaining: 0,
     lotteryManager: null,
     lotteryEntryFee: 0,
     lotteryPlayers: [],
@@ -32,7 +32,9 @@ function Lottery() {
   });
 
   const [manager, setIsManager] = useState(false);
-  const [participate, setIsParticipate] = useState(false);
+  // const [participate, setIsParticipate] = useState(false);
+
+  const inputRef = useRef();
 
   useEffect(() => {
     if (
@@ -43,25 +45,26 @@ function Lottery() {
     }
   });
 
-  
   let lotteryWinner = "";
-  
+
   if (winner !== "0x0000000000000000000000000000000000000000") {
     lotteryWinner = winner;
   }
-  
-  if (
-    typeof lotteryStatus === "object" &&
-    !Array.isArray(lotteryStatus) &&
-    lotteryStatus !== null
-  ) {
-    alert(
-      `Participation Successful! Transaction Hash: ${lotteryStatus.hash} \n From: ${currentAccount}`
-      );
-    // setIsParticipate(true);
-  }
-  
-  console.log("💀", isLotteryInit, lotteryStatus, participate);
+
+  console.log("💀", isLoading, lotteryStatus);
+
+  console.log("Status", lotteryStatus);
+
+  // console.log("⌚", lotteryTimeRemaining);
+
+  // useEffect(() => {
+  //   async function timer() {
+  //     await lotteryTimeRemaining();
+  //   }
+  //   if (lotteryStatus == "1") {
+  //     timer();
+  //   }
+  // });
 
   useEffect(() => {
     async function load() {
@@ -97,7 +100,7 @@ function Lottery() {
   };
 
   return (
-    <div className="flex-1 bg-main bg-cover bg-fixed pt-5 space-y-8 text-slate-200">
+    <div className="flex-1 bg-main bg-cover bg-fixed pt-5 pb-8 space-y-8 text-slate-200">
       <motion.div
         className="container bg-zinc-900 mx-auto border border-slate-500 p-4 my-4 rounded-lg max-w-lg"
         variants={card}
@@ -117,39 +120,40 @@ function Lottery() {
             </span>
           )}
         </h1>
-        <div className="pt-3">
-          <h3 className="text-sm">
-            Total Players:{" "}
+        <div className="pt-5">
+          <h3 className="pb-2 text-slate-300 antialiased text-md">
+            Total Players :{" "}
             <span className="text-teal-400 text-lg">
               {lotteryPlayers.length}
             </span>
           </h3>
-          <h3 className="text-sm">
-            Manager:{" "}
-            <span className="text-teal-400 text-xs">
+          <h3 className="pb-2 text-slate-300 antialiased text-md">
+            Manager : {""}
+            <span className="text-teal-400">
               <a
                 href={`https://ropsten.etherscan.io/address/${lotteryManager}`}
                 target="_blank"
                 rel="noreferrer"
-                className="text-xs tracking-wide uppercase text-teal-400"
+                className="text-sm tracking-wide uppercase text-teal-400"
               >
                 {lotteryManager}
               </a>
             </span>
           </h3>
-          <h3 className="text-sm">
-            Entry Fee:{" "}
-            <span className=" text-teal-400 text-lg">
+          <h3 className="pb-2 text-slate-300 antialiased text-md">
+            Entry Fee :{" "}
+            <span className=" text-teal-400 text-md">
               {+lotteryEntryFee / 10 ** 18}
             </span>{" "}
             ETH
           </h3>
-          <h3 className="text-sm">
-            Winning Price:{" "}
-            <span className="text-teal-400 text-lg">{lotteryPrice}</span> ETH
+          <h3 className="pb-2 text-slate-300 antialiased text-md">
+            Winning Price :{" "}
+            <span className="text-teal-400 text-md">{lotteryPrice}</span> ETH
           </h3>
         </div>
       </motion.div>
+
       {!currentAccount ? (
         <motion.div
           className="container mx-auto bg-zinc-900 border border-slate-500 p-5 my-4 rounded-lg max-w-lg"
@@ -168,22 +172,43 @@ function Lottery() {
           initial="hidden"
           animate="visible"
         >
-          {isLotteryInit ? (
+          {!isLoading ? (
             <div className="container mx-auto">
               {manager ? (
                 <>
                   <form action="">
-                    <div className="flex justify-center gap-3">
+                    <div className="flex justify-center space-x-9">
+                      <h6 className="text-xs pt-3 text-teal-500 antialiased tracking-widest uppercase font-semibold">
+                        {" "}
+                        <AiFillWarning className="inline" /> You are the Lottery
+                        Manager
+                      </h6>
                       {lotteryStatus != "1" ? (
-                        <button
-                          type="button"
-                          className="px-7 py-2 bg-green-400 rounded-lg text-slate-800 hover:shadow-lg hover:shadow-green-600"
-                          onClick={() => {
-                            startLottery();
-                          }}
-                        >
-                          Start
-                        </button>
+                        <>
+                          <input
+                            ref={inputRef}
+                            placeholder="Enter Time in Minutes"
+                            name="lottery timer"
+                            type="number"
+                            min="1"
+                            pattern="[0-9]"
+                            step="0.0001"
+                            className="my-2 w-full rounded-sm p-2 outline-none bg-transparent text-white border-none text-sm white-glassmorphism"
+                          />
+                          <button
+                            type="button"
+                            className="px-7 py-2 bg-green-400 rounded-lg text-slate-800 hover:shadow-lg hover:shadow-green-600"
+                            onClick={() => {
+                              {
+                                isLoading && <Loader />;
+                              }
+                              console.log("🆒🔥💚", +inputRef.current.value);
+                              startLottery(+inputRef.current.value);
+                            }}
+                          >
+                            Start
+                          </button>
+                        </>
                       ) : (
                         <button
                           type="button"
@@ -200,7 +225,7 @@ function Lottery() {
                 </>
               ) : (
                 <>
-                  {lotteryStatus == "1" && !participate ? (
+                  {lotteryStatus == "1" ? (
                     <div className="tracking-wider text-slate-200 justify-evenly">
                       <h6 className="text-xs text-red-500 antialiased tracking-widest uppercase font-semibold">
                         {" "}
@@ -216,7 +241,7 @@ function Lottery() {
                         <button
                           type="button"
                           className="px-7 py-2 bg-yellow-400 rounded-lg text-slate-800 hover:shadow-lg hover:shadow-yellow-600"
-                          disabled={!isLotteryInit}
+                          disabled={isLoading}
                           onClick={() => {
                             enterLottery();
                           }}

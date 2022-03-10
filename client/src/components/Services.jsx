@@ -353,7 +353,7 @@ function Services() {
               </li>
             </ul>
             <Link
-              to={"/farm"}
+              to={"/stake"}
               aria-label=""
               className="inline-flex items-center font-semibold transition-colors duration-200 text-indigo-400 hover:text-deep-purple-800"
             >
