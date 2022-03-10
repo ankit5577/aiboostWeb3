@@ -4,7 +4,7 @@ import { abi as aiboostTokenABI } from "../artifacts/contracts/AiboostToken.sol/
 import { abi as lotteryABI } from "../artifacts/contracts/Lottery.sol/Lottery.json";
 
 export const transactionContractAddress =
-  "0x21c19E554734C97066478443806aDA00e895c828";
+  "0x8219163cd9f695718c9dbcd7d4725a85484bcde6";
 export const transactionContractABI = transactionABI;
 
 export const aiboostTokenContractAddress =

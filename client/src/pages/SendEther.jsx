@@ -112,41 +112,49 @@ function SendEther() {
           initial="hidden"
           animate="visible"
         >
-          <h4 className="text-2xl text-slate-300 antialiased font-medium">
-            Send Ether across the world
-          </h4>
-          <h6 className="text-xs text-red-500 antialiased tracking-widest font-semibold">
-            {" "}
-            <AiFillWarning className="inline " /> DO NOT USE REAL ETHER
-          </h6>
-          <form>
-            <Input
-              placeholder="Address To"
-              name="addressTo"
-              type="text"
-              handleChange={handleChange}
-            />
-            <Input
-              placeholder="Amount (ETH)"
-              name="amount"
-              type="number"
-              handleChange={handleChange}
-            />
-            <Input
-              placeholder="Enter Message"
-              name="message"
-              type="text"
-              handleChange={handleChange}
-            />
-            <button
-              type="button"
-              disabled={!currentAccount}
-              onClick={handleSubmit}
-              className="w-full mt-2 bean disabled:cursor-not-allowed"
-            >
-              {currentAccount ? "SEND NOW" : "⚠️ No Account Found"}
-            </button>
-          </form>
+          {!isLoading ? (
+            <>
+              <h4 className="text-2xl text-slate-300 antialiased font-medium">
+                Send Ether across the world
+              </h4>
+              <h6 className="text-xs text-red-500 antialiased tracking-widest font-semibold">
+                {" "}
+                <AiFillWarning className="inline " /> DO NOT USE REAL ETHER
+              </h6>
+              <form>
+                <Input
+                  placeholder="Address To"
+                  name="addressTo"
+                  type="text"
+                  handleChange={handleChange}
+                />
+                <Input
+                  placeholder="Amount (ETH)"
+                  name="amount"
+                  type="number"
+                  handleChange={handleChange}
+                />
+                <Input
+                  placeholder="Enter Message"
+                  name="message"
+                  type="text"
+                  handleChange={handleChange}
+                />
+                <button
+                  type="button"
+                  disabled={!currentAccount}
+                  onClick={handleSubmit}
+                  className="w-full mt-2 bean disabled:cursor-not-allowed"
+                >
+                  {currentAccount ? "SEND NOW" : "⚠️ No Account Found"}
+                </button>
+              </form>
+            </>
+          ) : (
+            <div className="bg-zinc-900 flex-1 items-center py-4 flex justify-center">
+              <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-teal-500" />
+            </div>
+          )}
         </motion.div>
       </div>
       <Notification
