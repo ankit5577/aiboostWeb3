@@ -17,7 +17,7 @@ function BuyToken() {
 
   const inputRef = useRef();
 
-  console.log("IsLoading: ", isLoading);
+  console.log("IsLoading: ", isLoading, token);
 
   const card = {
     hidden: {

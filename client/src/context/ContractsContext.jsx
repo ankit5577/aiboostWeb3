@@ -386,7 +386,7 @@ export const ContractsProvider = ({ children }) => {
           gasLimit: 500000,
         });
         console.log(`Entering Lottery Plz Wait - ${enter.hash}`);
-        await start.wait();
+        await enter.wait();
         console.log(`Entered Lottery Successfully - ${enter.hash}`);
         if (
           !alert(
