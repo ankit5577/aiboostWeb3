@@ -2,7 +2,10 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
-import {GrMoney} from 'react-icons/gr';
+import { GiReceiveMoney } from "react-icons/gi";
+import { BsCashCoin } from "react-icons/bs";
+import { MdMoney } from "react-icons/md";
+import { FaEthereum } from "react-icons/fa";
 
 const Welcome = () => {
   const welcomeVarients = {
@@ -47,9 +50,9 @@ const Welcome = () => {
         >
           <div className=" lg:pr-5 lg:max-w-lg lg:mb-0">
             <div className="max-w-xl mb-6">
-                <p className="inline-block mb-2 text-xs font-semibold tracking-wider text-teal-400 uppercase rounded-full bg-teal-accent-400">
-                  Fully secured
-                </p>
+              <p className="inline-block mb-2 text-xs font-semibold tracking-wider text-teal-400 uppercase rounded-full bg-teal-accent-400">
+                Fully secured
+              </p>
               <h2 className="max-w-lg mb-2 font-sans text-3xl font-bold tracking-wide text-slate-300 sm:text-4xl sm:leading-none">
                 Send Cryto across
                 <br className="hidden md:block" />
@@ -63,15 +66,17 @@ const Welcome = () => {
             <div className="flex flex-row border-b border-slate-600">
               <Link
                 to={"/buy-token"}
-                className="flex-1 p-8 border-r border-slate-600 text-indigo-400 font-semibold tracking-widest transition duration-200 hover:text-slate-100 hover:bg-indigo-500"
+                className="group flex-1 p-8 border-r border-slate-600 text-indigo-400 font-semibold tracking-widest transition duration-200 hover:text-slate-100 hover:bg-indigo-900"
               >
+                <BsCashCoin className="text-4xl inline-block mx-2  text-indigo-500 transition duration-300 group-hover:text-slate-100" />
                 Buy Tokens
               </Link>
 
               <Link
                 to={"/stake"}
-                className="flex-1 p-8 text-indigo-400 font-semibold tracking-widest transition duration-200 hover:text-slate-100 hover:bg-indigo-500"
+                className="group relative overflow-hidden flex-1 p-8 text-indigo-400 font-semibold tracking-widest transition duration-200 hover:text-slate-100 hover:bg-indigo-900"
               >
+                <GiReceiveMoney className="text-4xl inline-block mx-2  text-indigo-500 transition duration-300 group-hover:text-slate-100" />
                 Stake
               </Link>
             </div>
@@ -79,16 +84,17 @@ const Welcome = () => {
             <div className="flex flex-row">
               <Link
                 to={"/lottery"}
-                className="flex-1 p-8 border-r border-slate-600 text-indigo-400 font-semibold tracking-widest transition duration-200 hover:text-slate-100 hover:bg-indigo-500"
+                className="group flex-1 p-8 border-r border-slate-600 text-indigo-400 font-semibold tracking-widest transition duration-200 hover:text-slate-100 hover:bg-indigo-900"
               >
-                {/* <GrMoney className="shadow-white outline-white" color="white" /> */}
+                <MdMoney className="text-4xl inline-block mx-2  text-indigo-500 transition duration-300 group-hover:text-slate-100" />
                 Lottery
               </Link>
 
               <Link
                 to={"/send-ether"}
-                className="flex-1 p-8 text-indigo-400 font-semibold tracking-widest transition duration-200 hover:text-slate-100 hover:bg-indigo-500"
+                className="group flex-1 p-8 text-indigo-400 font-semibold tracking-widest transition duration-200 hover:text-slate-100 hover:bg-indigo-900"
               >
+                <FaEthereum className="text-4xl inline-block mx-2  text-indigo-500 transition duration-300 group-hover:text-slate-100" />
                 Send ETH
               </Link>
             </div>

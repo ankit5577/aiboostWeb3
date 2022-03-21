@@ -46,7 +46,7 @@ const Notification = ({ props }) => {
         >
           <div
             id="toast-danger"
-            className="flex items-center w-full max-w-xs p-5 text-gray-200 bg-slate-800 border border-slate-700 backdrop-blur-md rounded-lg shadow-xl"
+            className="flex items-center w-full max-w-xs p-5 text-gray-200 backdrop-blur-sm bg-slate-900/30 border border-slate-700 rounded-lg shadow-xl"
             role="alert"
           >
             <div className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-slate-200 bg-red-700 rounded-lg">
@@ -108,7 +108,7 @@ const Notification = ({ props }) => {
             id="toast-warning"
             className="relative flex items-center w-full max-w-xs p-5 
             backdrop-blur-sm bg-slate-600/30
-             text-slate-300 bg-slate-500 border border-slate-700 rounded-lg shadow-xl"
+            text-slate-300 bg-slate-500 border border-slate-700 rounded-lg shadow-xl"
             role="alert"
           >
             <div className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-slate-200 bg-amber-700 rounded-lg">
@@ -168,7 +168,7 @@ const Notification = ({ props }) => {
         >
           <div
             id="toast-success"
-            className="flex items-center w-full max-w-xs p-5 text-gray-200 bg-slate-800 border border-slate-700 backdrop-blur-md rounded-lg shadow-xl"
+            className="flex items-center w-full max-w-xs p-5 text-gray-300 backdrop-blur-lg bg-slate-400/30 border border-slate-700 rounded-lg shadow-xl"
             role="alert"
           >
             <div className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-slate-200 bg-green-700 rounded-lg">
