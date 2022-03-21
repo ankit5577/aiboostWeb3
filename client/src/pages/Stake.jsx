@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { AiFillWarning } from "react-icons/ai";
 import { motion } from "framer-motion";
 
-import workingIMG from '../../images/working.svg';
+import workingIMG from "../../images/working.svg";
 
 function Stake() {
   const { initToken, token, isEther, isLoading, login, currentAccount } =
@@ -159,12 +159,18 @@ function Stake() {
       </div>
     );
   } else {
-    return (<div className="flex-1 bg-slate-900 text-white">
-    <div className="container mx-auto text-center p-12">
-      <img src={workingIMG} className="mx-auto p-4 max-w-sm" alt="working" />
-      <h1 className="text-4xl tracking-wider">Under Construction</h1>
-    </div>
-  </div>);
+    return (
+      <div className="flex-1 bg-slate-900 text-white">
+        <div className="container mx-auto text-center p-4 sm:p-12">
+          <img
+            src={workingIMG}
+            className="mx-auto p-4 sm:max-w-sm w-full"
+            alt="working"
+          />
+          <h1 className="text-2xl sm:text-4xl tracking-wider">Under Construction</h1>
+        </div>
+      </div>
+    );
   }
 }
 
