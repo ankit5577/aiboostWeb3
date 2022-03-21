@@ -1,7 +1,7 @@
 import { abi as transactionABI } from "../artifacts/contracts/Transactions.sol/Transactions.json";
 import { abi as tokenSaleABI } from "../artifacts/contracts/TokenSale.sol/TokenSale.json";
 import { abi as aiboostTokenABI } from "../artifacts/contracts/AiboostToken.sol/AiboostToken.json";
-import { abi as lotteryABI } from "../artifacts/contracts/Lottery.sol/Lottery.json";
+import { abi as lotteryPoolABI } from "../artifacts/contracts/LotteryPool.sol/LotteryPool.json";
 
 export const transactionContractAddress =
   "0x8219163cd9f695718c9dbcd7d4725a85484bcde6";
@@ -15,6 +15,6 @@ export const tokenSaleContractAddress =
   "0x1f9e433adf5B5564DC50b5Dab6B73E24178076cF";
 export const tokenSaleContractABI = tokenSaleABI;
 
-export const lotteryContractAddress =
-  "0x75641ba3875ccf26f7260a09f62ae34b6df82c11";
-export const lotteryContractABI = lotteryABI;
+export const lotteryPoolContractAddress =
+  "0x5F04F63FcC423E7b7Bd04Dd407a471d9f2b50f5D";
+export const lotteryPoolContractABI = lotteryPoolABI;
