@@ -9,6 +9,7 @@ function BuyToken() {
     initToken,
     token,
     buyTokens,
+    inTransaction,
     isEther,
     isLoading,
     login,
@@ -16,8 +17,6 @@ function BuyToken() {
   } = useContext(ContractsContext);
 
   const inputRef = useRef();
-
-  console.log("IsLoading: ", isLoading, token);
 
   const card = {
     hidden: {
@@ -37,10 +36,14 @@ function BuyToken() {
 
   useEffect(() => {
     initToken();
+    if (inTransaction) {
+      alert("your transaction is in process.");
+    }
   }, []);
 
   return (
-    <div className="flex-1 p-4 space-y-10 bg-slate-900">
+    <section className="flex-1 p-4 space-y-10 bg-slate-900">
+      {/* first div */}
       <motion.div
         className="container mx-auto bg-neutral-900 p-6 my-4 shadow-lg border border-slate-700 rounded-lg max-w-lg text-slate-200"
         variants={card}
@@ -63,23 +66,24 @@ function BuyToken() {
           </span>
         </h3>
       </motion.div>
+
+      {/* second div */}
       <motion.div
         className="container mx-auto bg-neutral-900 p-4 my-4 shadow-lg border border-slate-700 rounded-lg max-w-lg text-slate-300"
         variants={card}
         initial="hidden"
         animate="visible"
       >
-        {!isLoading ? (
+        {!isLoading && !inTransaction ? (
           <>
-            <h2 className="text-xl pb-3 antialiased font-medium">
+            <h2 className="text-xl antialiased font-medium">
               Buy AiBoost (AiB)
             </h2>
             <form>
-              <h6 className="text-xs text-slate-500 antialiased tracking-widest uppercase font-semibold">
-                {" "}
+              <span className="text-xs text-teal-500 antialiased tracking-widest font-normal">
                 <AiFillWarning className="inline" /> Please be patient as it can
                 take a while.
-              </h6>
+              </span>
               <input
                 ref={inputRef}
                 placeholder="No. of Tokens"
@@ -92,11 +96,8 @@ function BuyToken() {
               />
               <button
                 type="button"
-                disabled={!currentAccount}
+                disabled={!currentAccount || inTransaction || isLoading}
                 onClick={() => {
-                  {
-                    isLoading && <Loader />;
-                  }
                   buyTokens(+inputRef.current.value);
                 }}
                 className="w-full mt-2 bean disabled:cursor-not-allowed"
@@ -119,7 +120,7 @@ function BuyToken() {
           login,
         }}
       />
-    </div>
+    </section>
   );
 }
 

@@ -128,6 +128,7 @@ export const ContractsProvider = ({ children }) => {
 
   const [login, setLogin] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [inTransaction, setInTransaction] = useState(false);
   const [isEther, setIsEther] = useState(false);
 
   const web3Reducer = (state, action) => {
@@ -495,7 +496,7 @@ export const ContractsProvider = ({ children }) => {
           value: value,
           gasLimit: 500000,
         });
-      setIsLoading(true);
+      setInTransaction(true);
       console.log(`Loading - ${transactionHash.hash}`);
       await transactionHash.wait();
       console.log(`Success - ${transactionHash.hash}`);
@@ -506,7 +507,7 @@ export const ContractsProvider = ({ children }) => {
       ) {
         location.reload();
       }
-      setIsLoading(false);
+      setInTransaction(false);
     }
   };
 
@@ -712,6 +713,7 @@ export const ContractsProvider = ({ children }) => {
         initToken,
         buyTokens,
         initLottery,
+        inTransaction
       }}
     >
       {children}
