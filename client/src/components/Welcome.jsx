@@ -81,7 +81,7 @@ const Welcome = () => {
                 to={"/lottery"}
                 className="flex-1 p-8 border-r border-slate-600 text-indigo-400 font-semibold tracking-widest transition duration-200 hover:text-slate-100 hover:bg-indigo-500"
               >
-                <GrMoney style={{stroke: "#ffffff"}} />
+                {/* <GrMoney className="shadow-white outline-white" color="white" /> */}
                 Lottery
               </Link>
 
