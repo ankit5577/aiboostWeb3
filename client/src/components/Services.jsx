@@ -54,7 +54,7 @@ function Services() {
         </div>
         <div
           ref={ref}
-          className="grid gap-8 row-gap-10 sm:grid-cols-2 lg:grid-cols-4"
+          className="grid gap-8 row-gap-10 grid-cols-2 sm:grid-cols-2 lg:grid-cols-4"
         >
           <div>
             <div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-slate-700">
@@ -83,7 +83,7 @@ function Services() {
               </motion.svg>
             </div>
             <h6 className="mb-2 font-semibold leading-5">Send Ether</h6>
-            <p className="mb-3 text-sm text-gray-400">
+            <p className="mb-3 text-sm text-gray-400 hidden sm:block">
               Transfer your Ether across the world. Play by sending fake ether
               to friends.
             </p>
@@ -185,7 +185,7 @@ function Services() {
               </motion.svg>
             </div>
             <h6 className="mb-2 font-semibold leading-5">Lottery</h6>
-            <p className="mb-3 text-sm text-gray-400">
+            <p className="mb-3 text-sm text-gray-400 hidden sm:block">
               Enter a lottery game and get a chance to win Ethers.
             </p>
             <ul className="mb-4 -ml-1 space-y-2">
@@ -293,7 +293,7 @@ function Services() {
               </motion.svg>
             </div>
             <h6 className="mb-2 font-semibold leading-5">Stake</h6>
-            <p className="mb-3 text-sm text-gray-400">
+            <p className="mb-3 text-sm text-gray-400 hidden sm:block">
               Earn interest on Ethers staked by you, get upto 13%.
             </p>
             <ul className="mb-4 -ml-1 space-y-2">
@@ -402,7 +402,7 @@ function Services() {
               </motion.svg>
             </div>
             <h6 className="mb-2 font-semibold leading-5">Buy Token</h6>
-            <p className="mb-3 text-sm text-gray-400">
+            <p className="mb-3 text-sm text-gray-400 hidden sm:block">
               For those who have want my token.
             </p>
             <ul className="mb-4 -ml-1 space-y-2">

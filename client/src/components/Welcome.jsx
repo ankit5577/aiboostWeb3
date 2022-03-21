@@ -2,6 +2,8 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
+import {GrMoney} from 'react-icons/gr';
+
 const Welcome = () => {
   const welcomeVarients = {
     hiddenImg: {
@@ -23,7 +25,7 @@ const Welcome = () => {
 
   return (
     <div>
-      <div className="relative bg-slate-800 px-4 py-16 mx-auto lg:block lg:flex-col lg:py-32 xl:py-48 md:px-8 sm:max-w-xl md:max-w-full">
+      <div className="relative bg-slate-800 px-4 py-16 mx-auto block lg:flex-col lg:py-32 xl:py-48 md:px-8 md:max-w-full">
         <motion.div
           variants={welcomeVarients}
           initial="hiddenImg"
@@ -43,14 +45,12 @@ const Welcome = () => {
           transition={{ delay: 0.5, duration: 0.5 }}
           className="relative flex justify-end max-w-xl mx-auto xl:pr-32 lg:max-w-screen-xl"
         >
-          <div className="mb-16 lg:pr-5 lg:max-w-lg lg:mb-0">
+          <div className=" lg:pr-5 lg:max-w-lg lg:mb-0">
             <div className="max-w-xl mb-6">
-              <div>
-                <p className="inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider text-teal-400 uppercase rounded-full bg-teal-accent-400">
+                <p className="inline-block mb-2 text-xs font-semibold tracking-wider text-teal-400 uppercase rounded-full bg-teal-accent-400">
                   Fully secured
                 </p>
-              </div>
-              <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold tracking-tight text-slate-300 sm:text-4xl sm:leading-none">
+              <h2 className="max-w-lg mb-2 font-sans text-3xl font-bold tracking-wide text-slate-300 sm:text-4xl sm:leading-none">
                 Send Cryto across
                 <br className="hidden md:block" />
                 the <span className="inline-block text-indigo-400">world.</span>
@@ -59,57 +59,38 @@ const Welcome = () => {
                 Transfer funds, buy tokens and play a game all at one place.
               </p>
             </div>
-            <div className="flex flex-row">
-              <button
-                type="submit"
-                className="inline-flex items-center justify-center h-12 px-6 mr-6 font-medium tracking-wide text-white rounded rounded-tl-3xl shadow-inner shadow-cyan-800  hover:shadow-cyan-600  focus:shadow-outline focus:outline-none"
+
+            <div className="flex flex-row border-b border-slate-600">
+              <Link
+                to={"/buy-token"}
+                className="flex-1 p-8 border-r border-slate-600 text-indigo-400 font-semibold tracking-widest transition duration-200 hover:text-slate-100 hover:bg-indigo-500"
               >
-                <Link
-                  to={"/buy-token"}
-                  aria-label="Buy AiBoost Token"
-                  title="Buy Token"
-                >
-                  Buy Tokens
-                </Link>
-              </button>
-              <button
-                type="submit"
-                className="inline-flex items-center justify-center h-12 px-6 mr-6 font-medium tracking-wide text-white rounded shadow-inner shadow-cyan-800 hover:shadow-cyan-600 focus:shadow-outline focus:outline-none"
+                Buy Tokens
+              </Link>
+
+              <Link
+                to={"/stake"}
+                className="flex-1 p-8 text-indigo-400 font-semibold tracking-widest transition duration-200 hover:text-slate-100 hover:bg-indigo-500"
               >
-                <Link
-                  to={"/stake"}
-                  aria-label="Farm Crypto"
-                  title="Stake Crypto"
-                >
-                  Stake
-                </Link>
-              </button>
+                Stake
+              </Link>
             </div>
-            <div className="flex items-center mt-4">
-              <button
-                type="submit"
-                className="inline-flex items-center justify-center h-12 px-6 mr-6 font-medium tracking-wide text-white rounded shadow-inner  shadow-cyan-800  hover:shadow-cyan-600 focus:shadow-outline focus:outline-none"
+
+            <div className="flex flex-row">
+              <Link
+                to={"/lottery"}
+                className="flex-1 p-8 border-r border-slate-600 text-indigo-400 font-semibold tracking-widest transition duration-200 hover:text-slate-100 hover:bg-indigo-500"
               >
-                <Link
-                  to={"/lottery"}
-                  aria-label="Play Lottery Game"
-                  title="Etherium Lottery"
-                >
-                  Lottery
-                </Link>
-              </button>
-              <button
-                type="submit"
-                className="inline-flex items-center justify-center h-12 px-6 mr-6 font-medium tracking-wide text-white rounded rounded-br-3xl shadow-inner shadow-cyan-800  hover:shadow-cyan-600 focus:shadow-outline focus:outline-none"
+                <GrMoney style={{stroke: "#ffffff"}} />
+                Lottery
+              </Link>
+
+              <Link
+                to={"/send-ether"}
+                className="flex-1 p-8 text-indigo-400 font-semibold tracking-widest transition duration-200 hover:text-slate-100 hover:bg-indigo-500"
               >
-                <Link
-                  to={"/send-ether"}
-                  aria-label="Send ETH anywhere"
-                  title="Send Etherium"
-                >
-                  Send ETH
-                </Link>
-              </button>
+                Send ETH
+              </Link>
             </div>
           </div>
         </motion.div>

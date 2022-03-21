@@ -40,9 +40,9 @@ function BuyToken() {
   }, []);
 
   return (
-    <div className="flex-1 pt-5 pb-8 space-y-10 bg-main bg-cover bg-fixed">
+    <div className="flex-1 p-4 space-y-10 bg-slate-900">
       <motion.div
-        className="container mx-auto bg-zinc-900 p-6 my-4 border border-slate-500 rounded-lg max-w-lg text-slate-200"
+        className="container mx-auto bg-neutral-900 p-6 my-4 shadow-lg border border-slate-700 rounded-lg max-w-lg text-slate-200"
         variants={card}
         initial="hidden"
         animate="visible"
@@ -64,7 +64,7 @@ function BuyToken() {
         </h3>
       </motion.div>
       <motion.div
-        className="container mx-auto bg-zinc-900 p-4 my-4 border border-slate-500 rounded-lg max-w-lg text-slate-300"
+        className="container mx-auto bg-neutral-900 p-4 my-4 shadow-lg border border-slate-700 rounded-lg max-w-lg text-slate-300"
         variants={card}
         initial="hidden"
         animate="visible"

@@ -2,7 +2,6 @@ import React, { useContext, useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { ContractsContext } from "../context/ContractsContext";
 import { useInView } from "react-intersection-observer";
-// import dummyData from "../utils/dummyData";
 import { shortenAddress } from "../utils/shortenAddress";
 
 const TransactionsCard = ({
@@ -10,10 +9,7 @@ const TransactionsCard = ({
   addressFrom,
   timestamp,
   message,
-  keyword,
   amount,
-  url,
-  currentAccount,
 }) => {
   const dateArr = timestamp.split(" ");
   const meridiem = dateArr[2];
@@ -36,7 +32,7 @@ const TransactionsCard = ({
   return (
     <>
       {
-        <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-0 lg:px-8 lg:py-26">
+        <div className="px-4 py-2 flex-1 mx-auto sm:max-w-xl md:max-w-full md:px-0 lg:max-w-xl lg:px-8 lg:py-26">
           <div className="grid gap-5 lg:grid-cols-1 md:grid-cols-1 sm:max-w-sm sm:mx-auto lg:max-auto">
             <div className="bg-[#1B2536] p-8 transition-shadow duration-300 border border-cyan-800 rounded-xl group hover:shadow-slate-700 hover:shadow-xl">
               <div className="grid gap-8 lg:grid-cols-2 sm:max-w-sm sm:mx-auto lg:max-w-full">
@@ -252,6 +248,7 @@ const Transactions = () => {
 
   const { ref, inView } = useInView({ threshold: 0.1 });
   const animation = useAnimation();
+
   useEffect(() => {
     if (inView) {
       animation.start({
@@ -277,9 +274,9 @@ const Transactions = () => {
     <div className="flex w-full justify-center items-center 2xl:px-20 gradient-bg-transactions">
       <div ref={ref} className="flex flex-col md:p-12 py-12 px-4">
         {currentAccount ? (
-          <h3 className="text-white text-3xl text-center my-2">
-            Latest Transactions
-          </h3>
+          <h2 className="mx-auto max-w-md mb-6 font-sans text-3xl font-bold tracking-tight text-gray-300 sm:text-4xl sm:leading-none xl:max-w-lg">
+            Latest <span className="inline-block text-indigo-400">Transactions.</span>
+          </h2>
         ) : (
           <h3 className="text-white text-3xl text-center my-2">
             Connect your account to see the latest transactions

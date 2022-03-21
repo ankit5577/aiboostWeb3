@@ -69,7 +69,7 @@ function SendEther() {
   }, []);
 
   return (
-    <div className="flex-1 bg-main bg-cover bg-fixed text-slate-200">
+    <div className="flex-1 bg-slate-900 text-slate-200">
       <div className="container mx-auto p-4">
         {/* eth card */}
         <motion.div
@@ -107,7 +107,7 @@ function SendEther() {
 
         {/* form */}
         <motion.div
-          className="max-w-md border bg-zinc-900 rounded-xl border-slate-500 mx-auto p-4 mb-4 "
+          className="max-w-md border bg-neutral-900 rounded-xl border-slate-500 mx-auto p-4 mb-4 "
           variants={card}
           initial="hidden"
           animate="visible"

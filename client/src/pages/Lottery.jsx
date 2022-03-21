@@ -100,9 +100,9 @@ function Lottery() {
   };
 
   return (
-    <div className="flex-1 bg-main bg-cover bg-fixed pt-5 pb-8 space-y-8 text-slate-200">
+    <div className="flex-1 bg-slate-900 space-y-8 text-slate-200 p-4">
       <motion.div
-        className="container bg-zinc-900 mx-auto border border-slate-500 p-4 my-4 rounded-lg max-w-lg"
+        className="container bg-neutral-900 mx-auto shadow-lg border border-slate-700 my-4 rounded-lg max-w-lg p-4"
         variants={card}
         initial="hidden"
         animate="visible"
@@ -110,7 +110,7 @@ function Lottery() {
         <h1 className="antialiased font-medium text-2xl tracking-wide">
           Lottery Game{" "}
           {lotteryStatus == "1" && (
-            <span className="text-xs p-2 bg-slate-300 shadow-lg shadow-slate-600 rounded-full text-teal-600 antialiased font-bold">
+            <span className="text-xs p-2 bg-slate-600 shadow-md shadow-slate-800 rounded-full text-teal-200 antialiased font-bold">
               Started
             </span>
           )}
@@ -156,7 +156,7 @@ function Lottery() {
 
       {!currentAccount ? (
         <motion.div
-          className="container mx-auto bg-zinc-900 border border-slate-500 p-5 my-4 rounded-lg max-w-lg"
+          className="container mx-auto bg-neutral-900 shadow-lg border border-slate-700 p-5 my-4 rounded-lg max-w-lg"
           variants={card}
           initial="hidden"
           animate="visible"
@@ -167,7 +167,7 @@ function Lottery() {
         </motion.div>
       ) : (
         <motion.div
-          className="container mx-auto bg-zinc-900 border border-slate-500 p-5 my-4 rounded-lg max-w-lg"
+          className="container mx-auto bg-zinc-900 shadow-lg border border-slate-700 p-5 my-4 rounded-lg max-w-lg"
           variants={card}
           initial="hidden"
           animate="visible"

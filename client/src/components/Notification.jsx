@@ -46,10 +46,10 @@ const Notification = ({ props }) => {
         >
           <div
             id="toast-danger"
-            className="flex items-center w-full max-w-xs p-5 text-gray-200 notify-gradient backdrop-blur-md rounded-lg shadow-sm shadow-slate-800"
+            className="flex items-center w-full max-w-xs p-5 text-gray-200 bg-slate-800 border border-slate-700 backdrop-blur-md rounded-lg shadow-xl"
             role="alert"
           >
-            <div className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-red-500 bg-red-100 rounded-lg">
+            <div className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-slate-200 bg-red-700 rounded-lg">
               <svg
                 className="w-5 h-5"
                 fill="currentColor"
@@ -63,12 +63,12 @@ const Notification = ({ props }) => {
                 ></path>
               </svg>
             </div>
-            <div className="ml-3 text-sm pr-2 font-normal antialiased select-none">
+            <div className="text-sm font-normal antialiased tracking-wide p-2">
               {error}
             </div>
             <button
               type="button"
-              className="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-red-600 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8"
+              className="text-red-700 rounded-lg p-1 transition duration-300 hover:bg-red-800 hover:text-slate-300"
               data-collapse-toggle="toast-danger"
               aria-label="Close"
               onClick={() => {
@@ -106,10 +106,10 @@ const Notification = ({ props }) => {
         >
           <div
             id="toast-warning"
-            className="flex items-center w-full max-w-xs p-5 text-gray-200 notify-gradient backdrop-blur-md rounded-lg shadow-sm shadow-slate-800"
+            className="flex items-center w-full max-w-xs p-5 text-gray-200 bg-slate-800 border border-slate-700 backdrop-blur-md rounded-lg shadow-xl"
             role="alert"
           >
-            <div className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-orange-500 bg-orange-100 rounded-lg">
+            <div className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-slate-200 bg-amber-700 rounded-lg">
               <svg
                 className="w-5 h-5"
                 fill="currentColor"
@@ -123,12 +123,12 @@ const Notification = ({ props }) => {
                 ></path>
               </svg>
             </div>
-            <div className="ml-3 text-sm pr-2 font-normal antialiased select-none">
+            <div className="text-sm font-normal antialiased tracking-wide p-2">
               {warning}
             </div>
             <button
               type="button"
-              className="ml-1  -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-orange-500 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8"
+              className="text-red-700 rounded-lg p-1 transition duration-300 hover:bg-red-800 hover:text-slate-300"
               data-collapse-toggle="toast-warning"
               aria-label="Close"
               onClick={() => {
@@ -166,10 +166,10 @@ const Notification = ({ props }) => {
         >
           <div
             id="toast-success"
-            className="flex items-center w-full max-w-xs p-5 text-gray-200 notify-gradient backdrop-blur-md rounded-lg shadow-sm shadow-slate-800"
+            className="flex items-center w-full max-w-xs p-5 text-gray-200 bg-slate-800 border border-slate-700 backdrop-blur-md rounded-lg shadow-xl"
             role="alert"
           >
-            <div className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg">
+            <div className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-slate-200 bg-green-700 rounded-lg">
               <svg
                 className="w-5 h-5"
                 fill="currentColor"
@@ -183,12 +183,12 @@ const Notification = ({ props }) => {
                 ></path>
               </svg>
             </div>
-            <div className="ml-3 text-sm pr-2 font-normal antialiased select-none">
+            <div className="ml-3 text-sm font-normal antialiased tracking-wide">
               {success}
             </div>
             <button
               type="button"
-              className="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-green-500 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8"
+              className="text-red-700 rounded-lg p-1 transition duration-300 hover:bg-red-800 hover:text-slate-300"
               data-collapse-toggle="toast-success"
               aria-label="Close"
               onClick={() => close()}
