@@ -99,14 +99,16 @@ const Notification = ({ props }) => {
     return (
       <>
         <motion.section
-          className="absolute right-10 top-28 m-4"
+          className="absolute right-10 top-28"
           variants={section}
           initial="hidden"
           animate="visible"
         >
           <div
             id="toast-warning"
-            className="flex items-center w-full max-w-xs p-5 text-gray-200 bg-slate-800 border border-slate-700 backdrop-blur-md rounded-lg shadow-xl"
+            className="relative flex items-center w-full max-w-xs p-5 
+            backdrop-blur-sm bg-slate-600/30
+             text-slate-300 bg-slate-500 border border-slate-700 rounded-lg shadow-xl"
             role="alert"
           >
             <div className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-slate-200 bg-amber-700 rounded-lg">
