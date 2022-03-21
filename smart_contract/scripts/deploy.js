@@ -22,7 +22,7 @@ const main = async () => {
   // console.log("Transactions address: ", transactionsContract.address);
   // console.log("aiboostTokenContract address: ", aiboostTokenContract.address);
   // console.log("tokenSaleContract address: ", tokenSaleContract.address);
-  console.log("lotteryPoolContract address: ", lotteryContract.address);
+  console.log("lotteryPoolContract address: ", lotteryPoolContract.address);
 };
 
 const runMain = async () => {
