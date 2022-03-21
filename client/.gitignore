@@ -12,7 +12,6 @@ typechain
 
 #Hardhat files
 cache
-artifacts
 
 node_modules
 .env
@@ -22,4 +21,3 @@ typechain
 
 #Hardhat files
 cache
-artifacts
