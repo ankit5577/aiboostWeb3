@@ -11,18 +11,18 @@ const main = async () => {
   // const tokenSaleFactory = await hre.ethers.getContractFactory("TokenSale");
   // const tokenSaleContract = await tokenSaleFactory.deploy(aiboostTokenContract.address, tokenPrice);
 
-  const lotteryFactory = await hre.ethers.getContractFactory("Lottery");
-  const lotteryContract = await lotteryFactory.deploy();
+  const lotteryPoolFactory = await hre.ethers.getContractFactory("LotteryPool");
+  const lotteryPoolContract = await lotteryPoolFactory.deploy();
 
   // await transactionsContract.deployed();
   // await aiboostTokenContract.deployed();
   // await tokenSaleContract.deployed();
-  await lotteryContract.deployed();
+  await lotteryPoolContract.deployed();
 
   // console.log("Transactions address: ", transactionsContract.address);
   // console.log("aiboostTokenContract address: ", aiboostTokenContract.address);
   // console.log("tokenSaleContract address: ", tokenSaleContract.address);
-  console.log("lotteryContract address: ", lotteryContract.address);
+  console.log("lotteryPoolContract address: ", lotteryContract.address);
 };
 
 const runMain = async () => {

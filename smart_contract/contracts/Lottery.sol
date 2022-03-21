@@ -105,7 +105,7 @@ contract Lottery {
         }
     }
 
-        function getWinner() public view returns (address) {
+    function getWinner() public view returns (address) {
         return winner;
     }
 
