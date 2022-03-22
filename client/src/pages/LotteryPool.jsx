@@ -53,7 +53,7 @@ function LotteryPool() {
           {lotteriesDetails.length > 0 &&
             !isLoading &&
             lotteriesDetails.map((lottery, index) => {
-              if(index > 5) {
+              if (index > 5) {
                 return;
               }
               if (+getRemainingTime(lottery.endedTimeStamp) > 0) {
@@ -61,15 +61,18 @@ function LotteryPool() {
                   <Link
                     to={`/lottery/${lottery.lotteryContract}`}
                     key={lottery.lotteryContract}
-                    className="p-4 w-full md:min-w-[120px] md:min-h-[70px] md:max-w-[340px] md:max-h-[100px] border border-indigo-400 rounded-xl bg-slate-800 transition duration-300 hover:shadow-lg hover:shadow-indigo-900"
+                    className="p-4 max-w-md border border-indigo-400 rounded-xl bg-slate-800 transition duration-300 hover:shadow-lg hover:shadow-indigo-900"
                   >
-                    <h2 className="text-slate-300 font-semibold tracking-wider text-xl">
+                    <h2 className="text-indigo-500 font-bold text-2xl tracking-wider">
                       lottery #{index + 1}
                     </h2>
                     {/*  */}
                     <span>
-                      Ending in <span className="text-teal-600">{getRemainingTime(lottery.endedTimeStamp)}
-                      {" mins"}</span> 
+                      Ending in{" "}
+                      <span className="text-teal-600 font-semibold">
+                        {getRemainingTime(lottery.endedTimeStamp)}
+                        {" mins"}
+                      </span>
                     </span>
                     <p className="truncate">
                       address:{" "}
@@ -86,10 +89,11 @@ function LotteryPool() {
           Ended Lotteries
         </h2>
         <div className="flex flex-row gap-4 flex-wrap">
+          {isLoading && <Loader full={true} />}
           {lotteriesDetails.length > 0 &&
             !isLoading &&
             lotteriesDetails.map((lottery, index) => {
-              if(index > 5) {
+              if (index > 5) {
                 return;
               }
               if (+getRemainingTime(lottery.endedTimeStamp) < 0) {
@@ -97,15 +101,18 @@ function LotteryPool() {
                   <Link
                     to={`/lottery/${lottery.lotteryContract}`}
                     key={lottery.lotteryContract}
-                    className="p-4 w-full md:min-w-[120px] opacity-50 transform  blur-[0.5px] md:min-h-[70px] md:max-w-[340px] md:max-h-[100px] border border-red-600 rounded-xl bg-slate-800"
+                    className="p-4 max-w-md opacity-50 transform  blur-[0.5px] border border-red-600 rounded-xl bg-slate-800"
                   >
-                    <h2 className="text-slate-300 font-semibold tracking-wider text-xl">
+                    <h2 className="text-red-500 font-bold text-2xl tracking-wider">
                       lottery #{index + 1}
                     </h2>
                     {/*  */}
                     <span>
-                      Ending in <span className="text-red-600">{getRemainingTime(lottery.endedTimeStamp)}
-                      {" mins"}</span> 
+                      Ending in{" "}
+                      <span className="text-red-600 font-semibold">
+                        {getRemainingTime(lottery.endedTimeStamp)}
+                        {" mins"}
+                      </span>
                     </span>
                     <p className="truncate">
                       address:{" "}
