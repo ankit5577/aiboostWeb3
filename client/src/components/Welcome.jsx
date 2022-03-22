@@ -54,7 +54,7 @@ const Welcome = () => {
                 Fully secured
               </p>
               <h2 className="max-w-lg mb-2 font-sans text-3xl font-bold tracking-wide text-slate-300 sm:text-4xl sm:leading-none">
-                Send Cryto across 
+                Send Cryto across {" "}
                 <br className="hidden md:block" />
                  the <span className="inline-block text-indigo-400">world.</span>
               </h2>
