@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer, useState } from "react";
-import { ethers } from "ethers";
+import { ethers, utils} from "ethers";
 
 // import enums
 import { contractEnum, web3Enum, tokenEnum, userEnum } from "./enums.js";
@@ -551,6 +551,8 @@ export const ContractsProvider = ({ children }) => {
         lotteryPrice: contracts.lotteryPrice,
         lotteryWinningPrice: contracts.ethPrice,
         lotteriesDetails: contracts.lotteriesDetails,
+        // web3
+        provider: web3.provider,
 
         connectWallet,
         sendTransaction,
@@ -564,6 +566,7 @@ export const ContractsProvider = ({ children }) => {
         token,
         initToken,
         buyTokens,
+
 
         // lottery
         initLotteryPool,

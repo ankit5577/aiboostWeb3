@@ -1,15 +1,28 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { Loader } from "../components";
 import { ContractsContext } from "../context/ContractsContext";
 
 function LotteryPool() {
-  // lotteriesAddresses
-  const { lotteriesDetails, initLotteryPool, startLottery } =
-    useContext(ContractsContext);
+  const [blockTimeStamp, setBlockTimeStamp] = useState(0);
 
-  useEffect(async () => {
+  // lotteriesAddresses
+  const {
+    lotteriesDetails,
+    initLotteryPool,
+    startLottery,
+    isLoading,
+    provider,
+  } = useContext(ContractsContext);
+
+  useEffect(() => {
     initLotteryPool();
-  }, []);
+    if (provider) {
+      provider.getBlock().then((block) => {
+        setBlockTimeStamp(() => +block.timestamp);
+      });
+    }
+  }, [blockTimeStamp]);
 
   const createLottery = () => {
     const timeInMinutes = prompt("lottery end time in minutes?");
@@ -17,12 +30,10 @@ function LotteryPool() {
   };
 
   const getRemainingTime = (timestamp) => {
-    let currDateTime = new Date(Date.now());
-    let filteredTimestamp = new Date(timestamp);
-    console.log(filteredTimestamp, '---', currDateTime)
-    
-    // return  - currDateTime.getTime();
-  }
+    console.log(timestamp - blockTimeStamp);
+
+    return Math.floor((timestamp - blockTimeStamp) / 60);
+  };
 
   return (
     <div className="flex-1 bg-slate-900 space-y-8 text-slate-200 p-4">
@@ -38,23 +49,78 @@ function LotteryPool() {
           Available Lotteries
         </h2>
         <div className="flex flex-row gap-4 flex-wrap">
+          {isLoading && <Loader full={true} />}
           {lotteriesDetails.length > 0 &&
-            lotteriesDetails.map((lottery, index) => (
-              <Link to={`/lottery/${lottery.lotteryContract}`}
-                key={lottery.lotteryContract}
-                className="p-4 w-full md:min-w-[120px] md:min-h-[70px] md:max-w-[340px] md:max-h-[100px] border border-indigo-400 rounded-xl bg-slate-800"
-              >
-                <h2 className="text-slate-300 font-semibold tracking-wider text-xl">
-                  lottery #{index + 1}
-                </h2>
-                <span>Ending in {getRemainingTime(lottery.endedTimeStamp)}</span>
-                <p className="truncate">
-                  address: <span className="text-xs text-teal-500">{lottery.lotteryContract}</span>
-                </p>
-              </Link>
-            ))}
+            !isLoading &&
+            lotteriesDetails.map((lottery, index) => {
+              if(index > 5) {
+                return;
+              }
+              if (+getRemainingTime(lottery.endedTimeStamp) > 0) {
+                return (
+                  <Link
+                    to={`/lottery/${lottery.lotteryContract}`}
+                    key={lottery.lotteryContract}
+                    className="p-4 w-full md:min-w-[120px] md:min-h-[70px] md:max-w-[340px] md:max-h-[100px] border border-indigo-400 rounded-xl bg-slate-800 transition duration-300 hover:shadow-lg hover:shadow-indigo-900"
+                  >
+                    <h2 className="text-slate-300 font-semibold tracking-wider text-xl">
+                      lottery #{index + 1}
+                    </h2>
+                    {/*  */}
+                    <span>
+                      Ending in <span className="text-teal-600">{getRemainingTime(lottery.endedTimeStamp)}
+                      {" mins"}</span> 
+                    </span>
+                    <p className="truncate">
+                      address:{" "}
+                      <span className="text-xs text-teal-500">
+                        {lottery.lotteryContract}
+                      </span>
+                    </p>
+                  </Link>
+                );
+              }
+            })}
         </div>
-        {!(lotteriesDetails.length > 0) && <p>No Lottery Available</p>}
+        <h2 className="text-4xl font-thin py-2 text-teal-400 tracking-wide mt-4">
+          Ended Lotteries
+        </h2>
+        <div className="flex flex-row gap-4 flex-wrap">
+          {lotteriesDetails.length > 0 &&
+            !isLoading &&
+            lotteriesDetails.map((lottery, index) => {
+              if(index > 5) {
+                return;
+              }
+              if (+getRemainingTime(lottery.endedTimeStamp) < 0) {
+                return (
+                  <Link
+                    to={`/lottery/${lottery.lotteryContract}`}
+                    key={lottery.lotteryContract}
+                    className="p-4 w-full md:min-w-[120px] opacity-50 transform  blur-[0.5px] md:min-h-[70px] md:max-w-[340px] md:max-h-[100px] border border-red-600 rounded-xl bg-slate-800"
+                  >
+                    <h2 className="text-slate-300 font-semibold tracking-wider text-xl">
+                      lottery #{index + 1}
+                    </h2>
+                    {/*  */}
+                    <span>
+                      Ending in <span className="text-red-600">{getRemainingTime(lottery.endedTimeStamp)}
+                      {" mins"}</span> 
+                    </span>
+                    <p className="truncate">
+                      address:{" "}
+                      <span className="text-xs text-teal-500">
+                        {lottery.lotteryContract}
+                      </span>
+                    </p>
+                  </Link>
+                );
+              }
+            })}
+        </div>
+        {!(lotteriesDetails.length > 0 || isLoading) && (
+          <p>No Lottery Available</p>
+        )}
       </div>
     </div>
   );
