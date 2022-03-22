@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import logoFull from "../../images/logo_white.svg";
 
 const Footer = () => {
   return (
@@ -12,57 +13,7 @@ const Footer = () => {
             title="Company"
             className="inline-flex items-center"
           >
-            <svg
-              width="50"
-              height="55"
-              viewBox="10 1 200 300"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <g clipPath="url(#clip0_3_2)">
-                <path
-                  d="M0 290.5L202.8 205.1L138.6 140L0 290.5ZM74.5 75L138.7 140L253.3 0L74.5 75Z"
-                  fill="url(#paint0_diamond_3_2)"
-                />
-              </g>
-              <defs>
-                <radialGradient
-                  id="paint0_diamond_3_2"
-                  cx="0"
-                  cy="0"
-                  r="1"
-                  gradientUnits="userSpaceOnUse"
-                  gradientTransform="translate(126.634 145.253) scale(126.63 145.25)"
-                >
-                  <stop stopColor="#1B2536" stopOpacity="0.91" />
-                  <stop
-                    offset="0.0001"
-                    stopColor="#1B2536"
-                    stopOpacity="0.938395"
-                  />
-                  <stop
-                    offset="0.338542"
-                    stopColor="#A894D0"
-                    stopOpacity="0.947706"
-                  />
-                  <stop
-                    offset="0.671875"
-                    stopColor="#7B3EC8"
-                    stopOpacity="0.956875"
-                  />
-                  <stop offset="1" stopColor="#7680E3" />
-                </radialGradient>
-                <clipPath id="clip0_3_2">
-                  <rect width="253.3" height="290.5" fill="white" />
-                </clipPath>
-              </defs>
-            </svg>
-            <span className="ml-2 text-xl font-bold tracking-wide text-white">
-              AiBoost{" "}
-              <span className="text-xl font-bold tracking-wide text-white text-logo-gradient">
-                Web3
-              </span>
-            </span>
+            <img className="text-white w-44" src={logoFull} alt="logo" />
           </Link>
         </div>
 
