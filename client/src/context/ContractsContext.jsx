@@ -5,7 +5,12 @@ import { ethers } from "ethers";
 import { contractEnum, web3Enum, tokenEnum, userEnum } from "./enums.js";
 
 // import reducers
-import {contractReducer, web3Reducer, userReducer, tokenReducer} from './reducers';
+import {
+  contractReducer,
+  web3Reducer,
+  userReducer,
+  tokenReducer,
+} from "./reducers";
 
 import {
   transactionContractAddress,
@@ -26,7 +31,6 @@ export const ContractsProvider = ({ children }) => {
   const [inTransaction, setInTransaction] = useState(false);
   const [isEther, setIsEther] = useState(false);
 
-  
   const [contracts, dispatchContracts] = useReducer(contractReducer, {
     transactionContract: null,
     aiboostTokenContract: null,
@@ -37,6 +41,7 @@ export const ContractsProvider = ({ children }) => {
     lotteryPoolContract: null,
     lotteryManager: "․․․․‥",
     lotteryEntryFee: 0,
+    lotteriesDetails: [],
     lotteryTimeRemaining: 0,
     lotteryStart: null,
     lotteryEnter: null,
@@ -73,7 +78,11 @@ export const ContractsProvider = ({ children }) => {
 
   const createEthereumContract = async () => {
     // TODO: Error HERE
+    // const url = "http://localhost:7545";
     const provider = new ethers.providers.Web3Provider(ethereum);
+
+    // ganache
+    // const provider = new ethers.providers.JsonRpcProvider(url);
     dispatchWeb3({ type: web3Enum.PROVIDER, value: provider });
     const signer = provider.getSigner();
 
@@ -137,160 +146,6 @@ export const ContractsProvider = ({ children }) => {
       value: formatBalance.substring(0, 7),
     });
     return formatBalance.substring(0, 7);
-  };
-
-  const initLottery = async () => {
-    try {
-      if (ethereum && contracts.lotteryPoolContract) {
-        setIsLoading(true);
-        const manager = await contracts.lotteryPoolContract.manager();
-        const entryFee = await contracts.lotteryPoolContract.entryFee();
-        const getPlayers = await contracts.lotteryPoolContract.getPlayers();
-        const price = await contracts.lotteryPoolContract.winningPrice();
-        const lotteryWinner = await contracts.lotteryPoolContract.getWinner();
-        const lotteryStatus = await contracts.lotteryPoolContract.status();
-
-        console.log(contracts.lotteryPoolContract);
-
-        const ethPrice = ethers.utils.formatEther(price);
-
-        dispatchContracts({
-          type: contractEnum.LOTTERY_ENTRY_FEE,
-          value: entryFee,
-        });
-        dispatchContracts({
-          type: contractEnum.LOTTERY_MANAGER,
-          value: manager,
-        });
-        dispatchContracts({
-          type: contractEnum.LOTTERY_PLAYERS,
-          value: getPlayers,
-        });
-        dispatchContracts({
-          type: contractEnum.LOTTERY_PRICE,
-          value: ethPrice,
-        });
-
-        dispatchContracts({
-          type: contractEnum.LOTTERY_WINNER,
-          value: lotteryWinner,
-        });
-
-        dispatchContracts({
-          type: contractEnum.LOTTERY_STATUS,
-          value: lotteryStatus,
-        });
-
-        setIsLoading(false);
-      } else {
-        console.log("contract is not initialized @lottery");
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const startLottery = async (startTime) => {
-    try {
-      if (startTime <= 0) {
-        console.error(`Cannot Start Lottery with ${startTime} time`);
-      } else {
-        if (ethereum && contracts.lotteryPoolContract) {
-          setIsLoading(true);
-          const start = await contracts.lotteryPoolContract.start(startTime);
-          console.log(`Loading - ${start.hash}`);
-          await start.wait();
-          console.log(`Success - ${start.hash}`);
-          if (
-            !alert(
-              `Transaction Confirmed ${start.hash} \n from: ${user.currentAccount}`
-            )
-          ) {
-            location.reload();
-          }
-          dispatchContracts({ type: contractEnum.LOTTERY_START, value: start });
-          setIsLoading(false);
-        } else {
-          console.log("The lottery has not started yet");
-        }
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const enterLottery = async () => {
-    try {
-      if (ethereum && contracts.lotteryPoolContract) {
-        setIsLoading(true);
-        const enter = await contracts.lotteryPoolContract.enter({
-          from: user.currentAccount,
-          value: contracts.lotteryEntryFee,
-          gasLimit: 500000,
-        });
-        console.log(`Entering Lottery Plz Wait - ${enter.hash}`);
-        await enter.wait();
-        console.log(`Entered Lottery Successfully - ${enter.hash}`);
-        if (
-          !alert(
-            `Transaction Confirmed ${enter.hash} \n from: ${user.currentAccount}`
-          )
-        ) {
-          location.reload();
-        }
-        dispatchContracts({ type: contractEnum.LOTTERY_ENTER, value: enter });
-        setIsLoading(false);
-      } else {
-        console.log("You have not entered the lottery yet");
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const endLottery = async () => {
-    try {
-      if (ethereum && contracts.lotteryPoolContract) {
-        setIsLoading(true);
-        const end = await contracts.lotteryPoolContract.end();
-        console.log(`Ending Lottery Plz Wait - ${end.hash}`);
-        await end.wait();
-        console.log(`Lottery Ended Successfully - ${end.hash}`);
-        if (
-          !alert(
-            `Transaction Confirmed ${end.hash} \n from: ${user.currentAccount}`
-          )
-        ) {
-          location.reload();
-        }
-        dispatchContracts({ type: contractEnum.LOTTERY_END, value: end });
-        setIsLoading(false);
-      } else {
-        console.log("Lottery is not initiated or no ether found");
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const lotteryTimeRemaining = async () => {
-    try {
-      setIsLoading(true);
-      if (ethereum && contracts.lotteryPoolContract) {
-        const timeRemaining =
-          await contracts.lotteryPoolContract.getRemainingTime();
-        console.log("Contract ⌚ Remaining", timeRemaining);
-        dispatchContracts({
-          type: contractEnum.LOTTERY_TIME_REMAINING,
-          value: timeRemaining,
-        });
-        setIsLoading(false);
-      } else {
-        console.log("Lottery is not initiated or no ether will be found");
-      }
-    } catch (error) {
-      console.error(error);
-    }
   };
 
   const initToken = async () => {
@@ -504,12 +359,170 @@ export const ContractsProvider = ({ children }) => {
     }
   };
 
+  // lottery contract
+  const initLotteryPool = async () => {
+    try {
+      if (ethereum && contracts.lotteryPoolContract) {
+        setIsLoading(true);
+        // get all lotteries
+        const lotteries = await contracts.lotteryPoolContract.getLotteryContractDetails();
+
+        // type cast lotteries.
+        const lotteriesDetails = lotteries.map(lottery => ( {
+            endedTimeStamp: +lottery.endedTimeStamp,
+            lotteryContract: lottery.lotteryContract,
+            manager: lottery.manager
+          }
+        ));
+
+        dispatchContracts({
+          type: contractEnum.LOTTERIES_DETAILS,
+          value: lotteriesDetails,
+        });
+
+        setIsLoading(false);
+      } else {
+        console.log("contract is not initialized @lottery");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getLotteryDetails = async (lotteryAddress) => {
+    try {
+      if (ethereum && contracts.lotteryPoolContract) {
+        const lotteryDetail =
+          await contracts.lotteryPoolContract.getLotteryContract(
+            lotteryAddress
+          );
+        let local = {
+          lotteryAddress: lotteryDetail.lotteryContract,
+          endedTimeStamp: +lotteryDetail.endedTimeStamp,
+          manager: lotteryDetail.manager,
+        }
+        return local;
+      } else {
+        console.log("contract is not initialized @lottery");
+      }
+    } catch (e) {
+      console.error(error);
+    }
+  };
+
+  const startLottery = async (startTime) => {
+    try {
+      if (startTime <= 0) {
+        console.error(`Cannot Start Lottery with ${startTime} time`);
+      } else {
+        if (ethereum && contracts.lotteryPoolContract) {
+          setIsLoading(true);
+          const start = await contracts.lotteryPoolContract.createLottery(
+            startTime
+          );
+          console.log(`Loading - ${start.hash}`);
+          await start.wait();
+          console.log(`Success - ${start.hash}`);
+          if (
+            !alert(
+              `Transaction Confirmed ${start.hash} \n from: ${user.currentAccount}`
+            )
+          ) {
+            location.reload();
+          }
+          dispatchContracts({ type: contractEnum.LOTTERY_START, value: start });
+          setIsLoading(false);
+        } else {
+          console.log("The lottery has not started yet");
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const enterLottery = async () => {
+    try {
+      if (ethereum && contracts.lotteryPoolContract) {
+        setIsLoading(true);
+        const enter = await contracts.lotteryPoolContract.enter({
+          from: user.currentAccount,
+          value: contracts.lotteryEntryFee,
+          gasLimit: 500000,
+        });
+        console.log(`Entering Lottery Plz Wait - ${enter.hash}`);
+        await enter.wait();
+        console.log(`Entered Lottery Successfully - ${enter.hash}`);
+        if (
+          !alert(
+            `Transaction Confirmed ${enter.hash} \n from: ${user.currentAccount}`
+          )
+        ) {
+          location.reload();
+        }
+        dispatchContracts({ type: contractEnum.LOTTERY_ENTER, value: enter });
+        setIsLoading(false);
+      } else {
+        console.log("You have not entered the lottery yet");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const endLottery = async () => {
+    try {
+      if (ethereum && contracts.lotteryPoolContract) {
+        setIsLoading(true);
+        const end = await contracts.lotteryPoolContract.end();
+        console.log(`Ending Lottery Plz Wait - ${end.hash}`);
+        await end.wait();
+        console.log(`Lottery Ended Successfully - ${end.hash}`);
+        if (
+          !alert(
+            `Transaction Confirmed ${end.hash} \n from: ${user.currentAccount}`
+          )
+        ) {
+          location.reload();
+        }
+        dispatchContracts({ type: contractEnum.LOTTERY_END, value: end });
+        setIsLoading(false);
+      } else {
+        console.log("Lottery is not initiated or no ether found");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const lotteryTimeRemaining = async () => {
+    try {
+      setIsLoading(true);
+      if (ethereum && contracts.lotteryPoolContract) {
+        const timeRemaining =
+          await contracts.lotteryPoolContract.getRemainingTime();
+        console.log("Contract ⌚ Remaining", timeRemaining);
+        dispatchContracts({
+          type: contractEnum.LOTTERY_TIME_REMAINING,
+          value: timeRemaining,
+        });
+        setIsLoading(false);
+      } else {
+        console.log("Lottery is not initiated or no ether will be found");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     async function init() {
       // TODO: ERROR HERE
       await checkIfWalletIsConnect();
       await createEthereumContract();
       await checkIfTransactionsExists();
+      await initLotteryPool();
+
       window.ethereum.on("chainChanged", async () => {
         console.log("network changed!!");
         window.location.reload();
@@ -537,10 +550,8 @@ export const ContractsProvider = ({ children }) => {
         winner: contracts.lotteryWinner,
         lotteryPrice: contracts.lotteryPrice,
         lotteryWinningPrice: contracts.ethPrice,
-        startLottery,
-        enterLottery,
-        endLottery,
-        lotteryTimeRemaining,
+        lotteriesDetails: contracts.lotteriesDetails,
+
         connectWallet,
         sendTransaction,
         isEther,
@@ -553,7 +564,15 @@ export const ContractsProvider = ({ children }) => {
         token,
         initToken,
         buyTokens,
-        initLottery,
+
+        // lottery
+        initLotteryPool,
+        startLottery,
+        enterLottery,
+        endLottery,
+        lotteryTimeRemaining,
+        getLotteryDetails,
+
         inTransaction,
       }}
     >

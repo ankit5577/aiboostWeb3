@@ -9,7 +9,7 @@ import { RiSendPlaneFill } from "react-icons/ri";
 
 function Lottery() {
   const {
-    initLottery,
+    initLotteryPool,
     lotteryManager,
     lotteryEntryFee,
     lotteryPlayers,
@@ -57,20 +57,9 @@ function Lottery() {
 
   console.log("Status", lotteryStatus);
 
-  // console.log("⌚", lotteryTimeRemaining);
-
-  // useEffect(() => {
-  //   async function timer() {
-  //     await lotteryTimeRemaining();
-  //   }
-  //   if (lotteryStatus == "1") {
-  //     timer();
-  //   }
-  // });
-
   useEffect(() => {
     async function load() {
-      await initLottery();
+      await initLotteryPool();
 
       setState(() => {
         return {

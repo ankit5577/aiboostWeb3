@@ -18,7 +18,8 @@ export const tokenSaleContractAddress =
 export const tokenSaleContractABI = tokenSaleABI;
 
 export const lotteryPoolContractAddress =
-  "0x5F04F63FcC423E7b7Bd04Dd407a471d9f2b50f5D";
+  "0xddDb018e3230928421FbdCFC7f673792da000E7D";
+  // "0x6622e8fEBb8766376a0322Fb3AD8d9913c361a20"; // ganache
 export const lotteryPoolContractABI = lotteryPoolABI;
 
 export const lotteryContractABI = lotteryABI;

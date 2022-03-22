@@ -4,6 +4,7 @@ import { Navbar, Footer, NotFound, Loader } from "./components";
 
 const SendEther = React.lazy(() => import("./pages/SendEther"));
 const Lottery = React.lazy(() => import("./pages/Lottery"));
+const LotteryPool = React.lazy(() => import("./pages/LotteryPool"));
 const Home = React.lazy(() => import("./pages/Home"));
 const Stake = React.lazy(() => import("./pages/Stake"));
 const BuyToken = React.lazy(() => import("./pages/BuyToken"));
@@ -46,6 +47,14 @@ const App = () => (
       />
       <Route
         path={"/lottery"}
+        element={
+          <Suspense fallback={<Loader full={true} />}>
+            <LotteryPool />
+          </Suspense>
+        }
+      />
+      <Route
+        path={"/lottery/:address"}
         element={
           <Suspense fallback={<Loader full={true} />}>
             <Lottery />

@@ -30,6 +30,10 @@ const contractReducer = (state, action) => {
       console.log("lottery contract init");
       return { ...state, lotteryPoolContract: action.value };
 
+    case contractEnum.LOTTERIES_DETAILS:
+      console.log("lottery details init");
+      return { ...state, lotteriesDetails: action.value };
+
     case contractEnum.LOTTERY_MANAGER:
       console.log("LOTTERY_MANAGER updated");
       return { ...state, lotteryManager: action.value };

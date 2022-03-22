@@ -14,6 +14,8 @@ contract LotteryPool {
     // map lottery address to lottery info
     mapping(address => lotteryStruct) public lotteriesMapping;
 
+    uint256 public totalLotteries = 0;
+
     event LotteryCreated(address lotteryAddress);
 
     address[] public lotteriesContractsAddresses;
@@ -39,15 +41,29 @@ contract LotteryPool {
         // save the lottery in lotteries
         lotteriesMapping[address(localLottery)] = lotteryStruct(localLottery, msg.sender, block.timestamp+(_timeInMinutes*60));
 
+        // increase lottery count.
+        totalLotteries += 1;
+
         emit LotteryCreated(address(localLottery));
 
         // save lottery address
         lotteriesContractsAddresses.push(address(localLottery));
     } 
 
-    // will return specific lottery contract
-    function getLotteryContract(address _lotteryAddress) public view returns (lotteryStruct memory) {
-        return lotteriesMapping[_lotteryAddress];
+    // will return all lotteries
+    function getLotteryContractDetails() public view returns (lotteryStruct[] memory){
+        lotteryStruct[] memory ret = new lotteryStruct[](totalLotteries);
+
+        for (uint i = 0; i < totalLotteries; i++) {
+            ret[i] = lotteriesMapping[lotteriesContractsAddresses[i]];
+        }
+
+        return ret;
+    }
+
+    // get lotteries
+    function getLotteries() public view returns(address[] memory) {
+        return lotteriesContractsAddresses;
     }
 
 }
