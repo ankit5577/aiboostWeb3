@@ -82,6 +82,9 @@ function LotteryPool() {
                 );
               }
             })}
+          {!(lotteriesDetails.length > 0 || isLoading) && (
+            <p>No Lottery Available</p>
+          )}
         </div>
         <h2 className="text-4xl font-thin py-2 text-teal-400 tracking-wide mt-4">
           Ended Lotteries
