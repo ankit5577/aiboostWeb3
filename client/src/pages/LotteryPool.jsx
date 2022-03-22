@@ -61,7 +61,7 @@ function LotteryPool() {
                   <Link
                     to={`/lottery/${lottery.lotteryContract}`}
                     key={lottery.lotteryContract}
-                    className="p-4 max-w-md border border-indigo-400 rounded-xl bg-slate-800 transition duration-300 hover:shadow-lg hover:shadow-indigo-900"
+                    className="p-4 w-xs border border-indigo-400 rounded-xl bg-slate-800 transition duration-300 hover:shadow-lg hover:shadow-indigo-900"
                   >
                     <h2 className="text-indigo-500 font-bold text-2xl tracking-wider">
                       lottery #{index + 1}
@@ -101,7 +101,7 @@ function LotteryPool() {
                   <Link
                     to={`/lottery/${lottery.lotteryContract}`}
                     key={lottery.lotteryContract}
-                    className="p-4 max-w-md opacity-50 transform  blur-[0.5px] border border-red-600 rounded-xl bg-slate-800"
+                    className="p-4 w-xs opacity-50 transform  blur-[0.5px] border border-red-600 rounded-xl bg-slate-800"
                   >
                     <h2 className="text-red-500 font-bold text-2xl tracking-wider">
                       lottery #{index + 1}
