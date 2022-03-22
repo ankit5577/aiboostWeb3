@@ -23,12 +23,6 @@ contract Lottery {
 
     LotteryStatus public status = LotteryStatus.START;
 
-    // modifiers
-    modifier isManager {
-        require(msg.sender == manager, "you are not the manager");
-        _;
-    }
-
     constructor(address _manager) {
         manager = _manager;
     }
@@ -39,7 +33,7 @@ contract Lottery {
     }
 
     // start the lottery
-    function start(uint _timeInMinutes) public isManager {
+    function start(uint _timeInMinutes) public {
         require(status == LotteryStatus.START, "lottery has already been started or ended.");
 
         status = LotteryStatus.STARTED;
