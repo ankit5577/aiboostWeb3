@@ -26,9 +26,13 @@ const contractReducer = (state, action) => {
       console.log("sale contract made");
       return { ...state, aiboostTokenSaleContract: action.value };
 
-    case contractEnum.LOTTERY_CONTRACT_INIT:
-      console.log("lottery contract init");
+    case contractEnum.LOTTERY_POOL_CONTRACT_INIT:
+      console.log("lottery pool init");
       return { ...state, lotteryPoolContract: action.value };
+
+    case contractEnum.LOTTERY_INIT:
+      console.log("lottery contract init");
+      return { ...state, lotteryContract: action.value };
 
     case contractEnum.LOTTERIES_DETAILS:
       console.log("lottery details init");

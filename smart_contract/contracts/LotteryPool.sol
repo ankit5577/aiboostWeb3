@@ -32,8 +32,8 @@ contract LotteryPool {
     }
 
     function createLottery(uint256 _timeInMinutes) public {
-        // create lottery instance
-        Lottery localLottery = new Lottery();
+        // create lottery instance & send the sender's address
+        Lottery localLottery = new Lottery(msg.sender);
 
         // start the lottery
         localLottery.start(_timeInMinutes);

@@ -30,8 +30,6 @@ function LotteryPool() {
   };
 
   const getRemainingTime = (timestamp) => {
-    console.log(timestamp - blockTimeStamp);
-
     return Math.floor((timestamp - blockTimeStamp) / 60);
   };
 

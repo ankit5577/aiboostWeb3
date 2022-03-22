@@ -54,7 +54,7 @@ const App = () => (
         }
       />
       <Route
-        path={"/lottery/:address"}
+        path={"/lottery/:lotteryAddress"}
         element={
           <Suspense fallback={<Loader full={true} />}>
             <Lottery />

@@ -29,8 +29,8 @@ contract Lottery {
         _;
     }
 
-    constructor() {
-        manager = msg.sender;
+    constructor(address _manager) {
+        manager = _manager;
     }
 
     // get all players

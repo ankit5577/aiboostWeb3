@@ -6,10 +6,13 @@ import { motion } from "framer-motion";
 import { shortenAddress } from "../utils/shortenAddress";
 
 import { RiSendPlaneFill } from "react-icons/ri";
+import { useParams } from "react-router";
 
 function Lottery() {
+  const { lotteryAddress } = useParams();
+
   const {
-    initLotteryPool,
+    initLotteryContract,
     lotteryManager,
     lotteryEntryFee,
     lotteryPlayers,
@@ -34,11 +37,11 @@ function Lottery() {
   });
 
   const [manager, setIsManager] = useState(false);
-  // const [participate, setIsParticipate] = useState(false);
 
   const inputRef = useRef();
 
   useEffect(() => {
+    console.log(currentAccount, lotteryManager)
     if (
       currentAccount === lotteryManager.toLowerCase() &&
       (currentAccount || lotteryManager.toLowerCase() !== null)
@@ -47,19 +50,9 @@ function Lottery() {
     }
   });
 
-  let lotteryWinner = "";
-
-  if (winner !== "0x0000000000000000000000000000000000000000") {
-    lotteryWinner = winner;
-  }
-
-  console.log("💀", isLoading, lotteryStatus);
-
-  console.log("Status", lotteryStatus);
-
   useEffect(() => {
     async function load() {
-      await initLotteryPool();
+      await initLotteryContract(lotteryAddress);
 
       setState(() => {
         return {
@@ -71,6 +64,7 @@ function Lottery() {
         };
       });
     }
+
     load();
   }, []);
 
@@ -117,7 +111,7 @@ function Lottery() {
               rel="noreferrer"
               className="text-xs tracking-wider uppercase text-teal-400"
             >
-              Manager 
+              Manager
               <RiSendPlaneFill className="text-teal-400 inline-block" />
             </a>
           </span>

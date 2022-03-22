@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer, useState } from "react";
-import { ethers, utils} from "ethers";
+import { ethers, utils } from "ethers";
 
 // import enums
 import { contractEnum, web3Enum, tokenEnum, userEnum } from "./enums.js";
@@ -21,6 +21,7 @@ import {
   aiboostTokenContractABI,
   lotteryPoolContractABI,
   lotteryPoolContractAddress,
+  lotteryContractABI,
 } from "../utils/constants";
 
 export const ContractsContext = React.createContext();
@@ -38,6 +39,7 @@ export const ContractsProvider = ({ children }) => {
     transactions: [],
     transactionCount: +localStorage.getItem("transactionCount"),
     tokenPrice: 0,
+    lotteryContract: null,
     lotteryPoolContract: null,
     lotteryManager: "․․․․‥",
     lotteryEntryFee: 0,
@@ -126,7 +128,7 @@ export const ContractsProvider = ({ children }) => {
     });
 
     dispatchContracts({
-      type: contractEnum.LOTTERY_CONTRACT_INIT,
+      type: contractEnum.LOTTERY_POOL_CONTRACT_INIT,
       value: lotteryPoolContract,
     });
 
@@ -359,21 +361,21 @@ export const ContractsProvider = ({ children }) => {
     }
   };
 
-  // lottery contract
+  // lottery pool contract
   const initLotteryPool = async () => {
     try {
       if (ethereum && contracts.lotteryPoolContract) {
         setIsLoading(true);
         // get all lotteries
-        const lotteries = await contracts.lotteryPoolContract.getLotteryContractDetails();
+        const lotteries =
+          await contracts.lotteryPoolContract.getLotteryContractDetails();
 
         // type cast lotteries.
-        const lotteriesDetails = lotteries.map(lottery => ( {
-            endedTimeStamp: +lottery.endedTimeStamp,
-            lotteryContract: lottery.lotteryContract,
-            manager: lottery.manager
-          }
-        ));
+        const lotteriesDetails = lotteries.map((lottery) => ({
+          endedTimeStamp: +lottery.endedTimeStamp,
+          lotteryContract: lottery.lotteryContract,
+          manager: lottery.manager,
+        }));
 
         dispatchContracts({
           type: contractEnum.LOTTERIES_DETAILS,
@@ -389,6 +391,64 @@ export const ContractsProvider = ({ children }) => {
     }
   };
 
+  const initLotteryContract = async (lotteryAddress) => {
+    try {
+      if (ethereum && contracts.lotteryPoolContract) {
+        setIsLoading(true);
+        const lotteryContract = new ethers.Contract(
+          lotteryAddress,
+          lotteryContractABI,
+          web3.provider.getSigner()
+        );
+
+        const lotteryPrice = await lotteryContract.winningPrice();
+        const status = await lotteryContract.status();
+        console.log(status);
+        const manager = await lotteryContract.manager();
+        const winner = await lotteryContract.getWinner();
+        const players = await lotteryContract.getPlayers();
+        const entryFee = await lotteryContract.entryFee();
+
+        dispatchContracts({
+          type: contractEnum.LOTTERY_INIT,
+          value: lotteryContract,
+        });
+
+        dispatchContracts({
+          type: contractEnum.LOTTERY_MANAGER,
+          value: manager,
+        });
+
+        dispatchContracts({
+          type: contractEnum.LOTTERY_ENTRY_FEE,
+          value: +entryFee,
+        });
+
+        dispatchContracts({
+          type: contractEnum.LOTTERY_PLAYERS,
+          value: players,
+        });
+
+        dispatchContracts({
+          type: contractEnum.LOTTERY_WINNER,
+          value: winner,
+        });
+
+        dispatchContracts({
+          type: contractEnum.LOTTERY_PRICE,
+          value: +lotteryPrice,
+        });
+
+        setIsLoading(false);
+
+      } else {
+        console.log("ethereum || contracts.lotteryPoolContract not init");
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   const getLotteryDetails = async (lotteryAddress) => {
     try {
       if (ethereum && contracts.lotteryPoolContract) {
@@ -400,7 +460,7 @@ export const ContractsProvider = ({ children }) => {
           lotteryAddress: lotteryDetail.lotteryContract,
           endedTimeStamp: +lotteryDetail.endedTimeStamp,
           manager: lotteryDetail.manager,
-        }
+        };
         return local;
       } else {
         console.log("contract is not initialized @lottery");
@@ -430,7 +490,7 @@ export const ContractsProvider = ({ children }) => {
           ) {
             location.reload();
           }
-          dispatchContracts({ type: contractEnum.LOTTERY_START, value: start });
+          // dispatchContracts({ type: contractEnum.LOTTERY_START, value: start });
           setIsLoading(false);
         } else {
           console.log("The lottery has not started yet");
@@ -443,9 +503,9 @@ export const ContractsProvider = ({ children }) => {
 
   const enterLottery = async () => {
     try {
-      if (ethereum && contracts.lotteryPoolContract) {
+      if (ethereum && contracts.lotteryContract) {
         setIsLoading(true);
-        const enter = await contracts.lotteryPoolContract.enter({
+        const enter = await contracts.lotteryContract.enter({
           from: user.currentAccount,
           value: contracts.lotteryEntryFee,
           gasLimit: 500000,
@@ -472,9 +532,9 @@ export const ContractsProvider = ({ children }) => {
 
   const endLottery = async () => {
     try {
-      if (ethereum && contracts.lotteryPoolContract) {
+      if (ethereum && contracts.lotteryContract) {
         setIsLoading(true);
-        const end = await contracts.lotteryPoolContract.end();
+        const end = await contracts.lotteryContract.end();
         console.log(`Ending Lottery Plz Wait - ${end.hash}`);
         await end.wait();
         console.log(`Lottery Ended Successfully - ${end.hash}`);
@@ -567,9 +627,9 @@ export const ContractsProvider = ({ children }) => {
         initToken,
         buyTokens,
 
-
         // lottery
         initLotteryPool,
+        initLotteryContract,
         startLottery,
         enterLottery,
         endLottery,
