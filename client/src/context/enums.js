@@ -1,4 +1,4 @@
-const contractEnum = {
+const contractEnum = Object.freeze({
   TRANSACTION_CONTRACT_INIT: "TRANSACTION_CONTRACT_INIT",
   TRANSACTIONS: "TRANSACTIONS",
   TRANSACTION_COUNT: "TRANSACTION_COUNT",
@@ -14,21 +14,21 @@ const contractEnum = {
   LOTTERY_WINNER: "LOTTERY_WINNER",
   LOTTERY_PRICE: "LOTTERY_PRICE",
   LOTTERIES_DETAILS: "LOTTERIES_DETAILS"
-};
+});
 
-const web3Enum = {
+const web3Enum = Object.freeze({
   PROVIDER: "PROVIDER",
-};
+});
 
-const tokenEnum = {
+const tokenEnum = Object.freeze({
   PRICE: "PRICE",
   BALANCE: "BALANCE",
   SOLD: "SOLD",
-};
+});
 
-const userEnum = {
+const userEnum = Object.freeze({
   BALANCE: "BALANCE",
   CURR_ACCOUNT: "CURR_ACCOUNT",
-};
+});
 
 export { contractEnum, web3Enum, tokenEnum, userEnum };
