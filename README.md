@@ -261,19 +261,17 @@ Ankit Kaushal - [@ankit55771](https://twitter.com/ankit55771) - ankit@aiboost.in
 Project Link: [https://www.medicoeye.in/](https://www.medicoeye.in/)
 
 
-
-
-
 <!-- MARKDOWN LINKS & IMAGES -->
-[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
-[contributors-url]: https://github.com/anki5577/medicoEye/contributors
-[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
-[forks-url]: https://github.com/anki5577/medicoEye/members
-[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
-[stars-url]: https://github.com/anki5577/medicoEye/stargazers
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
-[issues-url]: hhttps://github.com/anki5577/medicoEye/issues
-[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
-[license-url]: https://github.com/anki5577/medicoEye/assets/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/ankit5577/connectedh.svg?style=for-the-badge
+[contributors-url]: https://github.com/anki5577/connectedh-frontend/contributors
+[forks-shield]: https://img.shields.io/github/forks/ankit5577/connectedh.svg?style=for-the-badge
+[forks-url]: https://github.com/anki5577/connectedh-frontend/members
+[stars-shield]: https://img.shields.io/github/stars/ankit5577/connectedh.svg?style=for-the-badge
+[stars-url]: https://github.com/anki5577/connectedh-frontend/stargazers
+[issues-shield]: https://img.shields.io/github/issues/ankit5577/connectedh.svg?style=for-the-badge
+[issues-url]: hhttps://github.com/anki5577/connectedh-frontend/issues
+[license-shield]: https://img.shields.io/github/license/ankit5577/connectedh.svg?style=for-the-badge
+[license-url]: https://github.com/anki5577/connectedh-frontend/assets/LICENSE.txt
 [linkedin-aiboost]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/ankit5577
+
