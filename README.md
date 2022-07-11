@@ -11,7 +11,7 @@
     <h1 align="center">Aiboost next</h1>
   </a>
 
-  <h3 align="center">AiBoost web3 Personal Project</h3>
+  <h3 align="center">AiBoost web3 Personal Project</h3> 
 
   <p align="center">
     <a href="http://www.aiboost.eu.org">View Demo</a>
