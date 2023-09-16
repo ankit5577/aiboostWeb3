@@ -6,6 +6,9 @@
     "build": "vite build",
     "serve": "vite preview"
   },
+  "engines": {
+    "node": "^16"
+  },
   "dependencies": {
     "@tailwindcss/forms": "^0.4.0",
     "eth-revert-reason": "^1.0.3",
