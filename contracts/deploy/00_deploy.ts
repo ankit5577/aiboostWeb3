@@ -13,10 +13,10 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   console.log("deployer", deployer)
   console.log(`balance = ${formatEther((await ethers.provider.getBalance(deployer)).toString())}`);
 
-  const aib = await ethers.getContractAt("AiboostToken", "0xB7071245A6cD26Fbc482D6245e47FA96Fd975B63", deployerSigner);
-  await aib.initialize("AiBoost", "AiB");
+  // const aib = await ethers.getContractAt("AiboostToken", "0xB7071245A6cD26Fbc482D6245e47FA96Fd975B63", deployerSigner);
+  // await aib.initialize("AiBoost", "AiB");
 
-  console.log("Balance after initialize", (await aib.balanceOf(deployer)));
+  // console.log("Balance after initialize", (await aib.balanceOf(deployer)));
 
   // const lotteryPool = await deploy('LotteryPool', {
   //   from: deployer,
