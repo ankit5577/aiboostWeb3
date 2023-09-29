@@ -1,0 +1,54 @@
+{
+  "name": "aiboost-web3",
+  "version": "0.0.1",
+  "description": "The smart contracts behind aiboost.eu.org (aiboost web3)",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "@nomiclabs/hardhat-solhint": "^3.0.1",
+    "@openzeppelin/contracts": "^4.9.3",
+    "@openzeppelin/contracts-upgradeable": "^4.9.3",
+    "@openzeppelin/hardhat-upgrades": "^2.3.1",
+    "@remix-project/remixd": "^0.6.17",
+    "dotenv": "^16.3.1",
+    "hardhat-contract-sizer": "^2.10.0",
+    "hardhat-deploy": "^0.11.37",
+    "hardhat-deploy-ethers": "^0.4.1",
+    "lodash": "^4.17.21",
+    "prettier": "^3.0.3",
+    "prettier-plugin-solidity": "^1.1.3",
+    "solc": "^0.8.21",
+    "web3-utils": "^4.0.5"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-chai-matchers": "^2.0.2",
+    "@nomicfoundation/hardhat-ethers": "^3.0.4",
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.9",
+    "@nomicfoundation/hardhat-toolbox": "^3.0.0",
+    "@nomicfoundation/hardhat-verify": "^1.1.1",
+    "@typechain/ethers-v6": "^0.4.3",
+    "@typechain/hardhat": "^8.0.3",
+    "@types/node": "^20.5.7",
+    "@typescript-eslint/eslint-plugin": "^6.5.0",
+    "@typescript-eslint/parser": "^6.5.0",
+    "chai": "^4.3.8",
+    "eslint": "^8.48.0",
+    "ethers": "^6.7.1",
+    "hardhat": "^2.17.2",
+    "hardhat-gas-reporter": "^1.0.9",
+    "solidity-coverage": "^0.8.4",
+    "ts-node": "^10.9.1",
+    "typechain": "^8.3.1",
+    "typescript": "^5.2.2"
+  },
+  "keywords": [
+    "cryptocurrency",
+    "ethereum",
+    "polygon",
+    "polygon-testnet",
+    "polygon-mumbai"
+  ],
+  "author": "Ankit5577",
+  "license": "LGPL-3.0-or-later"
+}
