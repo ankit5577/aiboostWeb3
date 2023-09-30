@@ -2,68 +2,117 @@
 pragma solidity ^0.8.0;
 
 import "./Lottery.sol";
+import "@openzeppelin/contracts/utils/math/SafeMath.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
-contract LotteryPool {
+contract LotteryPool is ReentrancyGuard {
+    using SafeMath for uint256;
 
-    struct lotteryStruct {
+    struct LotteryInfo {
         Lottery lotteryContract;
         address manager;
-        uint256 endedTimeStamp;
+        uint256 endTime;
+        uint256 totalPlayers;
     }
 
-    // map lottery address to lottery info
-    mapping(address => lotteryStruct) public lotteriesMapping;
-
-    uint256 public totalLotteries = 0;
-
-    event LotteryCreated(address lotteryAddress);
-
+    mapping(address => LotteryInfo) public lotteriesMapping;
     address[] public lotteriesContractsAddresses;
+    address public owner;
 
-    address public manager;
+    event LotteryCreated(address indexed lotteryAddress, address indexed manager, uint256 endTime);
 
-    constructor() {
-        manager = msg.sender;
-    }
-
-    modifier isOwner {
-        require(manager == msg.sender, "action requires Owner/manager");
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Only the owner can perform this action");
         _;
     }
 
-    function createLottery(uint256 _timeInMinutes) public {
-        // create lottery instance & send the sender's address
-        Lottery localLottery = new Lottery(msg.sender);
-
-        // start the lottery
-        localLottery.start(_timeInMinutes);
-
-        // save the lottery in lotteries
-        lotteriesMapping[address(localLottery)] = lotteryStruct(localLottery, msg.sender, block.timestamp+(_timeInMinutes*60));
-
-        // increase lottery count.
-        totalLotteries += 1;
-
-        emit LotteryCreated(address(localLottery));
-
-        // save lottery address
-        lotteriesContractsAddresses.push(address(localLottery));
-    } 
-
-    // will return all lotteries
-    function getLotteryContractDetails() public view returns (lotteryStruct[] memory){
-        lotteryStruct[] memory ret = new lotteryStruct[](totalLotteries);
-
-        for (uint i = 0; i < totalLotteries; i++) {
-            ret[i] = lotteriesMapping[lotteriesContractsAddresses[i]];
-        }
-
-        return ret;
+    constructor() {
+        owner = msg.sender;
     }
 
-    // get lotteries
-    function getLotteries() public view returns(address[] memory) {
+    /**
+     * @dev Create a new lottery with a specified duration.
+     * @param _timeInMinutes The duration of the lottery in minutes.
+     */
+    function createLottery(uint256 _timeInMinutes) external onlyOwner nonReentrant {
+        require(_timeInMinutes > 0, "Duration must be greater than 0");
+
+        Lottery newLottery = new Lottery(msg.sender);
+        newLottery.start(_timeInMinutes);
+
+        uint256 endTime = block.timestamp.add(_timeInMinutes.mul(60));
+
+        lotteriesMapping[address(newLottery)] = LotteryInfo({ lotteryContract: newLottery, manager: msg.sender, endTime: endTime, totalPlayers: 0 });
+
+        lotteriesContractsAddresses.push(address(newLottery));
+
+        emit LotteryCreated(address(newLottery), msg.sender, endTime);
+    }
+
+    /**
+     * @dev Get the number of lottery contracts created in the pool.
+     * @return The number of lottery contracts.
+     */
+    function getLotteryContractsCount() external view returns (uint256) {
+        return lotteriesContractsAddresses.length;
+    }
+
+    /**
+     * @dev Get details of a specific lottery contract.
+     * @param _lotteryAddress The address of the lottery contract.
+     * @return LotteryInfo struct containing contract information.
+     */
+    function getLotteryContractDetails(address _lotteryAddress) external view returns (LotteryInfo memory) {
+        return lotteriesMapping[_lotteryAddress];
+    }
+
+    /**
+     * @dev Get details of a all lottery contract.
+     * @return LotteryInfo struct containing contract information.
+     */
+    function getLotteryContractsDetails() external view returns (LotteryInfo[] memory) {
+        LotteryPool.LotteryInfo[] memory _lotteryInfos = new LotteryPool.LotteryInfo[](lotteriesContractsAddresses.length);
+        for (uint256 i = 0; i < lotteriesContractsAddresses.length; i++) {
+            address _lotteryAddress = lotteriesContractsAddresses[i];
+            _lotteryInfos[i] = lotteriesMapping[_lotteryAddress];
+        }
+        return _lotteryInfos;
+    }
+
+    /**
+     * @dev Get the addresses of all lottery contracts in the pool.
+     * @return An array of lottery contract addresses.
+     */
+    function getLotteries() external view returns (address[] memory) {
         return lotteriesContractsAddresses;
     }
 
+    /**
+     * @dev Withdraw remaining funds from a lottery contract after it ends.
+     * @param _lotteryAddress The address of the lottery contract.
+     */
+    function withdrawRemainingFunds(address _lotteryAddress) external onlyOwner nonReentrant {
+        require(_lotteryAddress != address(0), "Invalid lottery address");
+        LotteryInfo storage lottery = lotteriesMapping[_lotteryAddress];
+        require(lottery.endTime <= block.timestamp, "Lottery has not ended yet");
+        require(lottery.totalPlayers > 0, "No participants");
+
+        lottery.lotteryContract.withdrawRemainingFunds();
+    }
+
+    /**
+     * @dev Change the owner of the LotteryPool contract.
+     * @param _newOwner The address of the new owner.
+     */
+    function changeOwner(address _newOwner) external onlyOwner {
+        require(_newOwner != address(0), "Invalid new owner address");
+        owner = _newOwner;
+    }
+
+    receive() external payable {}
+
+    // Fallback function to reject incoming Ether
+    fallback() external {
+        revert("Ether not accepted");
+    }
 }

@@ -9,19 +9,21 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
 import "hardhat/console.sol";
 
+interface IAiboost is IERC20Upgradeable {
+    function mintTokens(address account, uint256 amount) external;
+}
+
 /**
  * @title ICO - An upgradeable ICO (Initial Coin Offering) contract for selling tokens.
  */
 contract ICO is Initializable, OwnableUpgradeable {
     using SafeMathUpgradeable for uint256;
-    using SafeERC20Upgradeable for IERC20Upgradeable;
+    using SafeERC20Upgradeable for IAiboost;
 
-    IERC20Upgradeable public tokenContract;
+    IAiboost public tokenContract;
     uint256 public tokenPrice;
     uint256 public tokensSold;
     uint256 public discountRate;
-    uint256 public minPurchase;
-    uint256 public maxPurchase;
     uint256 public startTime;
     uint256 public endTime;
     bool public isICOActive;
@@ -46,29 +48,17 @@ contract ICO is Initializable, OwnableUpgradeable {
      * @param _tokenContract The address of the ERC20 token contract.
      * @param _tokenPrice The base price of one token in wei.
      * @param _discountRate The initial discount rate for the ICO in basis points (0-10000).
-     * @param _minPurchase The minimum purchase amount in wei.
-     * @param _maxPurchase The maximum purchase amount in wei.
      * @param _startTime The start time of the ICO.
      * @param _endTime The end time of the ICO.
      */
-    function initialize(
-        address _tokenContract,
-        uint256 _tokenPrice,
-        uint256 _discountRate,
-        uint256 _minPurchase,
-        uint256 _maxPurchase,
-        uint256 _startTime,
-        uint256 _endTime
-    ) external initializer {
+    function initialize(address _tokenContract, uint256 _tokenPrice, uint256 _discountRate, uint256 _startTime, uint256 _endTime) external initializer {
         __Ownable_init();
-        tokenContract = IERC20Upgradeable(_tokenContract);
+        tokenContract = IAiboost(_tokenContract);
         tokenPrice = _tokenPrice;
         discountRate = _discountRate;
-        minPurchase = _minPurchase;
-        maxPurchase = _maxPurchase;
         startTime = _startTime;
         endTime = _endTime;
-        isICOActive = false;
+        isICOActive = true;
     }
 
     /**
@@ -86,8 +76,6 @@ contract ICO is Initializable, OwnableUpgradeable {
      * @return The number of tokens that can be purchased.
      */
     function calculateTokenAmount(uint256 _etherAmount) public view returns (uint256) {
-        require(_etherAmount >= minPurchase, "Amount is less than the minimum purchase");
-        require(_etherAmount <= maxPurchase, "Amount exceeds the maximum purchase");
         uint256 discountedPrice = tokenPrice.mul(10000 - discountRate).div(10000); // Basis points
         return _etherAmount.mul(1e18).div(discountedPrice);
     }
@@ -97,16 +85,15 @@ contract ICO is Initializable, OwnableUpgradeable {
      * @param _etherAmount The amount in wei to spend on token purchase.
      */
     function buyTokens(uint256 _etherAmount) external payable onlyDuringICO {
-        require(_etherAmount >= minPurchase, "Amount is less than the minimum purchase");
-        require(_etherAmount <= maxPurchase, "Amount exceeds the maximum purchase");
+        console.log("@ICO: _etherAmount", _etherAmount);
         uint256 tokenAmount = calculateTokenAmount(_etherAmount);
+        console.log("@ICO: calculateTokenAmount", tokenAmount);
 
         require(tokenAmount > 0, "Invalid token amount");
-        require(tokenContract.balanceOf(address(this)) >= tokenAmount, "Not enough tokens available");
 
         tokensSold = tokensSold.add(tokenAmount);
 
-        tokenContract.safeTransfer(msg.sender, tokenAmount);
+        tokenContract.mintTokens(msg.sender, tokenAmount);
 
         emit TokensPurchased(msg.sender, tokenAmount, _etherAmount);
     }
