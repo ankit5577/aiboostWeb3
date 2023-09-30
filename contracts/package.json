@@ -2,8 +2,10 @@
   "name": "aiboost-web3",
   "version": "0.0.1",
   "description": "The smart contracts behind aiboost.eu.org (aiboost web3)",
+  "scripts": {
+    "copy": "rm -rf ../client/src/artifacts && cp -r ./artifacts ../client/src/"
+  },
   "directories": {
-    "test": "test"
   },
   "dependencies": {
     "@nomiclabs/hardhat-solhint": "^3.0.1",

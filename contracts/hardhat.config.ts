@@ -27,10 +27,21 @@ const config: HardhatUserConfig = {
     hardhat: {
       chainId: 137,
       allowUnlimitedContractSize: true,
-      forking: {
-        url: 'https://polygon.llamarpc.com',
-      },
+      // forking: {
+      //   url: 'https://polygon.llamarpc.com',
+      // },
+      live: true,
+      mining: { auto: true },
       loggingEnabled: true,
+      accounts: {
+        mnemonic: process.env.MNEMONICS,
+        path: "m/44'/60'/0'/0",
+        initialIndex: 0,
+        count: 10,
+        passphrase: '',
+        accountsBalance: '10000000000000000000000',
+      },
+
     },
     mumbai: {
       url: 'https://rpc.ankr.com/polygon_mumbai',
