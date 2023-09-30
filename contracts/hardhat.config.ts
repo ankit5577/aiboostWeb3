@@ -46,6 +46,10 @@ const config: HardhatUserConfig = {
     mumbai: {
       url: 'https://rpc.ankr.com/polygon_mumbai',
       accounts: [process.env.PK],
+      allowUnlimitedContractSize: true,
+      // blockGasLimit: 1e5,
+      // gas: 1e4,
+      timeout: 30*60*60
     },
   },
   // ? with use of hardhat-verify, we can verify contracts from here.
