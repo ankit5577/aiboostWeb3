@@ -104,7 +104,7 @@ const Navbar = () => {
               {currentAccount && (
                 <p className="font-semibold smoothLinear">
                   <a
-                    href={`https://ropsten.etherscan.io/address/${currentAccount}`}
+                    href={`https://mumbai.polygonscan.com/address/${currentAccount}`}
                     target="_blank"
                     rel="noreferrer"
                     className="tracking-wide uppercase text-teal-400 hover:cursor-pointer"

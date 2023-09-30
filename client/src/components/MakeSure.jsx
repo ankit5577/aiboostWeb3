@@ -37,15 +37,15 @@ function MakeSure() {
             </h2>
             <p className="text-base text-slate-300 font-normal md:text-lg mb-2">
               This is a personal web3 project, thus smart contracts are deployed
-              on ‘Ropsten Test Network’
+              on ‘Polygon Mumbai Testnet’
             </p>
             <a
               target="_blank"
-              href="https://ropsten.oregonctf.org/eth"
+              href="https://faucet.polygon.technology/"
               rel="no-follow"
               className="text-base text-md font-bold text-teal-400 hover:text-teal-200"
             >
-              Get Ether for Ropsten test network {"⇢ "}
+              Get Matic for Polygon Mumbai Testnet {"⇢ "}
             </a>
           </div>
         </div>

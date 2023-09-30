@@ -1,1 +1,6 @@
-{"lotteryPoolContract":"0x1680Cff3e126680CF4962DF2f116031a8d4830e7","aiboostTokenContract":"0xDaAa7b12ee427E1A81bE8f7D7aa4DC339c2dE641","tokenSaleContract":"0xD7A9a7b9b73cf739959FC4e650781005236D12f9","transactionContract":"0x8219163cd9f695718c9dbcd7d4725a85484bcde6"}
+{
+  "lotteryPoolContract": "0x1680Cff3e126680CF4962DF2f116031a8d4830e7",
+  "aiboostTokenContract": "0xDaAa7b12ee427E1A81bE8f7D7aa4DC339c2dE641",
+  "tokenSaleContract": "0xD7A9a7b9b73cf739959FC4e650781005236D12f9",
+  "transactionContract": "0x8219163cd9f695718c9dbcd7d4725a85484bcde6"
+}

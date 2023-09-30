@@ -99,7 +99,7 @@ function Lottery() {
           )}
           <span className="text-xs p-2 mx-2 bg-slate-800 shadow-sm shadow-slate-900 rounded-full antialiased font-bold">
             <a
-              href={`https://ropsten.etherscan.io/address/${lotteryManager}`}
+              href={`https://mumbai.polygonscan.com/address/${lotteryManager}`}
               target="_blank"
               rel="noreferrer"
               className="text-xs tracking-wider uppercase text-teal-400"
@@ -177,7 +177,7 @@ function Lottery() {
                 <div className="tracking-wider text-slate-200 justify-evenly">
                   <h6 className="text-xs text-red-500 antialiased tracking-widest uppercase font-semibold">
                     {" "}
-                    <AiFillWarning className="inline" /> Only Use Ropsten Test
+                    <AiFillWarning className="inline" /> Only Use Polygon Mumbai Testnet
                     Network
                   </h6>
                   <h1 className="pt-4 text-sm text-slate-400 text-justify">
@@ -223,7 +223,7 @@ function Lottery() {
               {lotteryPlayers.map((player, i) => (
                 <p key={i} className="pt-3 text-teal-400">
                   <a
-                    href={`https://ropsten.etherscan.io/address/${player}`}
+                    href={`https://mumbai.polygonscan.com/address/${player}`}
                     target="_blank"
                     rel="noreferrer"
                     className="tracking-wide uppercase text-teal-400 hover:cursor-pointer"
@@ -248,7 +248,7 @@ function Lottery() {
               </h1>
               <p className="pt-3 text-teal-400 hover:cursor-pointer">
                 <a
-                  href={`https://ropsten.etherscan.io/address/${lotteryWinner}`}
+                  href={`https://mumbai.polygonscan.com/address/${lotteryWinner}`}
                   target="_blank"
                   rel="noreferrer"
                   className="tracking-wide uppercase text-teal-400 hover:cursor-pointer"

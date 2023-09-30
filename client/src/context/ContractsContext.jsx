@@ -81,13 +81,13 @@ export const ContractsProvider = ({ children }) => {
 
   const createEthereumContract = async () => {
     // TODO: Error HERE
-    const url = "http://127.0.0.1:8545/";
-    // const provider = new ethers.providers.Web3Provider(url);
+    // const url = "https://rpc.ankr.com/polygon_mumbai";
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
 
     // ganache
-    const provider = new ethers.providers.JsonRpcProvider(url);
+    // const provider = new ethers.providers.JsonRpcProvider(url);
+    // await provider.send('eth_accounts', []);
     dispatchWeb3({ type: web3Enum.PROVIDER, value: provider });
-
     const signer = provider.getSigner();
 
     const transactionsContract = new ethers.Contract(

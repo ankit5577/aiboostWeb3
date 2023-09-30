@@ -60,7 +60,7 @@ const TransactionsCard = ({
                   <div>
                     <div className="mb-2">
                       <a
-                        href={`https://ropsten.etherscan.io/address/${addressFrom}`}
+                        href={`https://mumbai.polygonscan.com/address/${addressFrom}`}
                         target="_blank"
                         rel="noreferrer"
                         className="text-xs tracking-wide uppercase text-slate-300"
@@ -70,7 +70,7 @@ const TransactionsCard = ({
                     </div>
                     <div className="mb-5">
                       <a
-                        href={`https://ropsten.etherscan.io/address/${addressFrom}`}
+                        href={`https://mumbai.polygonscan.com/address/${addressFrom}`}
                         target="_blank"
                         rel="noreferrer"
                       >
@@ -196,7 +196,7 @@ const TransactionsCard = ({
                     <div className="flex items-center">
                       <div className="mb-2">
                         <a
-                          href={`https://ropsten.etherscan.io/address/${addressFrom}`}
+                          href={`https://mumbai.polygonscan.com/address/${addressFrom}`}
                           target="_blank"
                           rel="noreferrer"
                           className="text-xs tracking-wide uppercase text-slate-300"
@@ -212,7 +212,7 @@ const TransactionsCard = ({
                           </p>
                         </a>
                         <a
-                          href={`https://ropsten.etherscan.io/address/${addressTo}`}
+                          href={`https://mumbai.polygonscan.com/address/${addressTo}`}
                           target="_blank"
                           rel="noreferrer"
                           className="text-base font-semibold leading-[45px] text-slate-300"
