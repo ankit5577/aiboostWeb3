@@ -24,6 +24,7 @@ import {
   lotteryContractABI,
 } from "../utils/constants";
 import { formatEther } from "ethers/lib/utils.js";
+import web3Info from "./web3.config.js";
 
 export const ContractsContext = React.createContext();
 
@@ -163,7 +164,9 @@ export const ContractsProvider = ({ children }) => {
       ) {
         setIsLoading(true);
         let tokenPrice = await contracts.aiboostTokenSaleContract.tokenPrice();
-        let tokenSold = formatEther(await contracts.aiboostTokenSaleContract.tokensSold());
+        let tokenSold = formatEther(
+          await contracts.aiboostTokenSaleContract.tokensSold()
+        );
         let userBalance = await contracts.aiboostTokenContract.balanceOf(
           user.currentAccount
         );
@@ -192,7 +195,7 @@ export const ContractsProvider = ({ children }) => {
       const value = ethers.BigNumber.from(
         ethers.utils.parseEther(token.price).toString()
       ).mul(tokens);
-      console.log("@ethers value", (+value / 1e18), tokens);
+      console.log("@ethers value", +value / 1e18, tokens);
       const transactionHash =
         await contracts.aiboostTokenSaleContract.buyTokens(value, {
           from: user.currentAccount,
@@ -581,6 +584,48 @@ export const ContractsProvider = ({ children }) => {
       console.error(error);
     }
   };
+
+  const changeNetwork = async () => {
+    if (
+      ethereum &&
+      Number(ethereum.chainId) != 0 &&
+      Number(ethereum.chainId) != Number(web3Info.chainId)
+    ) {
+      try {
+        // Try to switch to the chainId
+        await ethereum.request({
+          method: "wallet_switchEthereumChain",
+          params: [{ chainId: `0x${web3Info.chainId.toString(16)}` }],
+        });
+      } catch (e) {
+        console.error(e);
+        if (error.code === 4902) {
+          await ethereum.request({
+            method: "wallet_addEthereumChain",
+            params: [
+              {
+                chainId: `0x${web3Info.chainId.toString(16)}`,
+                chainName: web3Info.networkName,
+                nativeCurrency: {
+                  name: web3Info.networkName,
+                  symbol: web3Info.networkKey,
+                  decimals: 18,
+                },
+                rpcUrls: [web3Info.defaultProvider],
+                blockExplorerUrls: [web3Info.explorerUrl],
+              },
+            ],
+          });
+        }
+      }
+    }
+  }
+
+  useEffect(async () => {
+    if (window.ethereum || web3) {
+      await changeNetwork();
+    }
+  }, [web3, window.ethereum])
 
   useEffect(() => {
     async function init() {
