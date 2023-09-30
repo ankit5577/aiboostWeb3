@@ -1,5 +1,6 @@
 import { HardhatRuntimeEnvironment } from 'hardhat/types';
 import { DeployFunction } from 'hardhat-deploy/types';
+import { verify } from '../helpers/utils';
 
 const deployFunction: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
   const { deployments, getNamedAccounts, network, ethers } = hre;
@@ -13,7 +14,7 @@ const deployFunction: DeployFunction = async (hre: HardhatRuntimeEnvironment) =>
   const startTime = Math.floor(Date.now() / 1000); // Set your ICO start time (timestamp)
   const endTime = startTime + 36000; // Set your ICO end time (timestamp)
 
-  await deploy('ICO', {
+  const icoContract = await deploy('ICO', {
     from: deployer,
     args: [],
     log: true,
@@ -29,6 +30,8 @@ const deployFunction: DeployFunction = async (hre: HardhatRuntimeEnvironment) =>
   console.log('ICO contract deployed to:', (await deployments.get('ICO')).address);
 
   await execute('AiboostToken', {from: deployer, log: true}, 'addMinter', (await deployments.get('ICO')).address)
+
+  await verify("ICO Contract", "ICO", icoContract.address, [])
 };
 
 deployFunction.tags = ['ICO'];
