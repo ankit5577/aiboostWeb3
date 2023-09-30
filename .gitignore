@@ -22,6 +22,9 @@ lib-cov
 coverage
 *.lcov
 
+deployments
+network.json
+
 # nyc test coverage
 .nyc_output
 
