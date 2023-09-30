@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { FaEthereum } from "react-icons/fa";
+import { FaEthereum, FaDrawPolygon } from "react-icons/fa";
 import { AiFillWarning } from "react-icons/ai";
 import { Loader, Notification } from "../components";
 import { ContractsContext } from "../context/ContractsContext";
@@ -90,13 +90,13 @@ function SendEther() {
             <div className="flex flex-row h-[11rem] justify-between">
               <h3 className="text-2xl tracking-wide">
                 <div className=" px-[4px] py-[3px] bg-slate-300 rounded-full mx-2 inline-flex my-auto">
-                  <FaEthereum className="text-slate-800" />
+                  <FaDrawPolygon className="text-slate-800" />
                 </div>
-                Ethereum
+                Polygon Mumbai
               </h3>
               <h5 className="antialiased tracking-wider font-mono">
                 {balance}
-                <span className="text-xs"> ETH</span>
+                <span className="text-xs"> MATIC</span>
               </h5>
             </div>
             <h5 className="font-mono text-xs tracking-wider">
@@ -115,11 +115,11 @@ function SendEther() {
           {!isLoading ? (
             <>
               <h4 className="text-2xl text-slate-300 antialiased font-medium">
-                Send Ether across the world
+                Send Matic across the world
               </h4>
               <h6 className="text-xs text-red-500 antialiased tracking-widest font-semibold">
                 {" "}
-                <AiFillWarning className="inline " /> DO NOT USE REAL ETHER
+                <AiFillWarning className="inline " /> DO NOT USE REAL Matic
               </h6>
               <form>
                 <Input
@@ -129,7 +129,7 @@ function SendEther() {
                   handleChange={handleChange}
                 />
                 <Input
-                  placeholder="Amount (ETH)"
+                  placeholder="Amount (MATIC)"
                   name="amount"
                   type="number"
                   handleChange={handleChange}
@@ -159,7 +159,7 @@ function SendEther() {
       </div>
       <Notification
         props={{
-          id: "Send Ether",
+          id: "Send MATIC",
           isEther,
           account: currentAccount,
         }}

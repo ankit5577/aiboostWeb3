@@ -125,7 +125,7 @@ function Lottery() {
           </h3>
           <h3 className="pb-2 text-slate-300 antialiased text-md">
             Winning Price :{" "}
-            <span className="text-teal-400 text-md">{lotteryPrice}</span> ETH
+            <span className="text-teal-400 text-md">{lotteryPrice}</span> MATIC
           </h3>
         </div>
       </motion.div>
