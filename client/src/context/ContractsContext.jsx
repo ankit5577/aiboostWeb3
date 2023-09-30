@@ -23,6 +23,7 @@ import {
   lotteryPoolContractAddress,
   lotteryContractABI,
 } from "../utils/constants";
+import { formatEther } from "ethers/lib/utils.js";
 
 export const ContractsContext = React.createContext();
 
@@ -80,12 +81,13 @@ export const ContractsProvider = ({ children }) => {
 
   const createEthereumContract = async () => {
     // TODO: Error HERE
-    // const url = "http://localhost:7545";
-    const provider = new ethers.providers.Web3Provider(ethereum);
+    const url = "http://127.0.0.1:8545/";
+    // const provider = new ethers.providers.Web3Provider(url);
 
     // ganache
-    // const provider = new ethers.providers.JsonRpcProvider(url);
+    const provider = new ethers.providers.JsonRpcProvider(url);
     dispatchWeb3({ type: web3Enum.PROVIDER, value: provider });
+
     const signer = provider.getSigner();
 
     const transactionsContract = new ethers.Contract(
@@ -105,6 +107,8 @@ export const ContractsProvider = ({ children }) => {
       aiboostTokenContractABI,
       signer
     );
+
+    console.log("@CONTRACT", await aiboostTokenContract.provider.getNetwork());
 
     const lotteryPoolContract = new ethers.Contract(
       lotteryPoolContractAddress,
@@ -159,19 +163,19 @@ export const ContractsProvider = ({ children }) => {
       ) {
         setIsLoading(true);
         let tokenPrice = await contracts.aiboostTokenSaleContract.tokenPrice();
-        let tokenSold = await contracts.aiboostTokenSaleContract.tokenSold();
+        let tokenSold = formatEther(await contracts.aiboostTokenSaleContract.tokensSold());
         let userBalance = await contracts.aiboostTokenContract.balanceOf(
           user.currentAccount
         );
 
-        tokenPrice = ethers.utils.formatEther(tokenPrice);
+        tokenPrice = formatEther(tokenPrice);
 
         dispatchToken({
           type: tokenEnum.BALANCE,
-          value: userBalance.toNumber(),
+          value: (+formatEther(userBalance)).toFixed(2),
         });
         dispatchToken({ type: tokenEnum.PRICE, value: tokenPrice });
-        dispatchToken({ type: tokenEnum.SOLD, value: tokenSold.toNumber() });
+        dispatchToken({ type: tokenEnum.SOLD, value: (+tokenSold).toFixed(2) });
         setIsLoading(false);
       } else {
         console.log("contract is not initialized @initToken");
@@ -182,15 +186,15 @@ export const ContractsProvider = ({ children }) => {
   };
 
   const buyTokens = async (tokens) => {
-    console.log("buying tokens for", tokens);
     if (tokens <= 0) {
       console.log("can not buy tokens");
     } else {
       const value = ethers.BigNumber.from(
         ethers.utils.parseEther(token.price).toString()
       ).mul(tokens);
+      console.log("@ethers value", (+value / 1e18), tokens);
       const transactionHash =
-        await contracts.aiboostTokenSaleContract.buyTokens(tokens, {
+        await contracts.aiboostTokenSaleContract.buyTokens(value, {
           from: user.currentAccount,
           value: value,
           gasLimit: 500000,
@@ -199,13 +203,13 @@ export const ContractsProvider = ({ children }) => {
       console.log(`Loading - ${transactionHash.hash}`);
       await transactionHash.wait();
       console.log(`Success - ${transactionHash.hash}`);
-      if (
-        !alert(
-          `Transaction Confirmed ${transactionHash.hash} \n from: ${user.currentAccount}`
-        )
-      ) {
-        location.reload();
-      }
+      // if (
+      //   !alert(
+      //     `Transaction Confirmed ${transactionHash.hash} \n from: ${user.currentAccount}`
+      //   )
+      // ) {
+      //   location.reload();
+      // }
       setInTransaction(false);
     }
   };
@@ -254,7 +258,7 @@ export const ContractsProvider = ({ children }) => {
 
       if (accounts.length) {
         dispatchUser({ type: userEnum.CURR_ACCOUNT, value: accounts[0] });
-        getAllTransactions();
+        // getAllTransactions();
       } else {
         console.log("No accounts found");
       }
@@ -368,14 +372,18 @@ export const ContractsProvider = ({ children }) => {
         setIsLoading(true);
         // get all lotteries
         const lotteries =
-          await contracts.lotteryPoolContract.getLotteryContractDetails();
+          await contracts.lotteryPoolContract.getLotteryContractsDetails();
+
+        console.log("@lotteries", lotteries);
 
         // type cast lotteries.
         const lotteriesDetails = lotteries.map((lottery) => ({
-          endedTimeStamp: +lottery.endedTimeStamp,
+          endedTimeStamp: +lottery.endTime,
           lotteryContract: lottery.lotteryContract,
           manager: lottery.manager,
         }));
+
+        console.log("@lotteriesDetails", lotteriesDetails);
 
         dispatchContracts({
           type: contractEnum.LOTTERIES_DETAILS,
@@ -384,7 +392,7 @@ export const ContractsProvider = ({ children }) => {
 
         setIsLoading(false);
       } else {
-        console.log("contract is not initialized @lottery");
+        console.error("contract is not initialized @lottery");
       }
     } catch (error) {
       console.error(error);
@@ -401,12 +409,12 @@ export const ContractsProvider = ({ children }) => {
           web3.provider.getSigner()
         );
 
-        const lotteryPrice = await lotteryContract.winningPrice();
-        const status = await lotteryContract.status();
+        const lotteryPrice = await getBalanceOf(lotteryContract.address);
+        const status = await lotteryContract.lotteryStatus();
         console.log(status);
         const manager = await lotteryContract.manager();
-        const winner = await lotteryContract.getWinner();
-        const players = await lotteryContract.getPlayers();
+        const winner = await lotteryContract.winner();
+        const players = await lotteryContract.getAllPlayers();
         const entryFee = await lotteryContract.entryFee();
 
         dispatchContracts({
@@ -440,7 +448,6 @@ export const ContractsProvider = ({ children }) => {
         });
 
         setIsLoading(false);
-
       } else {
         console.log("ethereum || contracts.lotteryPoolContract not init");
       }
@@ -507,7 +514,7 @@ export const ContractsProvider = ({ children }) => {
         setIsLoading(true);
         const enter = await contracts.lotteryContract.enter({
           from: user.currentAccount,
-          value: contracts.lotteryEntryFee,
+          value: contracts.lotteryEntryFee.toString(),
           gasLimit: 500000,
         });
         console.log(`Entering Lottery Plz Wait - ${enter.hash}`);

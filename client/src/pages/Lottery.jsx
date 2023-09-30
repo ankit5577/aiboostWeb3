@@ -8,6 +8,12 @@ import { shortenAddress } from "../utils/shortenAddress";
 import { RiSendPlaneFill } from "react-icons/ri";
 import { useParams } from "react-router";
 
+const LotteryStatus = {
+  NOT_STARTED: 1,
+  STARTED: 2,
+  ENDED: 3
+}
+
 function Lottery() {
   const { lotteryAddress } = useParams();
 
@@ -29,26 +35,13 @@ function Lottery() {
   } = useContext(ContractsContext);
 
   const [state, setState] = useState({
-    lotteryManager: null,
     lotteryEntryFee: 0,
     lotteryPlayers: [],
     lotteryWinner: null,
     lotteryPrice: 0,
   });
 
-  const [manager, setIsManager] = useState(false);
-
   const inputRef = useRef();
-
-  useEffect(() => {
-    console.log(currentAccount, lotteryManager)
-    if (
-      currentAccount === lotteryManager.toLowerCase() &&
-      (currentAccount || lotteryManager.toLowerCase() !== null)
-    ) {
-      setIsManager(true);
-    }
-  });
 
   useEffect(() => {
     async function load() {
@@ -94,12 +87,12 @@ function Lottery() {
       >
         <h1 className="antialiased font-medium text-2xl tracking-wide">
           Lottery Game{" "}
-          {lotteryStatus == "1" && (
+          {lotteryStatus == LotteryStatus.STARTED && (
             <span className="text-xs p-2 bg-slate-600 shadow-md shadow-slate-800 rounded-full text-teal-200 antialiased font-bold">
               Started
             </span>
           )}
-          {lotteryStatus == "2" && (
+          {lotteryStatus == LotteryStatus.ENDED && (
             <span className="text-xs p-2 bg-slate-300 shadow-lg shadow-slate-600 rounded-full text-rose-600 antialiased font-bold">
               Ended
             </span>
@@ -157,98 +150,55 @@ function Lottery() {
         >
           {!isLoading ? (
             <div className="container mx-auto">
-              {manager ? (
-                <>
-                  <form action="">
-                    <div className="flex justify-center space-x-9">
-                      <h6 className="text-xs pt-3 text-teal-500 antialiased tracking-widest uppercase font-semibold">
-                        {" "}
-                        <AiFillWarning className="inline" /> You are the Lottery
-                        Manager
-                      </h6>
-                      {lotteryStatus != "1" ? (
-                        <>
-                          <input
-                            ref={inputRef}
-                            placeholder="Enter Time in Minutes"
-                            name="lottery timer"
-                            type="number"
-                            min="1"
-                            pattern="[0-9]"
-                            step="0.0001"
-                            className="my-2 w-full rounded-sm p-2 outline-none bg-transparent text-white border-none text-sm white-glassmorphism"
-                          />
-                          <button
-                            type="button"
-                            className="px-7 py-2 bg-green-400 rounded-lg text-slate-800 hover:shadow-lg hover:shadow-green-600"
-                            onClick={() => {
-                              {
-                                isLoading && <Loader />;
-                              }
-                              console.log("🆒🔥💚", +inputRef.current.value);
-                              startLottery(+inputRef.current.value);
-                            }}
-                          >
-                            Start
-                          </button>
-                        </>
-                      ) : (
-                        <button
-                          type="button"
-                          className="px-7 py-2 bg-red-400 rounded-lg text-slate-800 hover:shadow-lg hover:shadow-red-600"
-                          onClick={() => {
-                            endLottery();
-                          }}
-                        >
-                          End Now
-                        </button>
-                      )}
-                    </div>
-                  </form>
-                </>
-              ) : (
-                <>
-                  {lotteryStatus == "1" ? (
-                    <div className="tracking-wider text-slate-200 justify-evenly">
-                      <h6 className="text-xs text-red-500 antialiased tracking-widest uppercase font-semibold">
-                        {" "}
-                        <AiFillWarning className="inline" /> Only Use Ropsten
-                        Test Network
-                      </h6>
-                      <h1 className="pt-4 text-sm text-slate-400 text-justify">
-                        {" "}
-                        The lottery Manager can start the lottery and it will
-                        end after the remaining time has passed.
-                      </h1>
-                      <div className="pt-5 flex justify-center">
-                        <button
-                          type="button"
-                          className="px-7 py-2 bg-yellow-400 rounded-lg text-slate-800 hover:shadow-lg hover:shadow-yellow-600"
-                          disabled={isLoading}
-                          onClick={() => {
-                            enterLottery();
-                          }}
-                        >
-                          Enter
-                        </button>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="tracking-wider text-slate-200 justify-evenly">
-                      <h6 className="text-xs text-red-500 antialiased tracking-widest uppercase font-semibold">
-                        {" "}
-                        <AiFillWarning className="inline" /> Only Use Ropsten
-                        Test Network
-                      </h6>
-                      <h1 className="pt-4 text-sm text-slate-400 text-justify">
-                        {" "}
-                        The lottery Manager will start the lottery soon don't
-                        forget to participate to win the prize money.
-                      </h1>
-                    </div>
-                  )}
-                </>
-              )}
+              <>
+                <form action="">
+                  <div className="flex justify-center space-x-9">
+                    <h6 className="text-xs pt-3 text-teal-500 antialiased tracking-widest uppercase font-semibold">
+                      {" "}
+                      <AiFillWarning className="inline" /> You are the Lottery
+                      Manager
+                    </h6>
+                    {console.log("@lotteryStatus", lotteryStatus)}
+                    {
+                      lotteryStatus == LotteryStatus.ENDED && <button
+                        type="button"
+                        className="px-7 py-2 bg-red-400 rounded-lg text-slate-800 hover:shadow-lg hover:shadow-red-600"
+                        onClick={() => {
+                          endLottery();
+                        }}
+                      >
+                        End Now
+                      </button>
+                    }
+                  </div>
+                </form>
+              </>
+              <>
+                <div className="tracking-wider text-slate-200 justify-evenly">
+                  <h6 className="text-xs text-red-500 antialiased tracking-widest uppercase font-semibold">
+                    {" "}
+                    <AiFillWarning className="inline" /> Only Use Ropsten Test
+                    Network
+                  </h6>
+                  <h1 className="pt-4 text-sm text-slate-400 text-justify">
+                    {" "}
+                    The lottery Manager can start the lottery and it will end
+                    after the remaining time has passed.
+                  </h1>
+                  <div className="pt-5 flex justify-center">
+                    <button
+                      type="button"
+                      className="px-7 py-2 bg-yellow-400 rounded-lg text-slate-800 hover:shadow-lg hover:shadow-yellow-600"
+                      disabled={isLoading}
+                      onClick={() => {
+                        enterLottery();
+                      }}
+                    >
+                      Enter
+                    </button>
+                  </div>
+                </div>
+              </>
             </div>
           ) : (
             <div className="bg-zinc-900 flex-1 items-center py-4 flex justify-center">
@@ -257,6 +207,7 @@ function Lottery() {
           )}
         </motion.div>
       )}
+
       {currentAccount && (
         <>
           {lotteryPlayers.length > 1 ? (
@@ -285,7 +236,7 @@ function Lottery() {
           ) : (
             ""
           )}
-          {lotteryStatus == "2" ? (
+          {lotteryStatus == LotteryStatus.ENDED ? (
             <motion.div
               className="container mx-auto border border-slate-700 text-slate-400 light-gradient p-4 my-4 rounded-lg max-w-lg"
               initial={{ opacity: 0 }}
