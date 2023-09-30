@@ -83,7 +83,7 @@ export const ContractsProvider = ({ children }) => {
   const createEthereumContract = async () => {
     // TODO: Error HERE
     // const url = "https://rpc.ankr.com/polygon_mumbai";
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const provider = new ethers.providers.Web3Provider(window.ethereum || web3Info.defaultProvider);
 
     // ganache
     // const provider = new ethers.providers.JsonRpcProvider(url);
@@ -108,8 +108,6 @@ export const ContractsProvider = ({ children }) => {
       aiboostTokenContractABI,
       signer
     );
-
-    console.log("@CONTRACT", await aiboostTokenContract.provider.getNetwork());
 
     const lotteryPoolContract = new ethers.Contract(
       lotteryPoolContractAddress,
