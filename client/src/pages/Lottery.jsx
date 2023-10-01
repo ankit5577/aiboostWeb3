@@ -99,9 +99,6 @@ function Lottery() {
 
   const fastReload = useFastReload();
 
-  const [state, setState] = useState({
-    lotteryWinner: null,
-  });
   const [blockTimeStamp, setBlockTimeStamp] = useState(0);
 
   useEffect(() => {
@@ -193,7 +190,7 @@ function Lottery() {
                       Manager
                     </h6>
                     {lotteryStatus == LotteryStatus.ENDED ||
-                      (lotteryTimeRemaining <= 0 && (
+                      (lotteryTimeRemaining <= 0 && !winner && (
                         <button
                           type="button"
                           className="px-7 py-2 bg-red-400 rounded-lg text-slate-800 hover:shadow-lg hover:shadow-red-600"
@@ -219,18 +216,22 @@ function Lottery() {
                     The lottery Manager can start the lottery and it will end
                     after the remaining time has passed.
                   </h1>
-                  <div className="pt-5 flex justify-center">
-                    <button
-                      type="button"
-                      className="px-7 py-2 bg-yellow-400 rounded-lg text-slate-800 hover:shadow-lg hover:shadow-yellow-600"
-                      disabled={isLoading}
-                      onClick={() => {
-                        enterLottery();
-                      }}
-                    >
-                      Enter
-                    </button>
-                  </div>
+
+                  {lotteryStatus != LotteryStatus.ENDED &&
+                    (lotteryTimeRemaining > 0 && (
+                      <div className="pt-5 flex justify-center">
+                        <button
+                          type="button"
+                          className="px-7 py-2 bg-yellow-400 rounded-lg text-slate-800 hover:shadow-lg hover:shadow-yellow-600"
+                          disabled={isLoading}
+                          onClick={() => {
+                            enterLottery();
+                          }}
+                        >
+                          Enter
+                        </button>
+                      </div>
+                    ))}
                 </div>
               </>
             </div>
@@ -283,12 +284,12 @@ function Lottery() {
           </h1>
           <p className="pt-3 text-teal-400 hover:cursor-pointer">
             <a
-              href={`https://mumbai.polygonscan.com/address/${lotteryWinner}`}
+              href={`https://mumbai.polygonscan.com/address/${winner}`}
               target="_blank"
               rel="noreferrer"
               className="tracking-wide uppercase text-teal-400 hover:cursor-pointer"
             >
-              {lotteryWinner}
+              {winner}
             </a>
           </p>
         </motion.div>
