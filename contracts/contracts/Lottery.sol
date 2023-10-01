@@ -80,19 +80,9 @@ contract Lottery is Ownable {
     }
 
     /**
-     * @dev Enter the lottery by sending an entry fee.
-     */
-    function enter() public payable nonReentrant {
-        require(msg.value >= entryFee, "Entry fee is less");
-        require(endTime > block.timestamp, "Time is up.");
-        require(!isParticipating(msg.sender), "You are already a participant");
-        players.push(msg.sender);
-    }
-
-    /**
      * @dev End the lottery and select a random winner.
      */
-    function end() public onlyOwner onlyInStatus(LotteryStatus.STARTED) {
+    function end() public onlyInStatus(LotteryStatus.STARTED) {
         require(endTime <= block.timestamp, "You cannot end the lottery before the time");
         require(players.length > 0, "No participants");
         lotteryStatus = LotteryStatus.ENDED;
@@ -112,6 +102,27 @@ contract Lottery is Ownable {
 
         // Send commission to owner
         payable(owner()).transfer(commission);
+    }
+
+    /**
+     * @dev End the lottery if blocktime >= endTime
+     */
+    function closeIfEnded() public {
+        if (endTime <= block.timestamp && players.length > 0 && lotteryStatus == LotteryStatus.STARTED) {
+            end();
+        }
+    }
+
+    /**
+     * @dev Enter the lottery by sending an entry fee.
+     */
+    function enter() public payable nonReentrant {
+        require(msg.value >= entryFee, "Entry fee is less");
+        require(endTime > block.timestamp, "Time is up.");
+        require(!isParticipating(msg.sender), "You are already a participant");
+        players.push(msg.sender);
+
+        closeIfEnded();
     }
 
     /**
