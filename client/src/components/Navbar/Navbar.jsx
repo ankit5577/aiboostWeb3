@@ -76,12 +76,12 @@ const Navbar = () => {
             </li>
             <li>
               <Link
-                to={"/send-ether"}
-                aria-label="send ether"
-                title="send ether"
+                to={"/send-Matic"}
+                aria-label="send matic"
+                title="send matic"
                 className="font-bold tracking-wide smoothLinear"
               >
-                Send Ether
+                Send Matic
               </Link>
             </li>
           </ul>

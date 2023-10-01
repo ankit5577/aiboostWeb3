@@ -52,12 +52,12 @@ const Footer = () => {
 
           <div className="flex">
             <Link
-              to={"/send-ether"}
-              aria-label="Send Ether"
-              title="Send Ether"
+              to={"/send-matic"}
+              aria-label="Send Matic"
+              title="Send Matic"
               className="font-bold tracking-wide smoothLinear"
             >
-              Send Ether
+              Send Matic
             </Link>
           </div>
         </div>

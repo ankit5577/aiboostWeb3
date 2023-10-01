@@ -91,11 +91,11 @@ const Welcome = () => {
               </Link>
 
               <Link
-                to={"/send-ether"}
+                to={"/send-Matic"}
                 className="group flex-1 p-8 text-indigo-400 font-semibold tracking-widest transition duration-200 hover:text-slate-100 hover:bg-indigo-900"
               >
                 <FaEthereum className="text-4xl inline-block mx-2  text-indigo-500 transition duration-300 group-hover:text-slate-100" />
-                Send ETH
+                Send Matic
               </Link>
             </div>
           </div>

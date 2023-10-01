@@ -250,7 +250,7 @@ export const ContractsProvider = ({ children }) => {
     // TODO: Notification for installing metamask will be an error
     try {
       if (!ethereum) {
-        console.log("⚓No ether found⚓");
+        console.log("⚓No matic found⚓");
       } else {
         setIsEther(true);
       }
@@ -557,7 +557,7 @@ export const ContractsProvider = ({ children }) => {
         dispatchContracts({ type: contractEnum.LOTTERY_END, value: end });
         setIsLoading(false);
       } else {
-        console.log("Lottery is not initiated or no ether found");
+        console.log("Lottery is not initiated or no matic found");
       }
     } catch (error) {
       console.error(error);
@@ -577,7 +577,7 @@ export const ContractsProvider = ({ children }) => {
         });
         setIsLoading(false);
       } else {
-        console.log("Lottery is not initiated or no ether will be found");
+        console.log("Lottery is not initiated or no matic will be found");
       }
     } catch (error) {
       console.error(error);

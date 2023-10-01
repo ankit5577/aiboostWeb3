@@ -62,7 +62,7 @@ const App = () => (
         }
       />
       <Route
-        path={"/send-ether"}
+        path={"/send-matic"}
         element={
           <Suspense fallback={<Loader full={true} />}>
             <SendEther />

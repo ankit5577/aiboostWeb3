@@ -63,13 +63,13 @@ const MenuItem = ({ showMenu, active, currentAccount, connectWallet }) => {
       </li>
       <li>
         <Link
-          to={"/send-ether"}
+          to={"/send-Matic"}
           onClick={showMenu}
-          aria-label="send ether"
-          title="send ether"
+          aria-label="send Matic"
+          title="send Matic"
           className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-400"
         >
-          Send Ether
+          Send Matic
         </Link>
       </li>
 

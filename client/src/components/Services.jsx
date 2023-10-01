@@ -82,9 +82,9 @@ function Services() {
                 />
               </motion.svg>
             </div>
-            <h6 className="mb-2 font-semibold leading-5">Send Ether</h6>
+            <h6 className="mb-2 font-semibold leading-5">Send Matic</h6>
             <p className="mb-3 text-sm text-gray-400 hidden sm:block">
-              Transfer your Ether across the world. Play by sending fake ether
+              Transfer your Matic across the world. Play by sending fake Matic
               to friends.
             </p>
             <ul className="mb-4 -ml-1 space-y-2">
@@ -140,15 +140,15 @@ function Services() {
                     />
                   </svg>
                 </span>
-                Send Ethers
+                Send Matic
               </li>
             </ul>
             <Link
-              to={"/send-ether"}
+              to={"/send-matic"}
               aria-label=""
               className="inline-flex items-center font-semibold transition-colors duration-200 text-indigo-400 hover:text-deep-purple-800"
             >
-              Transfer Ethers
+              Transfer Matic
             </Link>
           </div>
           <div>
@@ -186,7 +186,7 @@ function Services() {
             </div>
             <h6 className="mb-2 font-semibold leading-5">Lottery</h6>
             <p className="mb-3 text-sm text-gray-400 hidden sm:block">
-              Enter a lottery game and get a chance to win Ethers.
+              Enter a lottery game and get a chance to win Matic.
             </p>
             <ul className="mb-4 -ml-1 space-y-2">
               <li className="flex items-start">
@@ -205,7 +205,7 @@ function Services() {
                     />
                   </svg>
                 </span>
-                Win Ethers
+                Win Matic
               </li>
               <li className="flex items-start">
                 <span className="mr-1">
@@ -294,7 +294,7 @@ function Services() {
             </div>
             <h6 className="mb-2 font-semibold leading-5">Stake</h6>
             <p className="mb-3 text-sm text-gray-400 hidden sm:block">
-              Earn interest on Ethers staked by you, get upto 13%.
+              Earn interest on Matic staked by you, get upto 13%.
             </p>
             <ul className="mb-4 -ml-1 space-y-2">
               <li className="flex items-start">
@@ -331,7 +331,7 @@ function Services() {
                     />
                   </svg>
                 </span>
-                Earn Ethers
+                Earn Matic
               </li>
               <li className="flex items-start">
                 <span className="mr-1">
@@ -357,7 +357,7 @@ function Services() {
               aria-label=""
               className="inline-flex items-center font-semibold transition-colors duration-200 text-indigo-400 hover:text-deep-purple-800"
             >
-              Stake Ethers
+              Stake Matic
             </Link>
           </div>
           <div>

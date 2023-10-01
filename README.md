@@ -54,7 +54,7 @@
 ## About The Project
 
 AiBoost next is a extenstion to project https://www.aiboost.in
-this is a personal project which showcase the Web3 aspect of a website. it has functionalities like - send ether, lottery game, staking the token, buy aiboost token.
+this is a personal project which showcase the Web3 aspect of a website. it has functionalities like - send matic, lottery game, staking the token, buy aiboost token.
 
 <!-- `Why to use MedicoEye?`
 * Your time should be focused on creating something amazing. A project that solves a problem and helps others
@@ -274,4 +274,3 @@ Project Link: [https://www.medicoeye.in/](https://www.medicoeye.in/)
 [license-url]: https://github.com/anki5577/connectedh-frontend/assets/LICENSE.txt
 [linkedin-aiboost]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/ankit5577
-
