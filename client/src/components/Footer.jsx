@@ -68,7 +68,7 @@ const Footer = () => {
       <div className="sm:w-[90%] w-full flex justify-between items-center mt-3">
         <div className="w-full grid grid-cols-1 py-5 px-10 text-xl lg:grid-cols-3 md:grid-cols-3">
           <p className="text-sm text-white text-center py-2 lg:text-left md:text-left">
-            © Copyright 2022{" "}
+            © Copyright {new Date().getFullYear()}{" "}
             <a
               target="_blank"
               rel="noreferrer"
