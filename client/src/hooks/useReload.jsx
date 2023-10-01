@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-function useFastReload(interval = 15000) {
+function useFastReload(interval = 5000) {
   const [reloadCounter, setReloadCounter] = useState(0);
 
   useEffect(() => {

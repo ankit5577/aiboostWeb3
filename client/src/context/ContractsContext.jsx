@@ -412,12 +412,13 @@ export const ContractsProvider = ({ children }) => {
 
         const lotteryPrice = await getBalanceOf(lotteryContract.address);
         const status = await lotteryContract.lotteryStatus();
-        console.log(status);
         const manager = await lotteryContract.manager();
         const winner = await lotteryContract.winner();
         const players = await lotteryContract.getAllPlayers();
         const entryFee = await lotteryContract.entryFee();
+        const endTime = await lotteryContract.endTime();
 
+        console.log("@getAllPlayers", players)
         dispatchContracts({
           type: contractEnum.LOTTERY_INIT,
           value: lotteryContract,
@@ -563,16 +564,16 @@ export const ContractsProvider = ({ children }) => {
     }
   };
 
-  const lotteryTimeRemaining = async () => {
+  const lotteryTimeRemainingFn = async () => {
     try {
       setIsLoading(true);
-      if (ethereum && contracts.lotteryPoolContract) {
+      if (ethereum && contracts.lotteryContract) {
         const timeRemaining =
-          await contracts.lotteryPoolContract.getRemainingTime();
+          await contracts.lotteryContract.getRemainingTime();
         console.log("Contract ⌚ Remaining", timeRemaining);
         dispatchContracts({
           type: contractEnum.LOTTERY_TIME_REMAINING,
-          value: timeRemaining,
+          value: Number(timeRemaining),
         });
         setIsLoading(false);
       } else {
@@ -661,6 +662,7 @@ export const ContractsProvider = ({ children }) => {
         lotteryPrice: contracts.lotteryPrice,
         lotteryWinningPrice: contracts.ethPrice,
         lotteriesDetails: contracts.lotteriesDetails,
+        lotteryTimeRemaining: contracts.lotteryTimeRemaining,
         // web3
         provider: web3.provider,
 
@@ -683,7 +685,7 @@ export const ContractsProvider = ({ children }) => {
         startLottery,
         enterLottery,
         endLottery,
-        lotteryTimeRemaining,
+        lotteryTimeRemainingFn,
         getLotteryDetails,
 
         inTransaction,

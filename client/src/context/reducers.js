@@ -75,7 +75,7 @@ const contractReducer = (state, action) => {
       return { ...state, lotteryEnter: action.value };
 
     case contractEnum.LOTTERY_END:
-      console.log("LOTTERY has ended");
+      console.log("LOTTERY end time");
       return { ...state, lotteryEnd: action.value };
 
     default:
